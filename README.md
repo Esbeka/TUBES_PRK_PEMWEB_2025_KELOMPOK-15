@@ -279,7 +279,7 @@ Platform ini dibangun dengan **teknologi native** (HTML5, CSS3, JavaScript, PHP 
 - ✅ Dashboard Mahasiswa: Widget cards (total kelas, tugas pending, tugas graded), upcoming deadlines, timeline activities
 - [ ] Dashboard Dosen: Widget cards (total kelas, total mahasiswa, tugas pending review), recent submissions
 - [ ] Halaman `statistik-kelas.php` (Dosen): Chart nilai rata-rata, submission rate
-- [ ] Halaman `progress-mahasiswa.php` (Mahasiswa): Progress bar per kelas, list materi/tugas
+- [ ] Halaman `progress-mahasiswa.php` (Mahasiswa): Progress bar per kelas, list materi/tugas.
 
 **💻 SURYA (Backend - Dashboard Dosen):**
 - [ ] `backend/dashboard/get-stats-dosen.php` - Hitung total kelas, mahasiswa, tugas belum dinilai, recent submissions
