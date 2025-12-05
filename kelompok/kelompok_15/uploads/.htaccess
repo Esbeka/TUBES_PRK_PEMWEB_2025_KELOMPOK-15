@@ -1,0 +1,14 @@
+# ===========================================
+# SECURITY: Prevent Direct Access to Upload Files
+# Tanggung Jawab: SURYA & ELISA
+# ===========================================
+
+# Deny access to all files in uploads folder
+<FilesMatch ".*">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Allow access only through PHP scripts
+# File akan diakses melalui backend/materi/download-materi.php
+# Tidak bisa diakses langsung via URL
