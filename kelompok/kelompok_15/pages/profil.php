@@ -86,21 +86,26 @@
             
             <!-- Left Column - Profile Card -->
             <div class="lg:col-span-1">
-                <div class="bg-white rounded-xl shadow-lg border-2 border-blue-100 p-6 animate-slide-in sticky top-24">
-                    <div class="text-center mb-6">
+                <div class="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-600 rounded-2xl shadow-2xl border-2 border-blue-400/30 p-6 animate-slide-in sticky top-24 backdrop-blur-xl" style="background-image: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%); box-shadow: 0 20px 40px rgba(30, 58, 138, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;">
+                    <div class="text-center mb-6 relative">
+                        <!-- Decorative circles -->
+                        <div style="position: absolute; top: -20px; right: 10px; width: 100px; height: 100px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; filter: blur(30px); pointer-events: none;"></div>
+                        <div style="position: absolute; bottom: 10px; left: 0; width: 80px; height: 80px; background: rgba(255, 255, 255, 0.08); border-radius: 50%; filter: blur(25px); pointer-events: none;"></div>
+                        
                         <div class="relative inline-block mb-4">
-                            <img id="currentProfilePic" src="https://ui-avatars.com/api/?name=Ahmad+Zulfikar&size=200&background=1e40af&color=fff&bold=true" alt="Profile" class="w-32 h-32 rounded-full mx-auto border-4 border-blue-100 shadow-lg">
-                            <button onclick="document.getElementById('fotoInput').click()" class="absolute bottom-0 right-0 w-10 h-10 bg-gradient-to-r from-blue-800 to-blue-600 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-shadow">
+                            <div style="position: absolute; inset: -4px; background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1)); border-radius: 50%; backdrop-filter: blur(10px);"></div>
+                            <img id="currentProfilePic" src="https://ui-avatars.com/api/?name=Ahmad+Zulfikar&size=200&background=1e40af&color=fff&bold=true" alt="Profile" class="w-32 h-32 rounded-full mx-auto border-4 border-white/30 shadow-2xl relative" style="box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);">
+                            <button onclick="document.getElementById('fotoInput').click()" class="absolute bottom-0 right-0 w-12 h-12 bg-white text-blue-600 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all" style="box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 </svg>
                             </button>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-1">Ahmad Zulfikar</h3>
-                        <p class="text-sm text-gray-600 mb-1">NPM: 2111081001</p>
-                        <p class="text-sm text-gray-600 mb-3">Teknik Informatika</p>
-                        <span class="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-full">
+                        <h3 class="text-2xl font-bold text-white mb-2" style="text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">Ahmad Zulfikar</h3>
+                        <p class="text-sm text-white/90 mb-1 font-semibold">NPM: 2111081001</p>
+                        <p class="text-sm text-white/80 mb-4 font-medium">Teknik Informatika</p>
+                        <span class="inline-flex items-center gap-1 px-4 py-2 bg-white/20 backdrop-blur-md text-white text-xs font-bold rounded-full border border-white/30" style="box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                             </svg>
@@ -108,29 +113,29 @@
                         </span>
                     </div>
 
-                    <div class="border-t border-gray-200 pt-4 space-y-3">
+                    <div class="border-t border-white/20 pt-4 space-y-3" style="backdrop-filter: blur(10px);">
                         <div class="flex items-center gap-3 text-sm">
-                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                             </svg>
-                            <span class="text-gray-600">ahmad.zulfikar@student.unila.ac.id</span>
+                            <span class="text-white/90 font-medium">ahmad.zulfikar@student.unila.ac.id</span>
                         </div>
                         <div class="flex items-center gap-3 text-sm">
-                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                             </svg>
-                            <span class="text-gray-600">+62 812-3456-7890</span>
+                            <span class="text-white/90 font-medium">+62 812-3456-7890</span>
                         </div>
                         <div class="flex items-center gap-3 text-sm">
-                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                             </svg>
-                            <span class="text-gray-600">Bergabung: 1 Agustus 2024</span>
+                            <span class="text-white/90 font-medium">Bergabung: 1 Agustus 2024</span>
                         </div>
                     </div>
 
-                    <div class="mt-6 pt-4 border-t border-gray-200">
-                        <button onclick="logout()" class="w-full inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-3 rounded-lg shadow-md transition-all">
+                    <div class="mt-6 pt-4 border-t border-white/20">
+                        <button onclick="logout()" class="w-full inline-flex items-center justify-center gap-2 bg-white/20 backdrop-blur-md hover:bg-white/30 text-white font-bold px-4 py-3.5 rounded-xl border border-white/30 shadow-lg hover:shadow-xl transition-all hover:scale-105" style="box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                             </svg>
@@ -144,9 +149,9 @@
             <div class="lg:col-span-2 space-y-6">
                 
                 <!-- Form Edit Profil -->
-                <div class="bg-white rounded-xl shadow-lg border-2 border-blue-100 p-6 animate-fade-in">
+                <div class="bg-white rounded-2xl shadow-2xl border-2 border-blue-200/50 p-8 animate-fade-in" style="box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);">
                     <div class="flex items-center gap-3 mb-6">
-                        <div class="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-500 rounded-xl flex items-center justify-center shadow-lg" style="box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);">
                             <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                             </svg>
@@ -222,7 +227,7 @@
 
                         <!-- Buttons -->
                         <div class="flex gap-3 pt-4">
-                            <button type="submit" class="flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-800 to-blue-600 hover:from-blue-900 hover:to-blue-700 text-white font-bold px-6 py-3 rounded-lg shadow-lg transition-all">
+                            <button type="submit" class="flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 via-blue-700 to-blue-600 hover:from-blue-700 hover:via-blue-800 hover:to-blue-700 text-white font-bold px-6 py-4 rounded-xl shadow-lg hover:shadow-2xl transition-all hover:-translate-y-1 hover:scale-105" style="box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                 </svg>
@@ -236,9 +241,9 @@
                 </div>
 
                 <!-- Form Ganti Password -->
-                <div class="bg-white rounded-xl shadow-lg border-2 border-purple-100 p-6 animate-fade-in" style="animation-delay: 0.1s;">
+                <div class="bg-white rounded-2xl shadow-2xl border-2 border-purple-200/50 p-8 animate-fade-in" style="animation-delay: 0.1s; box-shadow: 0 20px 40px rgba(168, 85, 247, 0.15);">
                     <div class="flex items-center gap-3 mb-6">
-                        <div class="w-10 h-10 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-600 to-purple-500 rounded-xl flex items-center justify-center shadow-lg" style="box-shadow: 0 8px 16px rgba(168, 85, 247, 0.3);">
                             <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                             </svg>
