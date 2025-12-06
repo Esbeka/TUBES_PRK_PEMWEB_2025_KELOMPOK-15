@@ -61,97 +61,124 @@
                 </div>
             </div>
 
-            <!-- Export Cards Grid -->
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 32px;">
-                <!-- Export Mahasiswa Card -->
-                <div class="card" style="padding: 20px; border: 1px solid #e5e7eb; transition: all 0.3s ease;">
-                    <div style="display: flex; align-items: flex-start; gap: 16px;">
-                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);">
-                            <svg style="width: 24px; height: 24px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                            </svg>
-                        </div>
-                        <div style="flex: 1;">
-                            <h3 style="font-size: 18px; font-weight: 700; color: #1f2937; margin: 0 0 4px 0; line-height: 1.3;">
-                                Daftar Mahasiswa
-                            </h3>
-                            <p style="font-size: 13px; color: #6b7280; margin-bottom: 16px; line-height: 1.4;">
-                                Export daftar lengkap mahasiswa yang terdaftar di kelas ini termasuk NPM, nama, email, dan status.
-                            </p>
-                            
-                            <!-- Stats -->
-                            <div style="display: flex; gap: 16px; margin-bottom: 16px; padding: 10px 12px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.04) 0%, rgba(37, 99, 235, 0.04) 100%); border-radius: 6px; border: 1px solid rgba(59, 130, 246, 0.12);">
-                                <div style="flex: 1;">
-                                    <div style="font-size: 20px; font-weight: 700; color: #3b82f6; line-height: 1;">45</div>
-                                    <div style="font-size: 11px; color: #6b7280; margin-top: 2px;">Total Mahasiswa</div>
-                                </div>
-                                <div style="border-left: 1px solid #e5e7eb; padding-left: 16px; flex: 1;">
-                                    <div style="font-size: 20px; font-weight: 700; color: #10b981; line-height: 1;">42</div>
-                                    <div style="font-size: 11px; color: #6b7280; margin-top: 2px;">Aktif</div>
-                                </div>
-                                <div style="border-left: 1px solid #e5e7eb; padding-left: 16px; flex: 1;">
-                                    <div style="font-size: 20px; font-weight: 700; color: #f59e0b; line-height: 1;">3</div>
-                                    <div style="font-size: 11px; color: #6b7280; margin-top: 2px;">Tidak Aktif</div>
-                                </div>
-                            </div>
-
-                            <button 
-                                class="export-button" 
-                                data-export-type="mahasiswa"
-                                data-export-data='{"kelas_id": 1, "semester": "5"}'
-                                style="width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; border: none; padding: 10px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);">
-                                <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            <!-- Export Cards Grid - PREMIUM GRADIENT VERSION -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 40px;">
+                
+                <!-- Card 1: Export Mahasiswa - Blue Gradient -->
+                <div class="export-card" style="position: relative; background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%); border-radius: 20px; padding: 28px; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3); transition: all 0.3s ease; overflow: hidden; cursor: pointer;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.boxShadow='0 20px 40px rgba(59, 130, 246, 0.4)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 10px 30px rgba(59, 130, 246, 0.3)'">
+                    <!-- Decorative circles -->
+                    <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: rgba(255,255,255,0.1); border-radius: 50%; blur: 40px;"></div>
+                    <div style="position: absolute; bottom: -30px; left: -30px; width: 120px; height: 120px; background: rgba(255,255,255,0.08); border-radius: 50%; blur: 30px;"></div>
+                    
+                    <div style="position: relative; z-index: 1;">
+                        <!-- Icon & Title -->
+                        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+                            <div style="width: 64px; height: 64px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                                <svg style="width: 32px; height: 32px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
                                 </svg>
-                                Export Daftar Mahasiswa
-                            </button>
+                            </div>
+                            <div>
+                                <h3 style="font-size: 24px; font-weight: 800; color: white; margin: 0; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                    Daftar Mahasiswa
+                                </h3>
+                                <p style="font-size: 13px; color: rgba(255,255,255,0.9); margin: 4px 0 0 0;">
+                                    Export Data Lengkap
+                                </p>
+                            </div>
                         </div>
+
+                        <p style="font-size: 14px; color: rgba(255,255,255,0.85); margin-bottom: 20px; line-height: 1.6;">
+                            Export daftar lengkap mahasiswa termasuk NPM, nama, email, dan status aktif.
+                        </p>
+                        
+                        <!-- Stats -->
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px;">
+                            <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; padding: 16px; text-align: center;">
+                                <div style="font-size: 28px; font-weight: 800; color: white; line-height: 1; margin-bottom: 6px;">45</div>
+                                <div style="font-size: 11px; color: rgba(255,255,255,0.8); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Total</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; padding: 16px; text-align: center;">
+                                <div style="font-size: 28px; font-weight: 800; color: #10b981; line-height: 1; margin-bottom: 6px; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">42</div>
+                                <div style="font-size: 11px; color: rgba(255,255,255,0.8); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Aktif</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; padding: 16px; text-align: center;">
+                                <div style="font-size: 28px; font-weight: 800; color: #fbbf24; line-height: 1; margin-bottom: 6px; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">3</div>
+                                <div style="font-size: 11px; color: rgba(255,255,255,0.8); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Inactive</div>
+                            </div>
+                        </div>
+
+                        <button 
+                            class="export-button" 
+                            data-export-type="mahasiswa"
+                            data-export-data='{"kelas_id": 1, "semester": "5"}'
+                            style="width: 100%; background: rgba(255,255,255,0.25); backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.3); color: white; padding: 14px 20px; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"
+                            onmouseover="this.style.background='rgba(255,255,255,0.35)'; this.style.transform='scale(1.05)'"
+                            onmouseout="this.style.background='rgba(255,255,255,0.25)'; this.style.transform='scale(1)'">
+                            <svg style="width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                            Export Mahasiswa
+                        </button>
                     </div>
                 </div>
 
-                <!-- Export Nilai Card -->
-                <div class="card" style="padding: 20px; border: 1px solid #e5e7eb; transition: all 0.3s ease;">
-                    <div style="display: flex; align-items: flex-start; gap: 16px;">
-                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);">
-                            <svg style="width: 24px; height: 24px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
-                            </svg>
-                        </div>
-                        <div style="flex: 1;">
-                            <h3 style="font-size: 18px; font-weight: 700; color: #1f2937; margin: 0 0 4px 0; line-height: 1.3;">
-                                Rekap Nilai
-                            </h3>
-                            <p style="font-size: 13px; color: #6b7280; margin-bottom: 16px; line-height: 1.4;">
-                                Export rekap nilai mahasiswa lengkap dengan statistik, rata-rata, dan status kelulusan.
-                            </p>
-                            
-                            <!-- Stats -->
-                            <div style="display: flex; gap: 16px; margin-bottom: 16px; padding: 10px 12px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.04) 0%, rgba(5, 150, 105, 0.04) 100%); border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.12);">
-                                <div style="flex: 1;">
-                                    <div style="font-size: 20px; font-weight: 700; color: #10b981; line-height: 1;">12</div>
-                                    <div style="font-size: 11px; color: #6b7280; margin-top: 2px;">Total Tugas</div>
-                                </div>
-                                <div style="border-left: 1px solid #e5e7eb; padding-left: 16px; flex: 1;">
-                                    <div style="font-size: 20px; font-weight: 700; color: #3b82f6; line-height: 1;">85.3</div>
-                                    <div style="font-size: 11px; color: #6b7280; margin-top: 2px;">Rata-rata</div>
-                                </div>
-                                <div style="border-left: 1px solid #e5e7eb; padding-left: 16px; flex: 1;">
-                                    <div style="font-size: 20px; font-weight: 700; color: #f59e0b; line-height: 1;">92%</div>
-                                    <div style="font-size: 11px; color: #6b7280; margin-top: 2px;">Submit Rate</div>
-                                </div>
-                            </div>
-
-                            <button 
-                                class="export-button" 
-                                data-export-type="nilai"
-                                data-export-data='{"kelas_id": 1, "include_stats": true}'
-                                style="width: 100%; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; padding: 10px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);">
-                                <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                <!-- Card 2: Export Nilai - Green Gradient -->
+                <div class="export-card" style="position: relative; background: linear-gradient(135deg, #065f46 0%, #10b981 50%, #34d399 100%); border-radius: 20px; padding: 28px; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3); transition: all 0.3s ease; overflow: hidden; cursor: pointer;" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.boxShadow='0 20px 40px rgba(16, 185, 129, 0.4)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 10px 30px rgba(16, 185, 129, 0.3)'">
+                    <!-- Decorative circles -->
+                    <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: rgba(255,255,255,0.1); border-radius: 50%; blur: 40px;"></div>
+                    <div style="position: absolute; bottom: -30px; left: -30px; width: 120px; height: 120px; background: rgba(255,255,255,0.08); border-radius: 50%; blur: 30px;"></div>
+                    
+                    <div style="position: relative; z-index: 1;">
+                        <!-- Icon & Title -->
+                        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+                            <div style="width: 64px; height: 64px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                                <svg style="width: 32px; height: 32px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
                                 </svg>
-                                Export Rekap Nilai
-                            </button>
+                            </div>
+                            <div>
+                                <h3 style="font-size: 24px; font-weight: 800; color: white; margin: 0; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                    Rekap Nilai
+                                </h3>
+                                <p style="font-size: 13px; color: rgba(255,255,255,0.9); margin: 4px 0 0 0;">
+                                    Export Statistik Lengkap
+                                </p>
+                            </div>
                         </div>
+
+                        <p style="font-size: 14px; color: rgba(255,255,255,0.85); margin-bottom: 20px; line-height: 1.6;">
+                            Export rekap nilai lengkap dengan statistik, rata-rata, dan status kelulusan mahasiswa.
+                        </p>
+                        
+                        <!-- Stats -->
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px;">
+                            <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; padding: 16px; text-align: center;">
+                                <div style="font-size: 28px; font-weight: 800; color: white; line-height: 1; margin-bottom: 6px;">12</div>
+                                <div style="font-size: 11px; color: rgba(255,255,255,0.8); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Tugas</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; padding: 16px; text-align: center;">
+                                <div style="font-size: 28px; font-weight: 800; color: #fbbf24; line-height: 1; margin-bottom: 6px; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">85.3</div>
+                                <div style="font-size: 11px; color: rgba(255,255,255,0.8); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Rata-Rata</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; padding: 16px; text-align: center;">
+                                <div style="font-size: 28px; font-weight: 800; color: #3b82f6; line-height: 1; margin-bottom: 6px; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">92%</div>
+                                <div style="font-size: 11px; color: rgba(255,255,255,0.8); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Submit</div>
+                            </div>
+                        </div>
+
+                        <button 
+                            class="export-button" 
+                            data-export-type="nilai"
+                            data-export-data='{"kelas_id": 1, "include_stats": true}'
+                            style="width: 100%; background: rgba(255,255,255,0.25); backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.3); color: white; padding: 14px 20px; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"
+                            onmouseover="this.style.background='rgba(255,255,255,0.35)'; this.style.transform='scale(1.05)'"
+                            onmouseout="this.style.background='rgba(255,255,255,0.25)'; this.style.transform='scale(1)'">
+                            <svg style="width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                            Export Nilai
+                        </button>
                     </div>
                 </div>
             </div>
