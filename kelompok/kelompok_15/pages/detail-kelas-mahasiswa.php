@@ -27,9 +27,15 @@
         .animate-slide-in { animation: slideIn 0.6s ease-out; }
         .countdown-urgent { animation: pulse 1.5s ease-in-out infinite; }
         .tab-active { 
-            border-bottom: 3px solid #1e3a8a;
-            color: #1e3a8a;
+            background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+            color: white !important;
             font-weight: bold;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4) !important;
+            transform: translateY(-2px);
+        }
+        button[id^="tab-"]:hover:not(.tab-active) {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-1px);
         }
         .accordion-content {
             max-height: 0;
@@ -81,7 +87,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
         <!-- Header Kelas -->
-        <div class="bg-gradient-to-r from-blue-600 to-blue-400 rounded-xl shadow-xl p-8 mb-8 text-white animate-fade-in">
+        <div class="bg-gradient-to-r from-blue-600 to-blue-400 rounded-2xl shadow-2xl p-8 mb-8 text-white animate-fade-in relative overflow-hidden" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%); box-shadow: 0 20px 40px rgba(30, 64, 175, 0.4);">
+            <!-- Decorative circles -->
+            <div style="position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; filter: blur(40px);"></div>
+            <div style="position: absolute; bottom: -30px; left: -30px; width: 150px; height: 150px; background: rgba(255, 255, 255, 0.08); border-radius: 50%; filter: blur(30px);"></div>
             <div class="flex items-start justify-between">
                 <div class="flex-1">
                     <div class="flex items-center gap-3 mb-3">
@@ -123,59 +132,66 @@
         </div>
 
         <!-- Tabs -->
-        <div class="bg-white rounded-xl shadow-lg mb-8 animate-slide-in">
-            <div class="border-b border-gray-200">
-                <div class="flex">
-                    <button onclick="switchTab('info')" id="tab-info" class="flex-1 px-6 py-4 text-gray-600 hover:text-blue-600 transition-colors">
-                        <div class="flex items-center justify-center gap-2">
+        <div class="bg-white rounded-2xl shadow-2xl mb-8 animate-slide-in overflow-hidden" style="box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);">
+            <div class="bg-gradient-to-r from-gray-50 to-blue-50 p-2">
+                <div class="flex gap-2">
+                    <button onclick="switchTab('info')" id="tab-info" class="flex-1 px-6 py-4 text-gray-600 hover:text-blue-600 transition-all rounded-xl font-semibold" style="position: relative;">
+                        <div class="flex items-center justify-center gap-2 relative z-10">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            Info Kelas
+                            📊 Info Kelas
                         </div>
                     </button>
-                    <button onclick="switchTab('materi')" id="tab-materi" class="flex-1 px-6 py-4 text-gray-600 hover:text-blue-600 transition-colors tab-active">
-                        <div class="flex items-center justify-center gap-2">
+                    <button onclick="switchTab('materi')" id="tab-materi" class="flex-1 px-6 py-4 transition-all rounded-xl font-bold tab-active" style="position: relative; background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);">
+                        <div class="flex items-center justify-center gap-2 relative z-10">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                             </svg>
-                            Materi
+                            📝 Materi
                         </div>
                     </button>
-                    <button onclick="switchTab('tugas')" id="tab-tugas" class="flex-1 px-6 py-4 text-gray-600 hover:text-blue-600 transition-colors">
-                        <div class="flex items-center justify-center gap-2">
+                    <button onclick="switchTab('tugas')" id="tab-tugas" class="flex-1 px-6 py-4 text-gray-600 hover:text-orange-600 transition-all rounded-xl font-semibold" style="position: relative;">
+                        <div class="flex items-center justify-center gap-2 relative z-10">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                             </svg>
-                            Tugas
+                            ✅ Tugas
                         </div>
                     </button>
-                    <button onclick="switchTab('nilai')" id="tab-nilai" class="flex-1 px-6 py-4 text-gray-600 hover:text-blue-600 transition-colors">
-                        <div class="flex items-center justify-center gap-2">
+                    <button onclick="switchTab('nilai')" id="tab-nilai" class="flex-1 px-6 py-4 text-gray-600 hover:text-purple-600 transition-all rounded-xl font-semibold" style="position: relative;">
+                        <div class="flex items-center justify-center gap-2 relative z-10">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                             </svg>
-                            Nilai
+                            🏆 Nilai
                         </div>
                     </button>
                 </div>
             </div>
 
             <!-- Tab Content: Info Kelas -->
-            <div id="content-info" class="p-6 hidden">
-                <h3 class="text-xl font-bold text-gray-800 mb-4">Informasi Kelas</h3>
+            <div id="content-info" class="p-8 hidden">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-500 rounded-xl flex items-center justify-center shadow-lg">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    Informasi Kelas
+                </h3>
                 <div class="space-y-4">
-                    <div class="bg-gray-50 rounded-lg p-4">
-                        <p class="text-sm font-semibold text-gray-600 mb-1">Kode Kelas</p>
-                        <p class="text-lg font-bold text-blue-600">ABC123</p>
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-5 border-2 border-blue-200 hover:shadow-lg transition-all hover:-translate-y-1">
+                        <p class="text-sm font-bold text-blue-700 mb-2 uppercase tracking-wide">🔑 Kode Kelas</p>
+                        <p class="text-2xl font-extrabold text-blue-600">ABC123</p>
                     </div>
-                    <div class="bg-gray-50 rounded-lg p-4">
-                        <p class="text-sm font-semibold text-gray-600 mb-1">Jadwal</p>
-                        <p class="text-lg text-gray-800">Senin, 08:00 - 10:30 WIB</p>
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-5 border-2 border-green-200 hover:shadow-lg transition-all hover:-translate-y-1">
+                        <p class="text-sm font-bold text-green-700 mb-2 uppercase tracking-wide">📅 Jadwal</p>
+                        <p class="text-xl font-bold text-gray-800">Senin, 08:00 - 10:30 WIB</p>
                     </div>
-                    <div class="bg-gray-50 rounded-lg p-4">
-                        <p class="text-sm font-semibold text-gray-600 mb-1">Ruangan</p>
-                        <p class="text-lg text-gray-800">Lab Komputer 2 (Gedung H Lantai 3)</p>
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-5 border-2 border-purple-200 hover:shadow-lg transition-all hover:-translate-y-1">
+                        <p class="text-sm font-bold text-purple-700 mb-2 uppercase tracking-wide">🏛️ Ruangan</p>
+                        <p class="text-xl font-bold text-gray-800">Lab Komputer 2 (Gedung H Lantai 3)</p>
                     </div>
                 </div>
             </div>
