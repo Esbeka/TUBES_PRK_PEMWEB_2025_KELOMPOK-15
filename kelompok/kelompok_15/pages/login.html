@@ -3,26 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Sistem Kelas Online Mini</title>
+    <title>Masuk - KelasOnline</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/forms.css">
+    <style>
+        /* Custom animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes slide-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-in {
+            animation: slide-in 0.5s ease-out;
+        }
+    </style>
 </head>
-<body>
-    <div class="auth-container">
-        <div class="auth-card">
-            <!-- Header -->
-            <div class="auth-header">
-                <div class="auth-logo">📚</div>
-                <h1 class="auth-title">Selamat Datang Kembali!</h1>
-                <p class="auth-subtitle">Masuk ke akun Anda untuk melanjutkan</p>
+<body class="bg-gray-50">
+    <!-- Split Screen Container -->
+    <div class="auth-split flex min-h-screen">
+        <!-- Left Side - Hero Section (Biru) -->
+        <div class="auth-hero-side flex-1 bg-gradient-to-br from-blue-950 via-blue-800 to-blue-600 p-8 lg:p-12 flex items-center justify-center relative overflow-hidden">
+            <!-- Animated background circles -->
+            <div class="absolute top-0 right-0 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+            
+            <div class="auth-hero-content relative z-10 max-w-xl animate-slide-in">
+                <!-- Logo & Badge -->
+                <div class="hero-badge inline-block bg-white/10 backdrop-blur-md px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase border border-white/20 text-white mb-8 shadow-lg">
+                    UNIVERSITAS LAMPUNG
+                </div>
+                
+                <!-- Ilustrasi -->
+                <div class="hero-illustration text-center my-10">
+                    <div class="hero-icon-large inline-block text-white animate-float drop-shadow-2xl">
+                        <svg class="w-32 h-32 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Title -->
+                <h1 class="hero-title text-5xl lg:text-6xl font-extrabold text-white mb-3 drop-shadow-lg">
+                    Selamat Datang!
+                </h1>
+                <h2 class="hero-subtitle text-2xl lg:text-3xl font-light text-white/95 mb-6">
+                    Platform E-Learning Modern
+                </h2>
+                <p class="hero-description text-base lg:text-lg text-white/90 leading-relaxed mb-10">
+                    Masuk ke akun Anda untuk mengakses kelas, materi pembelajaran, mengerjakan tugas, dan melihat progres belajar Anda.
+                </p>
+
+                <!-- Feature List -->
+                <div class="hero-features space-y-4">
+                    <div class="hero-feature-item flex items-start gap-4 bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10 hover:bg-white/10 hover:translate-x-2 transition-all duration-300 group">
+                        <div class="feature-icon w-10 h-10 flex-shrink-0 text-white">
+                            <svg class="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                            </svg>
+                        </div>
+                        <div class="feature-text flex-1">
+                            <strong class="block text-lg font-semibold text-white mb-1 group-hover:text-blue-200 transition-colors">
+                                Akses Materi Pembelajaran
+                            </strong>
+                            <span class="text-sm text-white/80">PDF & Video berkualitas dari dosen terbaik</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-feature-item flex items-start gap-4 bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10 hover:bg-white/10 hover:translate-x-2 transition-all duration-300 group">
+                        <div class="feature-icon w-10 h-10 flex-shrink-0 text-white">
+                            <svg class="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                            </svg>
+                        </div>
+                        <div class="feature-text flex-1">
+                            <strong class="block text-lg font-semibold text-white mb-1 group-hover:text-blue-200 transition-colors">
+                                Submit Tugas & Lihat Nilai
+                            </strong>
+                            <span class="text-sm text-white/80">Upload tugas dengan mudah dan cepat</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-feature-item flex items-start gap-4 bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/10 hover:bg-white/10 hover:translate-x-2 transition-all duration-300 group">
+                        <div class="feature-icon w-10 h-10 flex-shrink-0 text-white">
+                            <svg class="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                        </div>
+                        <div class="feature-text flex-1">
+                            <strong class="block text-lg font-semibold text-white mb-1 group-hover:text-blue-200 transition-colors">
+                                Tracking Progress Real-time
+                            </strong>
+                            <span class="text-sm text-white/80">Pantau perkembangan belajar Anda</span>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
 
-            <!-- Alert (hidden by default) -->
-            <div id="alertContainer" style="padding: 0 2rem; padding-top: 2rem;"></div>
+        <!-- Right Side - Login Form -->
+        <div class="auth-form-side flex-1 bg-white flex items-center justify-center p-8 lg:p-12">
+            <div class="auth-form-container w-full max-w-md animate-slide-in" style="animation-delay: 0.2s;">
+                <!-- Header -->
+                <div class="form-header text-center mb-8">
+                    <div class="form-logo w-16 h-16 bg-gradient-to-br from-blue-900 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                    </div>
+                    <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text text-transparent mb-2">
+                        Masuk ke Akun
+                    </h1>
+                    <p class="text-gray-600">
+                        Silakan masukkan kredensial Anda untuk melanjutkan
+                    </p>
+                </div>
 
-            <!-- Body -->
-            <div class="auth-body">
-                <form id="loginForm" novalidate>
+                <!-- Alert Container -->
+                <div id="alertContainer" class="mb-6"></div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="space-y-6" novalidate>
                     <!-- Email -->
                     <div class="form-group form-group-icon">
                         <label for="email" class="form-label">Email</label>
@@ -57,38 +188,41 @@
                     </div>
 
                     <!-- Remember Me & Forgot Password -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                        <div class="form-check">
-                            <input type="checkbox" id="remember" name="remember" class="form-check-input">
-                            <label for="remember" class="form-check-label">Ingat Saya</label>
-                        </div>
-                        <a href="#" class="form-link" style="font-size: 0.875rem;">Lupa Password?</a>
+                    <div class="flex items-center justify-between mb-6">
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" id="remember" name="remember" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <span class="text-sm text-gray-700">Ingat Saya</span>
+                        </label>
+                        <a href="#" class="text-sm text-blue-600 hover:text-blue-700 font-medium hover:underline">
+                            Lupa Password?
+                        </a>
                     </div>
 
                     <!-- Submit Button -->
-                    <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
-                        Masuk
+                    <button type="submit" class="w-full bg-gradient-to-r from-blue-900 to-blue-600 hover:from-blue-950 hover:to-blue-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5" id="loginBtn">
+                        Masuk Sekarang
                     </button>
                 </form>
-            </div>
 
-            <!-- Footer -->
-            <div class="auth-footer">
-                <p style="margin-bottom: 1rem; color: var(--gray);">
-                    Belum punya akun? 
-                    <a href="register.html" class="form-link">Daftar Sekarang</a>
-                </p>
-                <a href="../pages/index.html" class="form-link">
-                    ← Kembali ke Beranda
-                </a>
+                <!-- Footer -->
+                <div class="mt-8 text-center space-y-3">
+                    <p class="text-gray-600">
+                        Belum punya akun? 
+                        <a href="register.html" class="text-blue-600 hover:text-blue-700 font-semibold hover:underline">
+                            Daftar Sekarang
+                        </a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="spinner"></div>
-        <p>Memproses login...</p>
+    <div class="loading-overlay hidden" id="loadingOverlay">
+        <div class="flex flex-col items-center justify-center">
+            <div class="w-16 h-16 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+            <p class="mt-4 text-white font-semibold">Memproses login...</p>
+        </div>
     </div>
 
     <script src="../assets/js/validation.js"></script>
