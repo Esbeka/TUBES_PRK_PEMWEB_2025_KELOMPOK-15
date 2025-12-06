@@ -69,32 +69,61 @@
             </div>
 
             <!-- Search & Filter Section -->
-            <div class="search-filter-section" data-search-filter>
+            <div class="search-filter-section" data-search-filter style="background: linear-gradient(135deg, rgba(30, 58, 138, 0.08) 0%, rgba(59, 130, 246, 0.12) 100%); border: 2px solid rgba(59, 130, 246, 0.2); padding: 32px; margin-bottom: 40px; border-radius: 24px; backdrop-filter: blur(20px); box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);">
                 <!-- Search Bar -->
-                <div class="search-bar-container">
-                    <div class="search-bar">
-                        <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                <div class="search-bar-container" style="margin-bottom: 28px;">
+                    <div class="search-bar" style="background: white; border: 3px solid #e5e7eb; border-radius: 16px; padding: 16px 20px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden;">
+                        <!-- Decorative gradient on hover -->
+                        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(147, 51, 234, 0.05)); opacity: 0; transition: opacity 0.3s ease; pointer-events: none;"></div>
+                        
+                        <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 24px; height: 24px; color: #3b82f6; margin-right: 14px; flex-shrink: 0; transition: all 0.3s ease; position: relative; z-index: 1;">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                         </svg>
                         <input 
                             type="text" 
                             id="searchInput" 
-                            placeholder="Cari kelas (nama, kode, deskripsi)..."
+                            placeholder="🔍 Cari kelas favorit kamu... (nama, kode, deskripsi)"
                             autocomplete="off"
+                            style="flex: 1; border: none; outline: none; font-size: 16px; color: #1f2937; background: transparent; padding: 0; position: relative; z-index: 1; font-weight: 500;"
                         >
-                        <div class="search-loading"></div>
-                        <button class="search-clear-btn" onclick="document.getElementById('searchInput').value = ''; searchFilterSystem.handleSearch()">
+                        <div class="search-loading" style="position: relative; z-index: 1;"></div>
+                        <button class="search-clear-btn" onclick="document.getElementById('searchInput').value = ''; searchFilterSystem.handleSearch()" style="width: 28px; height: 28px; border: none; background: linear-gradient(135deg, #ef4444, #dc2626); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transform: scale(0); transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); margin-left: 12px; font-size: 18px; font-weight: 700; box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3); position: relative; z-index: 1;">
                             ✕
                         </button>
+                        
+                        <style>
+                            .search-bar:focus-within {
+                                border-color: #3b82f6 !important;
+                                box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.15), 0 8px 24px rgba(59, 130, 246, 0.2) !important;
+                                transform: translateY(-2px);
+                            }
+                            .search-bar:focus-within > div:first-child {
+                                opacity: 1;
+                            }
+                            .search-bar:focus-within .search-icon {
+                                color: #2563eb !important;
+                                transform: scale(1.1) rotate(90deg);
+                            }
+                            #searchInput:not(:placeholder-shown) ~ .search-clear-btn {
+                                opacity: 1;
+                                transform: scale(1);
+                            }
+                            .search-clear-btn:hover {
+                                transform: scale(1.15) rotate(90deg);
+                                background: linear-gradient(135deg, #dc2626, #b91c1c);
+                            }
+                        </style>
                     </div>
                 </div>
 
                 <!-- Filter Controls -->
-                <div class="filter-controls">
+                <div class="filter-controls" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
                     <!-- Semester Filter -->
                     <div class="filter-group">
-                        <label class="filter-label" for="filterSemester">Semester</label>
-                        <select id="filterSemester" class="filter-select">
+                        <label class="filter-label" for="filterSemester" style="display: block; font-size: 13px; font-weight: 700; color: #1e3a8a; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;">
+                            📚 Semester
+                        </label>
+                        <select id="filterSemester" class="filter-select" style="width: 100%; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 12px; font-size: 14px; font-weight: 600; color: #374151; background: white; cursor: pointer; transition: all 0.3s ease; appearance: none; background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%233b82f6%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px; padding-right: 40px;">
                             <option value="all">Semua Semester</option>
                             <option value="1">Semester 1</option>
                             <option value="2">Semester 2</option>
@@ -109,8 +138,10 @@
 
                     <!-- Tahun Filter -->
                     <div class="filter-group">
-                        <label class="filter-label" for="filterTahun">Tahun Ajaran</label>
-                        <select id="filterTahun" class="filter-select">
+                        <label class="filter-label" for="filterTahun" style="display: block; font-size: 13px; font-weight: 700; color: #1e3a8a; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;">
+                            📅 Tahun Ajaran
+                        </label>
+                        <select id="filterTahun" class="filter-select" style="width: 100%; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 12px; font-size: 14px; font-weight: 600; color: #374151; background: white; cursor: pointer; transition: all 0.3s ease; appearance: none; background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%233b82f6%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px; padding-right: 40px;">
                             <option value="all">Semua Tahun</option>
                             <option value="2024/2025">2024/2025</option>
                             <option value="2023/2024">2023/2024</option>
@@ -120,8 +151,10 @@
 
                     <!-- Status Filter -->
                     <div class="filter-group">
-                        <label class="filter-label" for="filterStatus">Status</label>
-                        <select id="filterStatus" class="filter-select">
+                        <label class="filter-label" for="filterStatus" style="display: block; font-size: 13px; font-weight: 700; color: #1e3a8a; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;">
+                            🎯 Status
+                        </label>
+                        <select id="filterStatus" class="filter-select" style="width: 100%; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 12px; font-size: 14px; font-weight: 600; color: #374151; background: white; cursor: pointer; transition: all 0.3s ease; appearance: none; background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%233b82f6%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px; padding-right: 40px;">
                             <option value="all">Semua Status</option>
                             <option value="aktif">Aktif</option>
                             <option value="selesai">Selesai</option>
@@ -131,8 +164,10 @@
 
                     <!-- Sort Options -->
                     <div class="filter-group">
-                        <label class="filter-label" for="sortSelect">Urutkan</label>
-                        <select id="sortSelect" class="filter-select">
+                        <label class="filter-label" for="sortSelect" style="display: block; font-size: 13px; font-weight: 700; color: #1e3a8a; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;">
+                            ⚡ Urutkan
+                        </label>
+                        <select id="sortSelect" class="filter-select" style="width: 100%; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 12px; font-size: 14px; font-weight: 600; color: #374151; background: white; cursor: pointer; transition: all 0.3s ease; appearance: none; background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%233b82f6%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px; padding-right: 40px;">
                             <option value="nama-asc">Nama (A-Z)</option>
                             <option value="nama-desc">Nama (Z-A)</option>
                             <option value="tanggal-desc">Terbaru</option>
@@ -143,22 +178,48 @@
                     </div>
 
                     <!-- Clear Filters Button -->
-                    <div class="filter-group" style="margin-top: auto;">
-                        <label class="filter-label" style="opacity: 0;">Clear</label>
-                        <button id="clearFiltersBtn" class="clear-filters-btn" disabled>
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    <div class="filter-group" style="display: flex; flex-direction: column; justify-content: flex-end;">
+                        <button id="clearFiltersBtn" class="clear-filters-btn" disabled style="width: 100%; padding: 12px 20px; border: 2px solid #e5e7eb; border-radius: 12px; background: white; color: #6b7280; font-size: 14px; font-weight: 700; cursor: not-allowed; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 18px; height: 18px;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
                             Reset Filter
                         </button>
                     </div>
                 </div>
+                
+                <style>
+                    .filter-select:hover {
+                        border-color: #3b82f6;
+                        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+                    }
+                    .filter-select:focus {
+                        border-color: #2563eb;
+                        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+                        outline: none;
+                    }
+                    #clearFiltersBtn:not(:disabled) {
+                        background: linear-gradient(135deg, #ef4444, #dc2626);
+                        border-color: #ef4444;
+                        color: white;
+                        cursor: pointer;
+                        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+                    }
+                    #clearFiltersBtn:not(:disabled):hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+                        background: linear-gradient(135deg, #dc2626, #b91c1c);
+                    }
+                </style>
             </div>
 
             <!-- Result Status -->
-            <div class="result-status">
-                <div id="resultCount" class="result-count">
-                    Menampilkan <strong>12</strong> item
+            <div class="result-status" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1)); border-radius: 16px; padding: 20px 24px; margin-bottom: 32px; backdrop-filter: blur(10px); border: 2px solid rgba(59, 130, 246, 0.2); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);">
+                <div id="resultCount" class="result-count" style="font-size: 15px; font-weight: 700; color: #1e3a8a; display: flex; align-items: center; gap: 12px;">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 24px; height: 24px; color: #3b82f6;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                    </svg>
+                    <span>Menampilkan <strong style="color: #2563eb; font-size: 18px; padding: 0 6px;">12</strong> kelas</span>
                 </div>
             </div>
 
