@@ -96,61 +96,61 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             
             <!-- Total Progress -->
-            <div class="bg-gradient-to-br from-blue-600 to-blue-500 rounded-2xl shadow-xl p-6 text-white animate-slide-in" style="animation-delay: 0.1s;">
+            <div class="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-600 rounded-2xl shadow-2xl p-6 text-white animate-slide-in hover:scale-105 transition-transform duration-300" style="animation-delay: 0.1s; box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4); background-size: 200% 100%; background-position: left;">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="bg-white bg-opacity-20 p-3 rounded-xl">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                    <div class="bg-white bg-opacity-20 backdrop-blur-sm p-3 rounded-xl shadow-lg">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                         </svg>
                     </div>
                 </div>
-                <h3 class="text-sm font-medium mb-2 text-blue-100">Progress Keseluruhan</h3>
-                <p class="text-4xl font-bold mb-2">73%</p>
-                <div class="flex items-center text-sm text-blue-100">
+                <h3 class="text-sm font-bold mb-2 text-blue-100 uppercase tracking-wide">📊 Progress Keseluruhan</h3>
+                <p class="text-5xl font-extrabold mb-2" style="text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">73%</p>
+                <div class="flex items-center text-sm text-blue-100 font-semibold">
                     <span>189 / 260 item selesai</span>
                 </div>
             </div>
 
             <!-- Materi Selesai -->
-            <div class="bg-white rounded-2xl shadow-xl p-6 border-t-4 border-green-600 animate-slide-in" style="animation-delay: 0.2s;">
+            <div class="bg-white rounded-2xl shadow-2xl p-6 border-t-4 border-green-600 animate-slide-in hover:shadow-green-200 hover:-translate-y-1 transition-all duration-300" style="animation-delay: 0.2s; box-shadow: 0 20px 40px rgba(22, 163, 74, 0.15);">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="bg-gradient-to-br from-green-600 to-green-500 p-3 rounded-xl">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    <div class="bg-gradient-to-br from-green-600 to-green-500 p-3 rounded-xl shadow-lg" style="box-shadow: 0 8px 16px rgba(22, 163, 74, 0.3);">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
                     </div>
                 </div>
-                <h3 class="text-gray-600 text-sm font-medium mb-1">Materi Selesai</h3>
-                <p class="text-3xl font-bold text-gray-800 mb-2">78 / 96</p>
-                <p class="text-green-600 text-sm font-semibold">81.3% complete</p>
+                <h3 class="text-gray-600 text-sm font-bold mb-1 uppercase tracking-wide">✅ Materi Selesai</h3>
+                <p class="text-4xl font-extrabold text-gray-800 mb-2">78 / 96</p>
+                <p class="text-green-600 text-sm font-bold">81.3% complete</p>
             </div>
 
             <!-- Tugas Dikumpulkan -->
-            <div class="bg-white rounded-2xl shadow-xl p-6 border-t-4 border-purple-600 animate-slide-in" style="animation-delay: 0.3s;">
+            <div class="bg-white rounded-2xl shadow-2xl p-6 border-t-4 border-purple-600 animate-slide-in hover:shadow-purple-200 hover:-translate-y-1 transition-all duration-300" style="animation-delay: 0.3s; box-shadow: 0 20px 40px rgba(168, 85, 247, 0.15);">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="bg-gradient-to-br from-purple-600 to-purple-500 p-3 rounded-xl">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    <div class="bg-gradient-to-br from-purple-600 to-purple-500 p-3 rounded-xl shadow-lg" style="box-shadow: 0 8px 16px rgba(168, 85, 247, 0.3);">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                         </svg>
                     </div>
                 </div>
-                <h3 class="text-gray-600 text-sm font-medium mb-1">Tugas Dikumpulkan</h3>
-                <p class="text-3xl font-bold text-gray-800 mb-2">32 / 48</p>
-                <p class="text-purple-600 text-sm font-semibold">66.7% complete</p>
+                <h3 class="text-gray-600 text-sm font-bold mb-1 uppercase tracking-wide">📝 Tugas Dikumpulkan</h3>
+                <p class="text-4xl font-extrabold text-gray-800 mb-2">32 / 48</p>
+                <p class="text-purple-600 text-sm font-bold">66.7% complete</p>
             </div>
 
             <!-- Rata-rata Nilai -->
-            <div class="bg-white rounded-2xl shadow-xl p-6 border-t-4 border-orange-600 animate-slide-in" style="animation-delay: 0.4s;">
+            <div class="bg-white rounded-2xl shadow-2xl p-6 border-t-4 border-orange-600 animate-slide-in hover:shadow-orange-200 hover:-translate-y-1 transition-all duration-300" style="animation-delay: 0.4s; box-shadow: 0 20px 40px rgba(234, 88, 12, 0.15);">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="bg-gradient-to-br from-orange-600 to-orange-500 p-3 rounded-xl">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                    <div class="bg-gradient-to-br from-orange-600 to-orange-500 p-3 rounded-xl shadow-lg" style="box-shadow: 0 8px 16px rgba(234, 88, 12, 0.3);">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
                         </svg>
                     </div>
                 </div>
-                <h3 class="text-gray-600 text-sm font-medium mb-1">Rata-rata Nilai</h3>
-                <p class="text-3xl font-bold text-gray-800 mb-2">85.3</p>
-                <p class="text-orange-600 text-sm font-semibold">28 tugas dinilai</p>
+                <h3 class="text-gray-600 text-sm font-bold mb-1 uppercase tracking-wide">⭐ Rata-rata Nilai</h3>
+                <p class="text-4xl font-extrabold text-gray-800 mb-2">85.3</p>
+                <p class="text-orange-600 text-sm font-bold">28 tugas dinilai</p>
             </div>
 
         </div>
@@ -180,14 +180,23 @@
 
                 <!-- Overall Progress Bar -->
                 <div class="mb-6">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-sm font-semibold text-gray-700">Progress Keseluruhan</span>
-                        <span class="text-sm font-bold text-blue-600">51 / 60 item (85%)</span>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-sm font-bold text-gray-700 uppercase tracking-wide">📈 Progress Keseluruhan</span>
+                        <span class="text-sm font-extrabold text-blue-600" style="text-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);">51 / 60 item (85%)</span>
                     </div>
-                    <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
-                        <div class="bg-gradient-to-r from-blue-600 to-blue-500 h-full rounded-full progress-animated shadow-lg" style="width: 85%;"></div>
+                    <div class="w-full bg-gray-200 rounded-full h-5 overflow-hidden shadow-inner">
+                        <div class="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 h-full rounded-full progress-animated relative" style="width: 85%; box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);">
+                            <div style="position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent); animation: shimmer 2s infinite;"></div>
+                        </div>
                     </div>
                 </div>
+                
+                <style>
+                    @keyframes shimmer {
+                        0% { transform: translateX(-100%); }
+                        100% { transform: translateX(100%); }
+                    }
+                </style>
 
                 <!-- Materi & Tugas Progress -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -204,11 +213,13 @@
                         </div>
                         <div class="mb-3">
                             <div class="flex items-center justify-between mb-2">
-                                <span class="text-sm text-gray-600">Progress</span>
-                                <span class="text-sm font-bold text-green-600">22 / 24 (91.7%)</span>
+                                <span class="text-sm font-bold text-gray-600 uppercase tracking-wide">Progress</span>
+                                <span class="text-sm font-extrabold text-green-600">22 / 24 (91.7%)</span>
                             </div>
-                            <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                                <div class="bg-gradient-to-r from-green-600 to-green-500 h-full rounded-full progress-animated shadow-md" style="width: 91.7%; animation-delay: 0.2s;"></div>
+                            <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden shadow-inner">
+                                <div class="bg-gradient-to-r from-green-600 via-green-500 to-green-400 h-full rounded-full progress-animated shadow-md relative" style="width: 91.7%; animation-delay: 0.2s; box-shadow: 0 0 15px rgba(22, 163, 74, 0.5);">
+                                    <div style="position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent); animation: shimmer 2s infinite;"></div>
+                                </div>
                             </div>
                         </div>
                         <div class="space-y-2 text-sm">
@@ -235,11 +246,13 @@
                         </div>
                         <div class="mb-3">
                             <div class="flex items-center justify-between mb-2">
-                                <span class="text-sm text-gray-600">Progress</span>
-                                <span class="text-sm font-bold text-purple-600">10 / 12 (83.3%)</span>
+                                <span class="text-sm font-bold text-gray-600 uppercase tracking-wide">Progress</span>
+                                <span class="text-sm font-extrabold text-purple-600">10 / 12 (83.3%)</span>
                             </div>
-                            <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                                <div class="bg-gradient-to-r from-purple-600 to-purple-500 h-full rounded-full progress-animated shadow-md" style="width: 83.3%; animation-delay: 0.3s;"></div>
+                            <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden shadow-inner">
+                                <div class="bg-gradient-to-r from-purple-600 via-purple-500 to-purple-400 h-full rounded-full progress-animated shadow-md relative" style="width: 83.3%; animation-delay: 0.3s; box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);">
+                                    <div style="position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent); animation: shimmer 2s infinite;"></div>
+                                </div>
                             </div>
                         </div>
                         <div class="space-y-2 text-sm">
