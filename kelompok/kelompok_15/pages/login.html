@@ -142,58 +142,37 @@
                 loadingOverlay.classList.add('show');
                 loginBtn.disabled = true;
 
-                // Simulate API call (replace with actual backend call)
-                setTimeout(() => {
+                // Call backend login API
+                fetch('../backend/auth/login.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password })
+                })
+                .then(response => response.json())
+                .then(data => {
                     // Hide loading
                     loadingOverlay.classList.remove('show');
                     loginBtn.disabled = false;
 
-                    // For demo: Check dummy credentials
-                    if (email === 'dosen@email.com' && password === 'password123') {
+                    if (data.status) {
                         showAlert('success', 'Login berhasil! Mengalihkan...');
                         setTimeout(() => {
-                            window.location.href = '../pages/dosen/dashboard-dosen.php';
-                        }, 1500);
-                    } else if (email === 'mahasiswa@email.com' && password === 'password123') {
-                        showAlert('success', 'Login berhasil! Mengalihkan...');
-                        setTimeout(() => {
-                            window.location.href = 'dashboard-mahasiswa.html';
+                            window.location.href = data.redirect;
                         }, 1500);
                     } else {
-                        showAlert('error', 'Email atau password salah!');
+                        showAlert('error', data.message || 'Login gagal!');
                     }
-
-                    // INTEGRATION NOTE for Juan:
-                    // Replace above with actual backend call like:
-                    /*
-                    fetch('../backend/auth/login.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ email, password })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            showAlert('success', 'Login berhasil!');
-                            setTimeout(() => {
-                                if (data.role === 'dosen') {
-                                    window.location.href = '../pages/dosen/dashboard-dosen.php';
-                                } else {
-                                    window.location.href = 'dashboard-mahasiswa.html';
-                                }
-                            }, 1500);
-                        } else {
-                            showAlert('error', data.message || 'Login gagal!');
-                        }
-                    })
-                    .catch(error => {
-                        showAlert('error', 'Terjadi kesalahan. Silakan coba lagi.');
-                        console.error('Error:', error);
-                    });
-                    */
-                }, 1500);
+                })
+                .catch(error => {
+                    // Hide loading
+                    loadingOverlay.classList.remove('show');
+                    loginBtn.disabled = false;
+                    
+                    showAlert('error', 'Terjadi kesalahan. Silakan coba lagi.');
+                    console.error('Error:', error);
+                });
             });
 
             // Show Alert Function

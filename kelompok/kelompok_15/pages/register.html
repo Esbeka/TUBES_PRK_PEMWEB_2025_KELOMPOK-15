@@ -78,6 +78,23 @@
                         </div>
                     </div>
 
+                    <!-- NPM/NIDN -->
+                    <div class="form-group form-group-icon">
+                        <label for="npmNidn" class="form-label">
+                            NPM / NIDN <span id="npmNidnLabel">(NPM untuk Mahasiswa)</span>
+                        </label>
+                        <span class="form-icon">🔢</span>
+                        <input 
+                            type="text" 
+                            id="npmNidn" 
+                            name="npm_nidn" 
+                            class="form-input" 
+                            placeholder="Nomor Pokok Mahasiswa atau NIDN"
+                            required
+                        >
+                        <div class="form-error" id="npmNidnError">NPM/NIDN harus diisi</div>
+                    </div>
+
                     <!-- Password -->
                     <div class="form-group form-group-icon">
                         <label for="password" class="form-label">Password</label>
@@ -165,6 +182,8 @@
             const emailInput = document.getElementById('email');
             const passwordInput = document.getElementById('password');
             const confirmPasswordInput = document.getElementById('confirmPassword');
+            const npmNidnInput = document.getElementById('npmNidn');
+            const npmNidnLabel = document.getElementById('npmNidnLabel');
             const termsCheckbox = document.getElementById('terms');
             const togglePassword = document.getElementById('togglePassword');
             const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
@@ -181,8 +200,12 @@
                     radioDosen.classList.remove('checked');
                     if (this.value === 'mahasiswa') {
                         radioMahasiswa.classList.add('checked');
+                        npmNidnLabel.textContent = '(NPM untuk Mahasiswa)';
+                        npmNidnInput.placeholder = 'Contoh: 21030001';
                     } else {
                         radioDosen.classList.add('checked');
+                        npmNidnLabel.textContent = '(NIDN untuk Dosen)';
+                        npmNidnInput.placeholder = 'Contoh: 1234567890';
                     }
                 });
             });
@@ -239,6 +262,10 @@
                 validatePasswordMatch(passwordInput.value, this.value, 'confirmPasswordError');
             });
 
+            npmNidnInput.addEventListener('blur', function() {
+                validateRequired(this.value, 'npmNidnError', 'NPM/NIDN harus diisi');
+            });
+
             // Form Submit
             registerForm.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -251,6 +278,8 @@
                 const password = passwordInput.value;
                 const confirmPassword = confirmPasswordInput.value;
                 const role = document.querySelector('input[name="role"]:checked').value;
+                const npm_nidn = document.querySelector('input[name="npm_nidn"]') ? 
+                    document.querySelector('input[name="npm_nidn"]').value.trim() : '';
                 const terms = termsCheckbox.checked;
 
                 // Validate all fields
@@ -258,6 +287,7 @@
                 const isEmailValid = validateEmail(email, 'emailError');
                 const isPasswordValid = validatePassword(password, 'passwordError');
                 const isConfirmPasswordValid = validatePasswordMatch(password, confirmPassword, 'confirmPasswordError');
+                const isNpmNidnValid = validateRequired(npm_nidn, 'npmNidnError', 'NPM/NIDN harus diisi');
                 
                 // Validate terms
                 const termsError = document.getElementById('termsError');
@@ -267,7 +297,7 @@
                     termsError.classList.remove('show');
                 }
 
-                if (!isNamaValid || !isEmailValid || !isPasswordValid || !isConfirmPasswordValid || !terms) {
+                if (!isNamaValid || !isEmailValid || !isPasswordValid || !isConfirmPasswordValid || !isNpmNidnValid || !terms) {
                     showAlert('error', 'Mohon lengkapi semua field dengan benar');
                     return;
                 }
@@ -276,46 +306,44 @@
                 loadingOverlay.classList.add('show');
                 registerBtn.disabled = true;
 
-                // Simulate API call (replace with actual backend call)
-                setTimeout(() => {
+                // Call backend register API
+                fetch('../backend/auth/register.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        nama, 
+                        email, 
+                        password,
+                        password_confirm: confirmPassword,
+                        role,
+                        npm_nidn
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
                     // Hide loading
                     loadingOverlay.classList.remove('show');
                     registerBtn.disabled = false;
 
-                    // Success
-                    showAlert('success', 'Pendaftaran berhasil! Mengalihkan ke halaman login...');
+                    if (data.status) {
+                        showAlert('success', 'Pendaftaran berhasil! Mengalihkan ke halaman login...');
+                        setTimeout(() => {
+                            window.location.href = data.redirect;
+                        }, 2000);
+                    } else {
+                        showAlert('error', data.message || 'Pendaftaran gagal!');
+                    }
+                })
+                .catch(error => {
+                    // Hide loading
+                    loadingOverlay.classList.remove('show');
+                    registerBtn.disabled = false;
                     
-                    setTimeout(() => {
-                        window.location.href = 'login.html';
-                    }, 2000);
-
-                    // INTEGRATION NOTE for Juan:
-                    // Replace above with actual backend call like:
-                    /*
-                    fetch('../backend/auth/register.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ nama, email, password, role })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            showAlert('success', 'Pendaftaran berhasil! Mengalihkan ke login...');
-                            setTimeout(() => {
-                                window.location.href = 'login.html';
-                            }, 2000);
-                        } else {
-                            showAlert('error', data.message || 'Pendaftaran gagal!');
-                        }
-                    })
-                    .catch(error => {
-                        showAlert('error', 'Terjadi kesalahan. Silakan coba lagi.');
-                        console.error('Error:', error);
-                    });
-                    */
-                }, 1500);
+                    showAlert('error', 'Terjadi kesalahan. Silakan coba lagi.');
+                    console.error('Error:', error);
+                });
             });
 
             // Show Alert Function
