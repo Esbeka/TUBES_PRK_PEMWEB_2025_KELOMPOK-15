@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Dosen - KelasOnline</title>
+    <title>Dashboard Mahasiswa - KelasOnline</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -82,6 +82,20 @@
             right: -20px;
         }
 
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
         .sidebar {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -142,7 +156,7 @@
                 <h1 class="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                     📚 KelasOnline
                 </h1>
-                <p class="text-xs text-gray-500 mt-1">Teacher Dashboard</p>
+                <p class="text-xs text-gray-500 mt-1">Student Dashboard</p>
             </div>
 
             <nav class="space-y-2">
@@ -150,22 +164,22 @@
                     <i class="fas fa-home"></i>
                     <span>Home</span>
                 </a>
-                <a href="kelola-kelas.php" class="menu-item flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600">
-                    <i class="fas fa-chalkboard-teacher"></i>
+                <a href="kelas-mahasiswa.php" class="menu-item flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600">
+                    <i class="fas fa-book"></i>
                     <span>My Classes</span>
                 </a>
-                <a href="kelola-materi.php" class="menu-item flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600">
-                    <i class="fas fa-book-open"></i>
-                    <span>Materials</span>
+                <a href="progress-mahasiswa.php" class="menu-item flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
                 </a>
-                <a href="kelola-tugas.php" class="menu-item flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600">
-                    <i class="fas fa-tasks"></i>
-                    <span>Assignments</span>
+                <a href="#" class="menu-item flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600">
+                    <i class="fas fa-calendar"></i>
+                    <span>Schedule</span>
                     <span class="notification-dot"></span>
                 </a>
-                <a href="statistik-kelas.php" class="menu-item flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600">
-                    <i class="fas fa-chart-bar"></i>
-                    <span>Statistics</span>
+                <a href="#" class="menu-item flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Assignments</span>
                 </a>
                 <a href="profil.php" class="menu-item flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600">
                     <i class="fas fa-user"></i>
@@ -175,8 +189,8 @@
 
             <div class="mt-auto pt-8 absolute bottom-6 left-6 right-6">
                 <div class="bg-gradient-to-r from-purple-100 to-pink-100 p-4 rounded-2xl">
-                    <p class="text-xs font-semibold text-purple-900 mb-1">🎯 Keep Teaching!</p>
-                    <p class="text-xs text-purple-700">Inspiring minds daily</p>
+                    <p class="text-xs font-semibold text-purple-900 mb-1">🎉 Keep Learning!</p>
+                    <p class="text-xs text-purple-700">You're doing great</p>
                 </div>
             </div>
         </aside>
@@ -186,8 +200,8 @@
             <!-- Header -->
             <header class="flex justify-between items-center mb-8">
                 <div>
-                    <h2 class="text-3xl font-bold text-gray-800">Hi, Prof. Ahmad! 👋</h2>
-                    <p class="text-gray-500 text-sm mt-1">Welcome back, ready to inspire today?</p>
+                    <h2 class="text-3xl font-bold text-gray-800">Hi, Cindy! 👋</h2>
+                    <p class="text-gray-500 text-sm mt-1">Welcome back, ready to learn today?</p>
                 </div>
                 <div class="flex items-center gap-4">
                     <button class="relative p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-all">
@@ -196,11 +210,11 @@
                     </button>
                     <div class="flex items-center gap-3 bg-white px-4 py-2 rounded-full shadow-md">
                         <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold">
-                            A
+                            C
                         </div>
                         <div>
-                            <p class="text-sm font-semibold text-gray-800">Prof. Ahmad</p>
-                            <p class="text-xs text-gray-500">Teacher</p>
+                            <p class="text-sm font-semibold text-gray-800">Cindy</p>
+                            <p class="text-xs text-gray-500">Student</p>
                         </div>
                     </div>
                 </div>
@@ -210,14 +224,14 @@
             <div class="hero-banner p-8 mb-8 relative">
                 <div class="relative z-10 flex justify-between items-center">
                     <div class="text-white">
-                        <h3 class="text-2xl font-bold mb-2">Selamat Datang, Prof. Ahmad! 🎓</h3>
-                        <p class="text-purple-100 mb-4">Let's make learning amazing for your students</p>
+                        <h3 class="text-2xl font-bold mb-2">Hi, Selamat Muhammad Ghozi!</h3>
+                        <p class="text-purple-100 mb-4">Let's finish your goals & make your dream come true</p>
                         <button class="bg-white text-purple-600 px-6 py-2 rounded-full font-semibold hover:bg-purple-50 transition-all">
-                            Create New Class →
+                            View Schedule →
                         </button>
                     </div>
                     <div class="text-8xl floating-icon">
-                        👨‍🏫
+                        📚
                     </div>
                 </div>
             </div>
@@ -227,69 +241,69 @@
                 <div class="card-3d p-6 rounded-2xl shadow-lg border border-gray-100">
                     <div class="flex justify-between items-start mb-4">
                         <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center text-2xl">
-                            📚
+                            📖
                         </div>
                         <span class="badge-cute bg-blue-100 text-blue-600">Active</span>
                     </div>
-                    <h4 class="text-2xl font-bold text-gray-800 mb-1">8</h4>
-                    <p class="text-sm text-gray-500">Kelas Diampu</p>
+                    <h4 class="text-2xl font-bold text-gray-800 mb-1">12</h4>
+                    <p class="text-sm text-gray-500">Total Kelas</p>
                 </div>
 
                 <div class="card-3d p-6 rounded-2xl shadow-lg border border-gray-100">
                     <div class="flex justify-between items-start mb-4">
                         <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center text-2xl">
-                            👥
+                            ✅
                         </div>
-                        <span class="badge-cute bg-green-100 text-green-600">Enrolled</span>
+                        <span class="badge-cute bg-green-100 text-green-600">+2 Today</span>
                     </div>
-                    <h4 class="text-2xl font-bold text-gray-800 mb-1">245</h4>
-                    <p class="text-sm text-gray-500">Total Mahasiswa</p>
+                    <h4 class="text-2xl font-bold text-gray-800 mb-1">8</h4>
+                    <p class="text-sm text-gray-500">Tugas Selesai</p>
                 </div>
 
                 <div class="card-3d p-6 rounded-2xl shadow-lg border border-gray-100">
                     <div class="flex justify-between items-start mb-4">
                         <div class="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center text-2xl">
-                            📝
+                            ⏰
                         </div>
-                        <span class="badge-cute bg-orange-100 text-orange-600">Pending</span>
+                        <span class="badge-cute bg-orange-100 text-orange-600">Due Soon</span>
                     </div>
-                    <h4 class="text-2xl font-bold text-gray-800 mb-1">23</h4>
-                    <p class="text-sm text-gray-500">Tugas Belum Dinilai</p>
+                    <h4 class="text-2xl font-bold text-gray-800 mb-1">4</h4>
+                    <p class="text-sm text-gray-500">Tugas Pending</p>
                 </div>
 
                 <div class="card-3d p-6 rounded-2xl shadow-lg border border-gray-100">
                     <div class="flex justify-between items-start mb-4">
                         <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl flex items-center justify-center text-2xl">
-                            📊
+                            ⭐
                         </div>
-                        <span class="badge-cute bg-purple-100 text-purple-600">Average</span>
+                        <span class="badge-cute bg-purple-100 text-purple-600">Great!</span>
                     </div>
-                    <h4 class="text-2xl font-bold text-gray-800 mb-1">82</h4>
+                    <h4 class="text-2xl font-bold text-gray-800 mb-1">85</h4>
                     <p class="text-sm text-gray-500">Rata-rata Nilai</p>
                 </div>
             </div>
 
-            <!-- Classes & Recent Activity -->
+            <!-- Popular & Ongoing Classes -->
             <div class="grid grid-cols-2 gap-8 mb-8">
-                <!-- My Classes -->
+                <!-- Popular -->
                 <div>
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-xl font-bold text-gray-800">Kelas Saya</h3>
-                        <a href="kelola-kelas.php" class="text-sm text-purple-600 hover:text-purple-700 font-semibold">View all →</a>
+                        <h3 class="text-xl font-bold text-gray-800">Popular</h3>
+                        <a href="kelas-mahasiswa.php" class="text-sm text-purple-600 hover:text-purple-700 font-semibold">View all →</a>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div class="card-3d rounded-2xl overflow-hidden shadow-lg border border-gray-100">
                             <div class="illustration-box" style="background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);">
-                                💻
+                                📚
                             </div>
                             <div class="p-4">
-                                <span class="badge-cute bg-yellow-100 text-yellow-600 mb-2">Active</span>
+                                <span class="badge-cute bg-yellow-100 text-yellow-600 mb-2">Popular</span>
                                 <h4 class="font-bold text-gray-800 mb-1">Pemrograman Web</h4>
-                                <p class="text-xs text-gray-500 mb-2">52 Mahasiswa</p>
-                                <div class="flex gap-2 text-xs">
-                                    <span class="bg-blue-50 text-blue-600 px-2 py-1 rounded">8 Materi</span>
-                                    <span class="bg-green-50 text-green-600 px-2 py-1 rounded">5 Tugas</span>
+                                <p class="text-xs text-gray-500 mb-3">48 Students • 12 Materi</p>
+                                <div class="progress-bar mb-2">
+                                    <div class="progress-fill" style="width: 75%"></div>
                                 </div>
+                                <p class="text-xs text-gray-600 font-semibold">75% Complete</p>
                             </div>
                         </div>
 
@@ -298,13 +312,13 @@
                                 🗄️
                             </div>
                             <div class="p-4">
-                                <span class="badge-cute bg-blue-100 text-blue-600 mb-2">Active</span>
+                                <span class="badge-cute bg-blue-100 text-blue-600 mb-2">Popular</span>
                                 <h4 class="font-bold text-gray-800 mb-1">Basis Data</h4>
-                                <p class="text-xs text-gray-500 mb-2">48 Mahasiswa</p>
-                                <div class="flex gap-2 text-xs">
-                                    <span class="bg-blue-50 text-blue-600 px-2 py-1 rounded">10 Materi</span>
-                                    <span class="bg-green-50 text-green-600 px-2 py-1 rounded">6 Tugas</span>
+                                <p class="text-xs text-gray-500 mb-3">52 Students • 10 Materi</p>
+                                <div class="progress-bar mb-2">
+                                    <div class="progress-fill" style="width: 60%"></div>
                                 </div>
+                                <p class="text-xs text-gray-600 font-semibold">60% Complete</p>
                             </div>
                         </div>
 
@@ -313,13 +327,13 @@
                                 🎨
                             </div>
                             <div class="p-4">
-                                <span class="badge-cute bg-pink-100 text-pink-600 mb-2">Active</span>
+                                <span class="badge-cute bg-pink-100 text-pink-600 mb-2">Trending</span>
                                 <h4 class="font-bold text-gray-800 mb-1">UI/UX Design</h4>
-                                <p class="text-xs text-gray-500 mb-2">38 Mahasiswa</p>
-                                <div class="flex gap-2 text-xs">
-                                    <span class="bg-blue-50 text-blue-600 px-2 py-1 rounded">6 Materi</span>
-                                    <span class="bg-green-50 text-green-600 px-2 py-1 rounded">4 Tugas</span>
+                                <p class="text-xs text-gray-500 mb-3">38 Students • 8 Materi</p>
+                                <div class="progress-bar mb-2">
+                                    <div class="progress-fill" style="width: 45%"></div>
                                 </div>
+                                <p class="text-xs text-gray-600 font-semibold">45% Complete</p>
                             </div>
                         </div>
 
@@ -328,46 +342,46 @@
                                 📱
                             </div>
                             <div class="p-4">
-                                <span class="badge-cute bg-purple-100 text-purple-600 mb-2">Active</span>
+                                <span class="badge-cute bg-purple-100 text-purple-600 mb-2">New</span>
                                 <h4 class="font-bold text-gray-800 mb-1">Mobile Apps</h4>
-                                <p class="text-xs text-gray-500 mb-2">45 Mahasiswa</p>
-                                <div class="flex gap-2 text-xs">
-                                    <span class="bg-blue-50 text-blue-600 px-2 py-1 rounded">12 Materi</span>
-                                    <span class="bg-green-50 text-green-600 px-2 py-1 rounded">7 Tugas</span>
+                                <p class="text-xs text-gray-500 mb-3">45 Students • 14 Materi</p>
+                                <div class="progress-bar mb-2">
+                                    <div class="progress-fill" style="width: 30%"></div>
                                 </div>
+                                <p class="text-xs text-gray-600 font-semibold">30% Complete</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Recent Activity -->
+                <!-- Ongoing -->
                 <div>
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-xl font-bold text-gray-800">Aktivitas Terbaru</h3>
-                        <a href="#" class="text-sm text-purple-600 hover:text-purple-700 font-semibold">See all →</a>
+                        <h3 class="text-xl font-bold text-gray-800">Ongoing</h3>
+                        <a href="#" class="text-sm text-purple-600 hover:text-purple-700 font-semibold">See all activity →</a>
                     </div>
                     <div class="card-3d rounded-2xl p-6 shadow-lg border border-gray-100">
                         <div class="space-y-4">
                             <div class="flex items-center gap-4 p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl">
                                 <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl flex items-center justify-center text-xl shrink-0">
-                                    📤
+                                    📝
                                 </div>
                                 <div class="flex-1">
-                                    <h4 class="font-semibold text-gray-800 text-sm">15 Tugas Baru Terkumpul</h4>
-                                    <p class="text-xs text-gray-500">Pemrograman Web • 2 jam lalu</p>
+                                    <h4 class="font-semibold text-gray-800 text-sm">Tugas Final Project</h4>
+                                    <p class="text-xs text-gray-500">Pemrograman Web</p>
                                 </div>
-                                <span class="badge-cute bg-orange-100 text-orange-600">Review</span>
+                                <span class="badge-cute bg-orange-100 text-orange-600">Due 2 days</span>
                             </div>
 
                             <div class="flex items-center gap-4 p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl">
                                 <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center text-xl shrink-0">
-                                    👤
+                                    🎯
                                 </div>
                                 <div class="flex-1">
-                                    <h4 class="font-semibold text-gray-800 text-sm">8 Mahasiswa Baru Join</h4>
-                                    <p class="text-xs text-gray-500">Basis Data • 5 jam lalu</p>
+                                    <h4 class="font-semibold text-gray-800 text-sm">Quiz Database</h4>
+                                    <p class="text-xs text-gray-500">Basis Data</p>
                                 </div>
-                                <span class="badge-cute bg-blue-100 text-blue-600">New</span>
+                                <span class="badge-cute bg-blue-100 text-blue-600">In Progress</span>
                             </div>
 
                             <div class="flex items-center gap-4 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl">
@@ -375,32 +389,32 @@
                                     ✅
                                 </div>
                                 <div class="flex-1">
-                                    <h4 class="font-semibold text-gray-800 text-sm">Materi Baru Published</h4>
-                                    <p class="text-xs text-gray-500">Mobile Apps • 1 hari lalu</p>
+                                    <h4 class="font-semibold text-gray-800 text-sm">Design Wireframe</h4>
+                                    <p class="text-xs text-gray-500">UI/UX Design</p>
                                 </div>
-                                <span class="badge-cute bg-green-100 text-green-600">Done</span>
+                                <span class="badge-cute bg-green-100 text-green-600">Completed</span>
                             </div>
 
                             <div class="flex items-center gap-4 p-4 bg-gradient-to-r from-pink-50 to-rose-50 rounded-xl">
                                 <div class="w-12 h-12 bg-gradient-to-br from-pink-400 to-pink-600 rounded-xl flex items-center justify-center text-xl shrink-0">
-                                    💬
+                                    📱
                                 </div>
                                 <div class="flex-1">
-                                    <h4 class="font-semibold text-gray-800 text-sm">12 Komentar Baru</h4>
-                                    <p class="text-xs text-gray-500">UI/UX Design • 1 hari lalu</p>
+                                    <h4 class="font-semibold text-gray-800 text-sm">App Prototype</h4>
+                                    <p class="text-xs text-gray-500">Mobile Apps</p>
                                 </div>
-                                <span class="badge-cute bg-pink-100 text-pink-600">Reply</span>
+                                <span class="badge-cute bg-red-100 text-red-600">Overdue</span>
                             </div>
 
                             <div class="flex items-center gap-4 p-4 bg-gradient-to-r from-yellow-50 to-amber-50 rounded-xl">
                                 <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center text-xl shrink-0">
-                                    🎯
+                                    💡
                                 </div>
                                 <div class="flex-1">
-                                    <h4 class="font-semibold text-gray-800 text-sm">Deadline Tomorrow</h4>
-                                    <p class="text-xs text-gray-500">3 Tugas • Pemrograman Web</p>
+                                    <h4 class="font-semibold text-gray-800 text-sm">Research Paper</h4>
+                                    <p class="text-xs text-gray-500">Metodologi Penelitian</p>
                                 </div>
-                                <span class="badge-cute bg-yellow-100 text-yellow-600">Soon</span>
+                                <span class="badge-cute bg-yellow-100 text-yellow-600">Starting</span>
                             </div>
                         </div>
                     </div>
