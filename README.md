@@ -291,10 +291,9 @@ Platform ini dibangun dengan **teknologi native** (HTML5, CSS3, JavaScript, PHP 
 - [ ] Create view `view_kelas_stats` untuk optimize query (opsional)
 
 **🔗 JUAN (Integration & Testing):**
-- [ ] Integrasi semua widget dashboard
+- [ ] Integrasi semua  widget dashboard
 - [ ] Testing statistik dengan berbagai data
 - [ ] Performance testing (query optimization)
-
 ---
 
 ### 🔔 **FITUR 10: NOTIFIKASI (BONUS)**
