@@ -12,7 +12,7 @@
  */
 
 header('Content-Type: application/json');
-require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../../config/database.php';
 
 session_start();
 
@@ -22,8 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Get POST data
-$input = json_decode(file_get_contents("php://input"), true);
+// Get POST data - support both JSON and form data
+$input = [];
+if ($_SERVER['CONTENT_TYPE'] === 'application/json' || strpos($_SERVER['CONTENT_TYPE'] ?? '', 'application/json') !== false) {
+    $input = json_decode(file_get_contents("php://input"), true) ?? [];
+} else {
+    $input = $_POST;
+}
 
 // Validasi input
 $email = isset($input['email']) ? trim($input['email']) : '';
@@ -108,14 +113,10 @@ try {
     $_SESSION['email'] = $user['email'];
     $_SESSION['role'] = $user['role'];
     
-    // Determine redirect URL berdasarkan role
-    $redirect_url = $user['role'] === 'dosen' ? '/pages/dashboard-dosen.html' : '/pages/dashboard-mahasiswa.html';
-    
     http_response_code(200);
     echo json_encode([
         'status' => true,
         'message' => 'Login berhasil',
-        'redirect' => $redirect_url,
         'user' => [
             'id_user' => $user['id_user'],
             'nama' => $user['nama'],
