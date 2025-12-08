@@ -276,7 +276,7 @@ Platform ini dibangun dengan **teknologi native** (HTML5, CSS3, JavaScript, PHP 
 ### 📊 **FITUR 9: DASHBOARD & STATISTIK**
 
 **👤 CINDY (Frontend):**
-- ✅ Dashboard Mahasiswa: Widget cards (total kelas, tugas pending, tugas graded), upcoming deadlines, timeline activities
+- ✅ Dashboard MahasiswaWidget cards (total kelas, tugas pending, tugas graded), upcoming deadlines, timeline activities
 - [ ] Dashboard Dosen: Widget cards (total kelas, total mahasiswa, tugas pending review), recent submissions
 - [ ] Halaman `statistik-kelas.php` (Dosen): Chart nilai rata-rata, submission rate
 - [ ] Halaman `progress-mahasiswa.php` (Mahasiswa): Progress bar per kelas, list materi/tugas.
