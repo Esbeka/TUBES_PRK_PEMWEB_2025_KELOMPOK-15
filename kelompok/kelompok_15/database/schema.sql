@@ -137,16 +137,18 @@ CREATE INDEX idx_status ON submission_tugas(status);
 -- Menyimpan nilai & feedback dari dosen
 -- ============================================
 CREATE TABLE nilai (
-    id_nilai INT PRIMARY KEY AUTO_INCREMENT,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     id_submission INT NOT NULL,
     nilai DECIMAL(5,2) NOT NULL,
     feedback TEXT,
     graded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_submission) REFERENCES submission_tugas(id_submission) ON DELETE CASCADE
+
+    FOREIGN KEY (id_submission) REFERENCES submission_tugas(id) ON DELETE CASCADE
 );
 
 -- Index untuk performance
-CREATE INDEX idx_id_submission ON nilai(id_submission);
+CREATE INDEX idx_id_submission_nilai ON nilai(id_submission);
+
 
 -- ============================================
 -- TABEL 8: NOTIFICATIONS (BONUS)
