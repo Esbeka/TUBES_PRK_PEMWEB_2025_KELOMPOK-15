@@ -11,7 +11,7 @@
  */
 
 header('Content-Type: application/json');
-require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../../config/database.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -19,8 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Get POST data
-$input = json_decode(file_get_contents("php://input"), true);
+// Get POST data - support both JSON and form data
+$input = [];
+if ($_SERVER['CONTENT_TYPE'] === 'application/json' || strpos($_SERVER['CONTENT_TYPE'] ?? '', 'application/json') !== false) {
+    $input = json_decode(file_get_contents("php://input"), true) ?? [];
+} else {
+    $input = $_POST;
+}
 
 // Validasi input
 $nama = isset($input['nama']) ? trim($input['nama']) : '';
