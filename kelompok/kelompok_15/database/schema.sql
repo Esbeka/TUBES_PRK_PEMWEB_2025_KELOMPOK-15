@@ -97,59 +97,68 @@ CREATE INDEX idx_pertemuan_materi ON materi(pertemuan_ke);
 -- Menyimpan data tugas yang dibuat dosen
 -- ============================================
 CREATE TABLE tugas (
-    id_tugas INT PRIMARY KEY AUTO_INCREMENT,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     id_kelas INT NOT NULL,
     judul VARCHAR(150) NOT NULL,
     deskripsi TEXT NOT NULL,
     deadline DATETIME NOT NULL,
-    max_file_size INT DEFAULT 10,
+    max_file_size INT DEFAULT 10,                -- dalam MB
     allowed_formats VARCHAR(50) DEFAULT 'pdf,zip,docx',
     bobot INT DEFAULT 100,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_kelas) REFERENCES kelas(id_kelas) ON DELETE CASCADE
+    updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (id_kelas) REFERENCES kelas(id) ON DELETE CASCADE
 );
 
 -- Index untuk performance
 CREATE INDEX idx_id_kelas_tugas ON tugas(id_kelas);
-CREATE INDEX idx_deadline ON tugas(deadline);
+CREATE INDEX idx_deadline_tugas ON tugas(deadline);
+
 
 -- ============================================
 -- TABEL 6: SUBMISSION_TUGAS
 -- Menyimpan submission tugas dari mahasiswa
 -- ============================================
 CREATE TABLE submission_tugas (
-    id_submission INT PRIMARY KEY AUTO_INCREMENT,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     id_tugas INT NOT NULL,
     id_mahasiswa INT NOT NULL,
     file_path VARCHAR(255) NOT NULL,
     keterangan TEXT,
     submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    status ENUM('submitted', 'late', 'graded') NOT NULL,
-    FOREIGN KEY (id_tugas) REFERENCES tugas(id_tugas) ON DELETE CASCADE,
-    FOREIGN KEY (id_mahasiswa) REFERENCES users(id_user) ON DELETE CASCADE,
+    status ENUM('submitted', 'late', 'graded') DEFAULT 'submitted',
+
+    FOREIGN KEY (id_tugas) REFERENCES tugas(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_mahasiswa) REFERENCES users(id) ON DELETE CASCADE,
+    
+    -- Satu mahasiswa hanya boleh submit sekali per tugas
     UNIQUE KEY unique_submission (id_tugas, id_mahasiswa)
 );
 
 -- Index untuk performance
 CREATE INDEX idx_id_tugas_submission ON submission_tugas(id_tugas);
 CREATE INDEX idx_id_mahasiswa_submission ON submission_tugas(id_mahasiswa);
-CREATE INDEX idx_status ON submission_tugas(status);
+CREATE INDEX idx_status_submission ON submission_tugas(status);
+
 
 -- ============================================
 -- TABEL 7: NILAI
 -- Menyimpan nilai & feedback dari dosen
 -- ============================================
 CREATE TABLE nilai (
-    id_nilai INT PRIMARY KEY AUTO_INCREMENT,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     id_submission INT NOT NULL,
     nilai DECIMAL(5,2) NOT NULL,
     feedback TEXT,
     graded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_submission) REFERENCES submission_tugas(id_submission) ON DELETE CASCADE
+
+    FOREIGN KEY (id_submission) REFERENCES submission_tugas(id) ON DELETE CASCADE
 );
 
 -- Index untuk performance
-CREATE INDEX idx_id_submission ON nilai(id_submission);
+CREATE INDEX idx_id_submission_nilai ON nilai(id_submission);
+
 
 -- ============================================
 -- TABEL 8: NOTIFICATIONS (BONUS)
