@@ -20,6 +20,9 @@ CREATE TABLE users (
     npm_nidn VARCHAR(20) NOT NULL,
     foto_profil VARCHAR(255) DEFAULT NULL,
     no_telp VARCHAR(20) DEFAULT NULL,
+    is_active BOOLEAN DEFAULT TRUE,
+    email_verified_at TIMESTAMP NULL,
+    last_login_at TIMESTAMP NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -27,6 +30,7 @@ CREATE TABLE users (
 -- Index untuk performance
 CREATE INDEX idx_email ON users(email);
 CREATE INDEX idx_role ON users(role);
+CREATE INDEX idx_user_active ON users(is_active);
 
 -- ============================================
 -- TABEL 2: KELAS
@@ -42,6 +46,8 @@ CREATE TABLE kelas (
     deskripsi TEXT,
     kode_kelas VARCHAR(6) UNIQUE NOT NULL,
     kapasitas INT DEFAULT 50,
+    is_active BOOLEAN DEFAULT TRUE,
+    archived_at TIMESTAMP NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_dosen) REFERENCES users(id_user) ON DELETE CASCADE
 );
