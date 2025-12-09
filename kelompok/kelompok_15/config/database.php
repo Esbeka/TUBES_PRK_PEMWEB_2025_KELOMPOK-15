@@ -20,7 +20,7 @@ try {
     // Set default fetch mode to associative array
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 } catch(PDOException $e) {
-    die("Connection failed: " . $e->getMessage());
+    throw new Exception("Database Connection failed: " . $e->getMessage());
 }
 
 // TODO: Create this database and tables using schema.sql
