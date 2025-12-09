@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Mahasiswa - Sistem Kelas Online</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <!-- Sidebar Header -->
+            <div class="sidebar-header">
+                <a href="../pages/index.html" class="sidebar-brand">
+                    <span class="sidebar-logo">📚</span>
+                    <span>KelasOnline</span>
+                </a>
+            </div>
+
+            <!-- Sidebar Menu -->
+            <nav class="sidebar-menu">
+                <div class="sidebar-menu-section">
+                    <div class="sidebar-menu-title">Menu Utama</div>
+                    <ul class="sidebar-menu-list">
+                        <li class="sidebar-menu-item">
+                            <a href="dashboard-mahasiswa.html" class="sidebar-menu-link active">
+                                <span class="sidebar-menu-icon">🏠</span>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a href="kelas-mahasiswa.html" class="sidebar-menu-link">
+                                <span class="sidebar-menu-icon">📚</span>
+                                <span>Kelas Saya</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a href="#" class="sidebar-menu-link">
+                                <span class="sidebar-menu-icon">📝</span>
+                                <span>Tugas</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a href="#" class="sidebar-menu-link">
+                                <span class="sidebar-menu-icon">📊</span>
+                                <span>Nilai</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-menu-section">
+                    <div class="sidebar-menu-title">Lainnya</div>
+                    <ul class="sidebar-menu-list">
+                        <li class="sidebar-menu-item">
+                            <a href="profil-mahasiswa.html" class="sidebar-menu-link">
+                                <span class="sidebar-menu-icon">👤</span>
+                                <span>Profil</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a href="#" class="sidebar-menu-link">
+                                <span class="sidebar-menu-icon">⚙️</span>
+                                <span>Pengaturan</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar">JD</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name">John Doe</div>
+                        <div class="sidebar-user-role">Mahasiswa</div>
+                    </div>
+                </div>
+                <button class="btn btn-danger btn-block btn-sm" onclick="logout()" style="margin-top: 1rem;">
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Topbar -->
+            <div class="dashboard-topbar">
+                <div class="topbar-left">
+                    <button class="topbar-toggle" id="sidebarToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <h1 class="topbar-title">Dashboard</h1>
+                </div>
+                <div class="topbar-right">
+                    <div class="topbar-notification">
+                        🔔
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="topbar-profile">
+                        <div class="topbar-avatar">JD</div>
+                        <span>John Doe</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Welcome Card -->
+                <div class="content-section">
+                    <h2>👋 Selamat Datang, John Doe!</h2>
+                    <p class="text-gray">
+                        Semangat belajar hari ini! Jangan lupa cek tugas dan materi terbarumu.
+                    </p>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div>
+                                <div class="stat-card-value">5</div>
+                                <div class="stat-card-label">Kelas Diikuti</div>
+                            </div>
+                            <div class="stat-card-icon">📚</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card success">
+                        <div class="stat-card-header">
+                            <div>
+                                <div class="stat-card-value">12</div>
+                                <div class="stat-card-label">Tugas Selesai</div>
+                            </div>
+                            <div class="stat-card-icon">✓</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card warning">
+                        <div class="stat-card-header">
+                            <div>
+                                <div class="stat-card-value">3</div>
+                                <div class="stat-card-label">Tugas Pending</div>
+                            </div>
+                            <div class="stat-card-icon">⏰</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card danger">
+                        <div class="stat-card-header">
+                            <div>
+                                <div class="stat-card-value">85</div>
+                                <div class="stat-card-label">Rata-rata Nilai</div>
+                            </div>
+                            <div class="stat-card-icon">📊</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tugas Terbaru -->
+                <div class="content-section">
+                    <div class="section-header">
+                        <h3 class="section-title">📝 Tugas Terbaru</h3>
+                        <a href="#" class="btn btn-outline btn-sm">Lihat Semua</a>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Judul Tugas</th>
+                                    <th>Kelas</th>
+                                    <th>Deadline</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Tugas UTS - Pemrograman Web</strong></td>
+                                    <td>Pemrograman Web</td>
+                                    <td>15 Des 2025</td>
+                                    <td><span class="badge badge-warning">Pending</span></td>
+                                    <td>
+                                        <a href="upload-tugas.html" class="btn btn-primary btn-sm">Upload</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Laporan Praktikum 5</strong></td>
+                                    <td>Basis Data</td>
+                                    <td>20 Des 2025</td>
+                                    <td><span class="badge badge-warning">Pending</span></td>
+                                    <td>
+                                        <a href="upload-tugas.html" class="btn btn-primary btn-sm">Upload</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Essay - Sistem Operasi</strong></td>
+                                    <td>Sistem Operasi</td>
+                                    <td>10 Des 2025</td>
+                                    <td><span class="badge badge-success">Selesai</span></td>
+                                    <td>
+                                        <button class="btn btn-secondary btn-sm">Lihat</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Presentasi Kelompok</strong></td>
+                                    <td>Algoritma</td>
+                                    <td>18 Des 2025</td>
+                                    <td><span class="badge badge-warning">Pending</span></td>
+                                    <td>
+                                        <a href="upload-tugas.html" class="btn btn-primary btn-sm">Upload</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Kelas Terbaru -->
+                <div class="content-section">
+                    <div class="section-header">
+                        <h3 class="section-title">📚 Kelas yang Diikuti</h3>
+                        <a href="kelas-mahasiswa.html" class="btn btn-primary btn-sm">+ Join Kelas</a>
+                    </div>
+
+                    <div class="class-grid">
+                        <!-- Class Card 1 -->
+                        <div class="class-card">
+                            <div class="class-card-image">
+                                💻
+                            </div>
+                            <div class="class-card-body">
+                                <h4 class="class-card-title">Pemrograman Web</h4>
+                                <span class="class-card-code">KODE: WEB2025</span>
+                                <p class="class-card-description">
+                                    Mempelajari dasar-dasar pemrograman web menggunakan HTML, CSS, JavaScript, dan PHP.
+                                </p>
+                                <div class="class-card-footer">
+                                    <div class="class-card-meta">
+                                        <span>👨‍🏫 Prof. Ahmad</span>
+                                        <span>📝 3 Tugas</span>
+                                    </div>
+                                </div>
+                                <a href="detail-kelas-mahasiswa.html" class="btn btn-primary btn-block btn-sm" style="margin-top: 1rem;">
+                                    Lihat Kelas
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Class Card 2 -->
+                        <div class="class-card">
+                            <div class="class-card-image" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);">
+                                🗄️
+                            </div>
+                            <div class="class-card-body">
+                                <h4 class="class-card-title">Basis Data</h4>
+                                <span class="class-card-code">KODE: DB2025</span>
+                                <p class="class-card-description">
+                                    Konsep dasar database, SQL, normalisasi, dan implementasi sistem basis data.
+                                </p>
+                                <div class="class-card-footer">
+                                    <div class="class-card-meta">
+                                        <span>👨‍🏫 Dr. Budi</span>
+                                        <span>📝 2 Tugas</span>
+                                    </div>
+                                </div>
+                                <a href="detail-kelas-mahasiswa.html" class="btn btn-primary btn-block btn-sm" style="margin-top: 1rem;">
+                                    Lihat Kelas
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Class Card 3 -->
+                        <div class="class-card">
+                            <div class="class-card-image" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);">
+                                🖥️
+                            </div>
+                            <div class="class-card-body">
+                                <h4 class="class-card-title">Sistem Operasi</h4>
+                                <span class="class-card-code">KODE: OS2025</span>
+                                <p class="class-card-description">
+                                    Prinsip kerja sistem operasi, manajemen proses, memori, dan file system.
+                                </p>
+                                <div class="class-card-footer">
+                                    <div class="class-card-meta">
+                                        <span>👨‍🏫 Ir. Cindy</span>
+                                        <span>📝 1 Tugas</span>
+                                    </div>
+                                </div>
+                                <a href="detail-kelas-mahasiswa.html" class="btn btn-primary btn-block btn-sm" style="margin-top: 1rem;">
+                                    Lihat Kelas
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Materi Terbaru -->
+                <div class="content-section">
+                    <div class="section-header">
+                        <h3 class="section-title">📖 Materi Pembelajaran Terbaru</h3>
+                        <a href="#" class="btn btn-outline btn-sm">Lihat Semua</a>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div style="display: flex; gap: 1rem;">
+                                        <div style="font-size: 2.5rem;">📄</div>
+                                        <div style="flex: 1;">
+                                            <h4 class="card-title">Modul PHP Dasar</h4>
+                                            <p class="card-text">Pemrograman Web • Diupload 2 hari lalu</p>
+                                            <button class="btn btn-primary btn-sm">Download PDF</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div style="display: flex; gap: 1rem;">
+                                        <div style="font-size: 2.5rem;">🎥</div>
+                                        <div style="flex: 1;">
+                                            <h4 class="card-title">Video Tutorial SQL</h4>
+                                            <p class="card-text">Basis Data • Diupload 3 hari lalu</p>
+                                            <button class="btn btn-primary btn-sm">Tonton Video</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/ui-interactions.js"></script>
+    <script>
+        // Sidebar Toggle for Mobile
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+        });
+
+        // Logout Function
+        function logout() {
+            if (confirm('Apakah Anda yakin ingin logout?')) {
+                // INTEGRATION NOTE for Juan:
+                // Replace with actual logout call
+                /*
+                fetch('../backend/auth/logout.php', {
+                    method: 'POST'
+                })
+                .then(() => {
+                    window.location.href = '../pages/login.html';
+                });
+                */
+                window.location.href = '../pages/login.html';
+            }
+        }
+
+        // Close sidebar when clicking outside (mobile)
+        document.addEventListener('click', function(event) {
+            const isClickInsideSidebar = sidebar.contains(event.target);
+            const isClickOnToggle = sidebarToggle.contains(event.target);
+            
+            if (!isClickInsideSidebar && !isClickOnToggle && sidebar.classList.contains('active')) {
+                sidebar.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

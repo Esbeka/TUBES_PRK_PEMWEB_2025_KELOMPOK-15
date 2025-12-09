@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Kelas - Sistem Kelas Online</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../pages/index.html" class="sidebar-brand">
+                    <span class="sidebar-logo">📚</span>
+                    <span>KelasOnline</span>
+                </a>
+            </div>
+            <nav class="sidebar-menu">
+                <div class="sidebar-menu-section">
+                    <div class="sidebar-menu-title">Menu Utama</div>
+                    <ul class="sidebar-menu-list">
+                        <li class="sidebar-menu-item">
+                            <a href="dashboard-mahasiswa.html" class="sidebar-menu-link">
+                                <span class="sidebar-menu-icon">🏠</span>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a href="kelas-mahasiswa.html" class="sidebar-menu-link active">
+                                <span class="sidebar-menu-icon">📚</span>
+                                <span>Kelas Saya</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a href="#" class="sidebar-menu-link">
+                                <span class="sidebar-menu-icon">📝</span>
+                                <span>Tugas</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar">JD</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name">John Doe</div>
+                        <div class="sidebar-user-role">Mahasiswa</div>
+                    </div>
+                </div>
+                <button class="btn btn-danger btn-block btn-sm" onclick="logout()" style="margin-top: 1rem;">Logout</button>
+            </div>
+        </aside>
+
+        <main class="dashboard-main">
+            <div class="dashboard-topbar">
+                <div class="topbar-left">
+                    <button class="topbar-toggle" id="sidebarToggle">
+                        <span></span><span></span><span></span>
+                    </button>
+                    <h1 class="topbar-title">Detail Kelas</h1>
+                </div>
+                <div class="topbar-right">
+                    <div class="topbar-notification">🔔<span class="notification-badge">3</span></div>
+                    <div class="topbar-profile">
+                        <div class="topbar-avatar">JD</div>
+                        <span>John Doe</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-content">
+                <!-- Class Header -->
+                <div class="content-section">
+                    <div style="display: flex; align-items: flex-start; gap: 2rem;">
+                        <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #4F46E5 0%, #4338CA 100%); border-radius: 1rem; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white;">
+                            💻
+                        </div>
+                        <div style="flex: 1;">
+                            <h2 style="margin-bottom: 0.5rem;">Pemrograman Web</h2>
+                            <p class="text-gray mb-2">Mempelajari dasar-dasar pemrograman web menggunakan HTML, CSS, JavaScript, dan PHP</p>
+                            <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
+                                <span class="badge badge-primary">KODE: WEB2025</span>
+                                <span class="badge badge-secondary">👨‍🏫 Prof. Ahmad</span>
+                                <span class="badge badge-secondary">👥 45 Mahasiswa</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="content-section">
+                    <div class="tabs" style="border-bottom: 2px solid var(--gray-lighter); margin-bottom: 2rem;">
+                        <button class="tab-btn active" data-tab="materi" style="padding: 1rem 2rem; background: none; border: none; border-bottom: 3px solid transparent; cursor: pointer; font-weight: 600; color: var(--gray); transition: all 0.3s;">
+                            📖 Materi
+                        </button>
+                        <button class="tab-btn" data-tab="tugas" style="padding: 1rem 2rem; background: none; border: none; border-bottom: 3px solid transparent; cursor: pointer; font-weight: 600; color: var(--gray); transition: all 0.3s;">
+                            📝 Tugas
+                        </button>
+                        <button class="tab-btn" data-tab="anggota" style="padding: 1rem 2rem; background: none; border: none; border-bottom: 3px solid transparent; cursor: pointer; font-weight: 600; color: var(--gray); transition: all 0.3s;">
+                            👥 Anggota
+                        </button>
+                    </div>
+
+                    <!-- Tab Content: Materi -->
+                    <div class="tab-content" id="materi-content">
+                        <h3 class="mb-3">📖 Materi Pembelajaran</h3>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div style="display: flex; gap: 1rem; align-items: start;">
+                                            <div style="font-size: 3rem;">📄</div>
+                                            <div style="flex: 1;">
+                                                <h4 class="card-title">Modul 1: HTML Dasar</h4>
+                                                <p class="card-text">Pengenalan HTML, tag-tag dasar, dan struktur dokumen HTML</p>
+                                                <p style="font-size: 0.875rem; color: var(--gray); margin-bottom: 1rem;">
+                                                    📅 Diupload 5 hari lalu • 📦 2.5 MB
+                                                </p>
+                                                <div style="display: flex; gap: 0.5rem;">
+                                                    <button class="btn btn-primary btn-sm" onclick="viewMaterial(1)">Lihat</button>
+                                                    <button class="btn btn-secondary btn-sm" onclick="downloadMaterial(1)">Download PDF</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div style="display: flex; gap: 1rem; align-items: start;">
+                                            <div style="font-size: 3rem;">🎥</div>
+                                            <div style="flex: 1;">
+                                                <h4 class="card-title">Video Tutorial: CSS Styling</h4>
+                                                <p class="card-text">Tutorial lengkap CSS untuk styling halaman web</p>
+                                                <p style="font-size: 0.875rem; color: var(--gray); margin-bottom: 1rem;">
+                                                    📅 Diupload 3 hari lalu • ⏱️ 45 menit
+                                                </p>
+                                                <button class="btn btn-primary btn-sm" onclick="watchVideo()">Tonton Video</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div style="display: flex; gap: 1rem; align-items: start;">
+                                            <div style="font-size: 3rem;">📄</div>
+                                            <div style="flex: 1;">
+                                                <h4 class="card-title">Modul 2: JavaScript Fundamental</h4>
+                                                <p class="card-text">Dasar-dasar JavaScript, variabel, function, dan DOM</p>
+                                                <p style="font-size: 0.875rem; color: var(--gray); margin-bottom: 1rem;">
+                                                    📅 Diupload 2 hari lalu • 📦 3.1 MB
+                                                </p>
+                                                <div style="display: flex; gap: 0.5rem;">
+                                                    <button class="btn btn-primary btn-sm">Lihat</button>
+                                                    <button class="btn btn-secondary btn-sm">Download PDF</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div style="display: flex; gap: 1rem; align-items: start;">
+                                            <div style="font-size: 3rem;">📄</div>
+                                            <div style="flex: 1;">
+                                                <h4 class="card-title">Modul 3: PHP & MySQL</h4>
+                                                <p class="card-text">Pengenalan PHP, koneksi database, dan CRUD operations</p>
+                                                <p style="font-size: 0.875rem; color: var(--gray); margin-bottom: 1rem;">
+                                                    📅 Diupload 1 hari lalu • 📦 4.2 MB
+                                                </p>
+                                                <div style="display: flex; gap: 0.5rem;">
+                                                    <button class="btn btn-primary btn-sm">Lihat</button>
+                                                    <button class="btn btn-secondary btn-sm">Download PDF</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Content: Tugas -->
+                    <div class="tab-content" id="tugas-content" style="display: none;">
+                        <h3 class="mb-3">📝 Daftar Tugas</h3>
+                        
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Judul Tugas</th>
+                                        <th>Deadline</th>
+                                        <th>Status</th>
+                                        <th>Nilai</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Tugas 1: Membuat Landing Page</strong></td>
+                                        <td>15 Des 2025</td>
+                                        <td><span class="badge badge-warning">Pending</span></td>
+                                        <td>-</td>
+                                        <td>
+                                            <a href="upload-tugas.html" class="btn btn-primary btn-sm">Upload</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tugas 2: Form dengan Validasi</strong></td>
+                                        <td>20 Des 2025</td>
+                                        <td><span class="badge badge-warning">Pending</span></td>
+                                        <td>-</td>
+                                        <td>
+                                            <a href="upload-tugas.html" class="btn btn-primary btn-sm">Upload</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tugas 3: CRUD dengan PHP</strong></td>
+                                        <td>25 Des 2025</td>
+                                        <td><span class="badge badge-success">Selesai</span></td>
+                                        <td><strong>85</strong></td>
+                                        <td>
+                                            <button class="btn btn-secondary btn-sm">Lihat</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tab Content: Anggota -->
+                    <div class="tab-content" id="anggota-content" style="display: none;">
+                        <h3 class="mb-3">👥 Anggota Kelas (45 Mahasiswa)</h3>
+                        
+                        <div class="search-bar mb-3">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" class="search-input" placeholder="Cari mahasiswa...">
+                            <button class="search-clear">✕</button>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div style="display: flex; align-items: center; gap: 1rem;">
+                                            <div style="width: 50px; height: 50px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">
+                                                JD
+                                            </div>
+                                            <div>
+                                                <h5 style="margin: 0;">John Doe</h5>
+                                                <p style="font-size: 0.875rem; color: var(--gray); margin: 0;">john@email.com</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div style="display: flex; align-items: center; gap: 1rem;">
+                                            <div style="width: 50px; height: 50px; background: var(--secondary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">
+                                                JS
+                                            </div>
+                                            <div>
+                                                <h5 style="margin: 0;">Jane Smith</h5>
+                                                <p style="font-size: 0.875rem; color: var(--gray); margin: 0;">jane@email.com</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div style="display: flex; align-items: center; gap: 1rem;">
+                                            <div style="width: 50px; height: 50px; background: var(--warning-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">
+                                                AB
+                                            </div>
+                                            <div>
+                                                <h5 style="margin: 0;">Ahmad Budi</h5>
+                                                <p style="font-size: 0.875rem; color: var(--gray); margin: 0;">ahmad@email.com</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Back Button -->
+                <div class="content-section">
+                    <a href="kelas-mahasiswa.html" class="btn btn-outline">← Kembali ke Daftar Kelas</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/ui-interactions.js"></script>
+    <script>
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+        });
+
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const targetTab = this.getAttribute('data-tab');
+
+                // Remove active class from all tabs
+                tabBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.style.borderBottomColor = 'transparent';
+                    b.style.color = 'var(--gray)';
+                });
+
+                // Add active class to clicked tab
+                this.classList.add('active');
+                this.style.borderBottomColor = 'var(--primary-color)';
+                this.style.color = 'var(--primary-color)';
+
+                // Hide all content
+                tabContents.forEach(content => {
+                    content.style.display = 'none';
+                });
+
+                // Show target content
+                document.getElementById(targetTab + '-content').style.display = 'block';
+            });
+        });
+
+        // Initialize first tab as active
+        tabBtns[0].style.borderBottomColor = 'var(--primary-color)';
+        tabBtns[0].style.color = 'var(--primary-color)';
+
+        function viewMaterial(id) {
+            showToast('Membuka materi...', 'info');
+            // INTEGRATION NOTE: Open material viewer
+        }
+
+        function downloadMaterial(id) {
+            showToast('Mendownload file...', 'success');
+            // INTEGRATION NOTE: Trigger download
+        }
+
+        function watchVideo() {
+            showToast('Membuka video...', 'info');
+            // INTEGRATION NOTE: Open video player
+        }
+
+        function logout() {
+            if (confirm('Apakah Anda yakin ingin logout?')) {
+                window.location.href = '../pages/login.html';
+            }
+        }
+    </script>
+</body>
+</html>
