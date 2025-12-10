@@ -345,9 +345,9 @@ Platform ini dibangun dengan **teknologi native** (HTML5, CSS3, JavaScript, PHP 
 ### 📄 **FITUR 12: EXPORT & REPORTING (BONUS)**
 
 **👤 CINDY (Frontend):**
-- [ ] Button "Export" di halaman list mahasiswa & nilai
-- [ ] Modal pilih format (Excel/PDF)
-- [ ] Loading indicator saat generate
+- ✅ Button "Export" di halaman list mahasiswa & nilai
+- ✅ Modal pilih format (Excel/PDF/CSV)
+- ✅ Loading indicator saat generate
 
 **💻 SURYA (Backend - Export Features):**
 - [ ] `backend/export/export-mahasiswa.php` - Generate Excel dengan PHPSpreadsheet
