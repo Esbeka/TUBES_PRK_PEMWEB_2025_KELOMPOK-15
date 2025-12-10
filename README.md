@@ -277,10 +277,6 @@ Platform ini dibangun dengan **teknologi native** (HTML5, CSS3, JavaScript, PHP 
 
 **👤 CINDY (Frontend):**
 - ✅ Dashboard Mahasiswa: Widget cards (total kelas, tugas pending, tugas graded), upcoming deadlines, timeline activities
-- [ ] Dashboard Dosen: Widget cards (total kelas, total mahasiswa, tugas pending review), recent submissions
-- [ ] Halaman `statistik-kelas.php` (Dosen): Chart nilai rata-rata, submission rate
-- [ ] Halaman `progress-mahasiswa.php` (Mahasiswa): Progress bar per kelas, list materi/tugas.
-
 **💻 SURYA (Backend - Dashboard Dosen):**
 - [ ] `backend/dashboard/get-stats-dosen.php` - Hitung total kelas, mahasiswa, tugas belum dinilai, recent submissions
 
@@ -345,9 +341,9 @@ Platform ini dibangun dengan **teknologi native** (HTML5, CSS3, JavaScript, PHP 
 ### 📄 **FITUR 12: EXPORT & REPORTING (BONUS)**
 
 **👤 CINDY (Frontend):**
-- [ ] Button "Export" di halaman list mahasiswa & nilai
-- [ ] Modal pilih format (Excel/PDF)
-- [ ] Loading indicator saat generate
+- ✅ Button "Export" di halaman list mahasiswa & nilai
+- ✅ Modal pilih format (Excel/PDF/CSV)
+- ✅ Loading indicator saat generate
 
 **💻 SURYA (Backend - Export Features):**
 - [ ] `backend/export/export-mahasiswa.php` - Generate Excel dengan PHPSpreadsheet
