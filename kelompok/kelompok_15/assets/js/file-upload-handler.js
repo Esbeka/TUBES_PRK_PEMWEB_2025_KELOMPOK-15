@@ -1,15 +1,129 @@
 // ==========================================
 // FILE-UPLOAD-HANDLER.JS
-// Handle file uploads with preview and validation
+// Handle file uploads with drag & drop, preview, validation, and progress bar
+// Updated for Kelola Materi page
 // ==========================================
 
 document.addEventListener('DOMContentLoaded', function() {
     
-    // ========== FILE UPLOAD HANDLERS ==========
+    // ========== KELOLA MATERI - DRAG & DROP UPLOAD ==========
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const filePreview = document.getElementById('filePreview');
+    const fileName = document.getElementById('fileName');
+    const fileSize = document.getElementById('fileSize');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+
+    // Click to browse
+    if (dropZone && fileInput) {
+        dropZone.addEventListener('click', function() {
+            fileInput.click();
+        });
+
+        // Drag over
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.classList.add('drag-over');
+        });
+
+        // Drag leave
+        dropZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.classList.remove('drag-over');
+        });
+
+        // Drop
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.classList.remove('drag-over');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                handleFileUpload(files[0]);
+            }
+        });
+
+        // File input change
+        fileInput.addEventListener('change', function(e) {
+            if (this.files.length > 0) {
+                handleFileUpload(this.files[0]);
+            }
+        });
+    }
+
+    // Handle file upload with validation
+    function handleFileUpload(file) {
+        // Validation
+        const maxSize = 10 * 1024 * 1024; // 10MB
+        const allowedTypes = ['application/pdf'];
+
+        // Validate file type
+        if (!allowedTypes.includes(file.type)) {
+            alert('❌ Format file tidak valid!\n\nHanya file PDF yang diperbolehkan.');
+            fileInput.value = '';
+            return;
+        }
+
+        // Validate file size
+        if (file.size > maxSize) {
+            alert(`❌ Ukuran file terlalu besar!\n\nMaksimal 10MB. File Anda: ${formatFileSize(file.size)}`);
+            fileInput.value = '';
+            return;
+        }
+
+        // Show preview
+        fileName.textContent = file.name;
+        fileSize.textContent = formatFileSize(file.size);
+        filePreview.classList.add('show');
+
+        // Simulate upload with progress bar
+        simulateUpload();
+    }
+
+    // Simulate file upload progress
+    function simulateUpload() {
+        let progress = 0;
+        progressBar.style.width = '0%';
+        progressText.textContent = 'Memvalidasi file...';
+
+        const interval = setInterval(function() {
+            progress += Math.random() * 15;
+            
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(interval);
+                progressBar.style.width = '100%';
+                progressText.textContent = '✓ File siap diupload!';
+                progressText.classList.add('text-green-600');
+                progressText.classList.remove('text-blue-600');
+            } else {
+                progressBar.style.width = progress + '%';
+                progressText.textContent = `Uploading... ${Math.round(progress)}%`;
+            }
+        }, 200);
+    }
+
+    // Format file size
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+    }
+
+    // ========== LEGACY FILE UPLOAD HANDLERS (for other pages) ==========
     const fileInputs = document.querySelectorAll('.file-upload-input');
     
     fileInputs.forEach(input => {
         const container = input.closest('.file-upload');
+        if (!container) return;
+        
         const label = container.querySelector('.file-upload-label');
         const preview = container.querySelector('.file-upload-preview');
         

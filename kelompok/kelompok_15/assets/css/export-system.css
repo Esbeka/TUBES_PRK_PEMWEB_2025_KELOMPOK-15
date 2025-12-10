@@ -1,0 +1,771 @@
+/**
+ * Export & Reporting System Styles
+ * 
+ * Premium styling for export modal, loading overlay, and notifications
+ * 
+ * @version 1.0.0
+ * @author Cindy - Frontend Developer
+ */
+
+/* ==========================================================================
+   EXPORT MODAL
+   ========================================================================== */
+
+.export-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.export-modal.show {
+    display: flex;
+}
+
+.export-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease;
+}
+
+.export-modal-content {
+    position: relative;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease;
+}
+
+/* Modal Header */
+.export-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 32px;
+    border-bottom: 2px solid #e5e7eb;
+    background: linear-gradient(135deg, rgba(30, 58, 138, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
+}
+
+.export-modal-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1e3a8a;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+}
+
+.export-modal-icon {
+    width: 28px;
+    height: 28px;
+    color: #3b82f6;
+}
+
+.export-modal-close {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.export-modal-close:hover {
+    background: #ef4444;
+    color: white;
+    transform: rotate(90deg);
+}
+
+.export-modal-close svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Modal Body */
+.export-modal-body {
+    padding: 32px;
+}
+
+.export-description {
+    font-size: 15px;
+    color: #6b7280;
+    margin-bottom: 28px;
+    line-height: 1.6;
+}
+
+/* Format Grid */
+.export-format-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.export-format-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.export-format-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.export-format-card:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.15);
+    transform: translateY(-4px);
+}
+
+.export-format-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* Format Icons */
+.export-format-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 16px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.export-format-icon svg {
+    width: 32px;
+    height: 32px;
+    color: white;
+}
+
+.excel-icon {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.pdf-icon {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.csv-icon {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.export-format-card:hover .export-format-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Format Details */
+.export-format-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 8px 0;
+}
+
+.export-format-desc {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 16px;
+}
+
+.export-format-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+    text-align: left;
+}
+
+.export-format-features li {
+    font-size: 13px;
+    color: #4b5563;
+    padding: 6px 0;
+    display: flex;
+    align-items: center;
+}
+
+/* Format Button */
+.export-format-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.export-format-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+}
+
+.export-format-btn:active {
+    transform: translateY(0);
+}
+
+/* Export Options */
+.export-options {
+    background: rgba(59, 130, 246, 0.05);
+    border: 1px solid rgba(59, 130, 246, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.export-options-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e3a8a;
+    margin: 0 0 16px 0;
+}
+
+.export-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    cursor: pointer;
+    font-size: 14px;
+    color: #374151;
+    user-select: none;
+}
+
+.export-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #3b82f6;
+}
+
+.export-checkbox:hover {
+    color: #1f2937;
+}
+
+/* Modal Footer */
+.export-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 32px;
+    border-top: 2px solid #e5e7eb;
+    background: #f9fafb;
+}
+
+.export-btn-cancel {
+    background: #e5e7eb;
+    color: #6b7280;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.export-btn-cancel:hover {
+    background: #d1d5db;
+    color: #374151;
+}
+
+.export-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.export-info-icon {
+    width: 18px;
+    height: 18px;
+}
+
+/* ==========================================================================
+   LOADING OVERLAY
+   ========================================================================== */
+
+.export-loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.export-loading-overlay.show {
+    display: flex;
+}
+
+.export-loading-content {
+    background: white;
+    border-radius: 20px;
+    padding: 48px;
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: scaleIn 0.3s ease;
+}
+
+/* Spinner */
+.export-loading-spinner {
+    margin: 0 auto 24px;
+    width: 80px;
+    height: 80px;
+}
+
+.spinner {
+    animation: rotate 2s linear infinite;
+    width: 80px;
+    height: 80px;
+}
+
+.spinner .path {
+    stroke: #3b82f6;
+    stroke-linecap: round;
+    animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate {
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 1, 150;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -35;
+    }
+    100% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -124;
+    }
+}
+
+/* Loading Text */
+.export-loading-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 12px 0;
+}
+
+.export-loading-message {
+    font-size: 15px;
+    color: #6b7280;
+    margin-bottom: 32px;
+}
+
+/* Progress Bar */
+.export-progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.export-progress-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+.export-progress-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+#exportProgressPercent {
+    font-size: 18px;
+    font-weight: 700;
+    color: #3b82f6;
+}
+
+#exportProgressStatus {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+/* Cancel Button */
+.export-cancel-btn {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 10px;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.export-cancel-btn:hover {
+    background: #ef4444;
+    color: white;
+    border-color: #ef4444;
+}
+
+/* ==========================================================================
+   EXPORT BUTTONS
+   ========================================================================== */
+
+.export-button {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.export-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+}
+
+.export-button:active {
+    transform: translateY(0);
+}
+
+.export-button svg {
+    width: 18px;
+    height: 18px;
+}
+
+.export-button.secondary {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.export-button.secondary:hover {
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+}
+
+/* ==========================================================================
+   NOTIFICATIONS
+   ========================================================================== */
+
+.export-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    border-radius: 12px;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 10001;
+    min-width: 300px;
+    transform: translateX(400px);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.export-notification.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.export-notification.success {
+    border-left: 4px solid #10b981;
+}
+
+.export-notification.error {
+    border-left: 4px solid #ef4444;
+}
+
+.export-notification.warning {
+    border-left: 4px solid #f59e0b;
+}
+
+.export-notification.info {
+    border-left: 4px solid #3b82f6;
+}
+
+.notification-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.export-notification.success .notification-icon {
+    color: #10b981;
+}
+
+.export-notification.error .notification-icon {
+    color: #ef4444;
+}
+
+.export-notification.warning .notification-icon {
+    color: #f59e0b;
+}
+
+.export-notification.info .notification-icon {
+    color: #3b82f6;
+}
+
+.export-notification span {
+    font-size: 14px;
+    color: #1f2937;
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   ANIMATIONS
+   ========================================================================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    .export-modal-content {
+        max-width: 100%;
+        border-radius: 0;
+        max-height: 100vh;
+    }
+
+    .export-modal-header,
+    .export-modal-body,
+    .export-modal-footer {
+        padding: 20px;
+    }
+
+    .export-modal-title {
+        font-size: 20px;
+    }
+
+    .export-format-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .export-format-card {
+        padding: 20px;
+    }
+
+    .export-loading-content {
+        padding: 32px 24px;
+    }
+
+    .export-loading-title {
+        font-size: 20px;
+    }
+
+    .export-notification {
+        left: 20px;
+        right: 20px;
+        min-width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .export-modal-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .export-modal-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    .export-format-icon {
+        width: 56px;
+        height: 56px;
+    }
+
+    .export-format-icon svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .export-format-title {
+        font-size: 18px;
+    }
+
+    .export-modal-footer {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .export-btn-cancel {
+        width: 100%;
+    }
+
+    .export-info {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ==========================================================================
+   PRINT STYLES
+   ========================================================================== */
+
+@media print {
+    .export-modal,
+    .export-loading-overlay,
+    .export-notification,
+    .export-button {
+        display: none !important;
+    }
+}
+
+/* ==========================================================================
+   DARK MODE SUPPORT (Optional)
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+    .export-modal-content {
+        background: #1f2937;
+        color: #f3f4f6;
+    }
+
+    .export-modal-header {
+        background: linear-gradient(135deg, rgba(30, 58, 138, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%);
+        border-color: #374151;
+    }
+
+    .export-modal-title {
+        color: #f3f4f6;
+    }
+
+    .export-format-card {
+        background: #374151;
+        border-color: #4b5563;
+    }
+
+    .export-format-title {
+        color: #f3f4f6;
+    }
+
+    .export-format-desc,
+    .export-format-features li {
+        color: #d1d5db;
+    }
+
+    .export-options {
+        background: rgba(59, 130, 246, 0.1);
+        border-color: rgba(59, 130, 246, 0.2);
+    }
+
+    .export-modal-footer {
+        background: #111827;
+        border-color: #374151;
+    }
+
+    .export-loading-content {
+        background: #1f2937;
+    }
+
+    .export-loading-title {
+        color: #f3f4f6;
+    }
+
+    .export-notification {
+        background: #1f2937;
+    }
+
+    .export-notification span {
+        color: #f3f4f6;
+    }
+}
