@@ -149,8 +149,21 @@ CREATE TABLE nilai (
 CREATE INDEX idx_id_submission ON nilai(id_submission);
 
 -- ============================================
--- TABEL 8: NOTIFICATIONS (BONUS)
--- Menyimpan notifikasi real-time
+-- TABEL 8: NOTIFICATIONS
+-- Tanggung Jawab: ELISA (Database Engineer & Backend)
+--
+-- Menyimpan notifikasi real-time untuk user
+-- Field requirements:
+--   ✓ id: id_notification (INT PRIMARY KEY AUTO_INCREMENT)
+--   ✓ id_user (FK to users.id_user)
+--   ✓ title: VARCHAR(100) NOT NULL
+--   ✓ message: TEXT NOT NULL
+--   ✓ link: VARCHAR(255) untuk navigasi
+--   ✓ is_read: BOOLEAN DEFAULT FALSE
+--   ✓ created_at: TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- Index requirements:
+--   ✓ idx_id_user_notif: untuk query notifikasi user tertentu
+--   ✓ idx_is_read: untuk filter notifikasi unread (performa query dashboard)
 -- ============================================
 CREATE TABLE notifications (
     id_notification INT PRIMARY KEY AUTO_INCREMENT,
@@ -163,7 +176,11 @@ CREATE TABLE notifications (
     FOREIGN KEY (id_user) REFERENCES users(id_user) ON DELETE CASCADE
 );
 
--- Index untuk performance
+-- ============================================
+-- INDEX untuk NOTIFICATIONS
+-- ✓ idx_id_user_notif: query cepat notifikasi user
+-- ✓ idx_is_read: filter unread notifications (penting untuk dashboard)
+-- ============================================
 CREATE INDEX idx_id_user_notif ON notifications(id_user);
 CREATE INDEX idx_is_read ON notifications(is_read);
 
