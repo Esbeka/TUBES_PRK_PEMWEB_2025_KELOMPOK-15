@@ -3,350 +3,314 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar - Sistem Kelas Online Mini</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/forms.css">
+    <title>Daftar - KelasOnline</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #d4c5f9 0%, #c5b8e8 100%);
+            min-height: 100vh;
+        }
+
+        .card-3d {
+            background: #ffffff;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .input-field {
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+        }
+
+        .input-field:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            outline: none;
+        }
+
+        .btn-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .illustration-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .step-indicator {
+            transition: all 0.3s ease;
+        }
+
+        .step-indicator.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+    </style>
 </head>
-<body>
-    <div class="auth-container">
-        <div class="auth-card">
-            <!-- Header -->
-            <div class="auth-header">
-                <div class="auth-logo">📚</div>
-                <h1 class="auth-title">Daftar Akun Baru</h1>
-                <p class="auth-subtitle">Bergabunglah dengan platform e-learning kami</p>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="w-full max-w-5xl max-h-screen overflow-auto">
+        <div class="grid md:grid-cols-2 gap-6 items-center">
+            <!-- Left Side - Illustration -->
+            <div class="hidden md:block">
+                <div class="text-center px-4">
+                    <div class="illustration-float text-7xl mb-4">
+                        🎓
+                    </div>
+                    <h1 class="text-3xl font-bold gradient-text mb-3">
+                        Bergabung dengan KelasOnline
+                    </h1>
+                    <p class="text-gray-600 text-base mb-6">
+                        Mulai perjalanan belajar Anda bersama ribuan mahasiswa lainnya
+                    </p>
+                    
+                    <div class="space-y-3 text-left max-w-md mx-auto">
+                        <div class="flex items-center gap-3 p-3 bg-white/80 rounded-2xl">
+                            <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-500 rounded-xl flex items-center justify-center text-white text-xl">
+                                ✓
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">Gratis & Mudah</p>
+                                <p class="text-sm text-gray-600">Daftar tanpa biaya apapun</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-4 p-4 bg-white/80 rounded-2xl">
+                            <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-500 rounded-xl flex items-center justify-center text-white text-xl">
+                                ✓
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">Akses 24/7</p>
+                                <p class="text-sm text-gray-600">Belajar kapan saja, dimana saja</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-4 p-4 bg-white/80 rounded-2xl">
+                            <div class="w-12 h-12 bg-gradient-to-br from-pink-400 to-pink-500 rounded-xl flex items-center justify-center text-white text-xl">
+                                ✓
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">Sertifikat Digital</p>
+                                <p class="text-sm text-gray-600">Dapatkan sertifikat resmi</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Alert -->
-            <div id="alertContainer" style="padding: 0 2rem; padding-top: 2rem;"></div>
+            <!-- Right Side - Register Form -->
+            <div class="card-3d rounded-3xl p-6 md:p-8">
+                <div class="mb-5">
+                    <div class="inline-block px-3 py-1 bg-gradient-to-r from-purple-100 to-pink-100 rounded-full mb-3">
+                        <span class="text-xs font-semibold gradient-text">UNIVERSITAS LAMPUNG</span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-1">Buat Akun Baru 🚀</h2>
+                    <p class="text-gray-500 text-sm">Lengkapi data diri Anda untuk mendaftar</p>
+                </div>
 
-            <!-- Body -->
-            <div class="auth-body">
-                <form id="registerForm" novalidate>
-                    <!-- Nama Lengkap -->
-                    <div class="form-group form-group-icon">
-                        <label for="nama" class="form-label">Nama Lengkap</label>
-                        <span class="form-icon">👤</span>
-                        <input 
-                            type="text" 
-                            id="nama" 
-                            name="nama" 
-                            class="form-input" 
-                            placeholder="Masukkan nama lengkap"
-                            required
-                        >
-                        <div class="form-error" id="namaError">Nama lengkap harus diisi</div>
+                <form action="../backend/auth/register.php" method="POST" class="space-y-3.5">
+                    <!-- Role Selection (First) -->
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Daftar sebagai</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="relative">
+                                <input type="radio" name="role" value="mahasiswa" class="peer sr-only" checked>
+                                <div class="input-field cursor-pointer p-3 rounded-xl text-center peer-checked:border-purple-600 peer-checked:bg-gradient-to-r peer-checked:from-purple-50 peer-checked:to-pink-50">
+                                    <i class="fas fa-user-graduate text-xl mb-1.5 text-purple-600"></i>
+                                    <p class="font-semibold text-xs">Mahasiswa</p>
+                                </div>
+                            </label>
+                            <label class="relative">
+                                <input type="radio" name="role" value="dosen" class="peer sr-only">
+                                <div class="input-field cursor-pointer p-3 rounded-xl text-center peer-checked:border-purple-600 peer-checked:bg-gradient-to-r peer-checked:from-purple-50 peer-checked:to-pink-50">
+                                    <i class="fas fa-chalkboard-teacher text-xl mb-1.5 text-purple-600"></i>
+                                    <p class="font-semibold text-xs">Dosen</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Full Name -->
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nama Lengkap</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i class="fas fa-user text-gray-400"></i>
+                            </div>
+                            <input 
+                                type="text" 
+                                name="nama" 
+                                required
+                                class="input-field w-full pl-12 pr-4 py-3 rounded-xl bg-gray-50"
+                                placeholder="Masukkan nama lengkap"
+                            />
+                        </div>
+                    </div>
+
+                    <!-- NPM/NIDN -->
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">NPM / NIDN</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i class="fas fa-id-card text-gray-400"></i>
+                            </div>
+                            <input 
+                                type="text" 
+                                name="npm_nidn" 
+                                required
+                                class="input-field w-full pl-12 pr-4 py-3 rounded-xl bg-gray-50"
+                                placeholder="Masukkan NPM atau NIDN"
+                            />
+                        </div>
                     </div>
 
                     <!-- Email -->
-                    <div class="form-group form-group-icon">
-                        <label for="email" class="form-label">Email</label>
-                        <span class="form-icon">📧</span>
-                        <input 
-                            type="email" 
-                            id="email" 
-                            name="email" 
-                            class="form-input" 
-                            placeholder="nama@email.com"
-                            required
-                        >
-                        <div class="form-error" id="emailError">Email tidak valid</div>
-                    </div>
-
-                    <!-- Role Selection -->
-                    <div class="form-group">
-                        <label class="form-label">Daftar Sebagai</label>
-                        <div class="radio-group">
-                            <label class="radio-option" id="radioMahasiswa">
-                                <input type="radio" name="role" value="mahasiswa" checked>
-                                <div>
-                                    <strong>🎓 Mahasiswa</strong>
-                                    <p style="font-size: 0.875rem; color: var(--gray); margin: 0.25rem 0 0 0;">
-                                        Untuk mengikuti kelas dan mengakses materi
-                                    </p>
-                                </div>
-                            </label>
-                            <label class="radio-option" id="radioDosen">
-                                <input type="radio" name="role" value="dosen">
-                                <div>
-                                    <strong>👨‍🏫 Dosen</strong>
-                                    <p style="font-size: 0.875rem; color: var(--gray); margin: 0.25rem 0 0 0;">
-                                        Untuk membuat dan mengelola kelas
-                                    </p>
-                                </div>
-                            </label>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Email</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i class="fas fa-envelope text-gray-400"></i>
+                            </div>
+                            <input 
+                                type="email" 
+                                name="email" 
+                                required
+                                class="input-field w-full pl-12 pr-4 py-3 rounded-xl bg-gray-50"
+                                placeholder="nama@email.com"
+                            />
                         </div>
                     </div>
 
                     <!-- Password -->
-                    <div class="form-group form-group-icon">
-                        <label for="password" class="form-label">Password</label>
-                        <span class="form-icon">🔒</span>
-                        <input 
-                            type="password" 
-                            id="password" 
-                            name="password" 
-                            class="form-input" 
-                            placeholder="Minimal 8 karakter"
-                            required
-                        >
-                        <button type="button" class="form-toggle-password" id="togglePassword">
-                            👁️
-                        </button>
-                        <div class="form-error" id="passwordError">Password minimal 8 karakter</div>
-                        
-                        <!-- Password Strength -->
-                        <div class="password-strength" id="passwordStrength">
-                            <div class="strength-bar">
-                                <div class="strength-progress" id="strengthProgress"></div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Password</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-400"></i>
                             </div>
-                            <div class="strength-text" id="strengthText"></div>
+                            <input 
+                                type="password" 
+                                name="password" 
+                                id="password"
+                                required
+                                class="input-field w-full pl-12 pr-12 py-3 rounded-xl bg-gray-50"
+                                placeholder="Minimal 8 karakter"
+                            />
+                            <button 
+                                type="button" 
+                                onclick="togglePassword()"
+                                class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600"
+                            >
+                                <i class="fas fa-eye" id="toggleIcon"></i>
+                            </button>
                         </div>
                     </div>
 
                     <!-- Confirm Password -->
-                    <div class="form-group form-group-icon">
-                        <label for="confirmPassword" class="form-label">Konfirmasi Password</label>
-                        <span class="form-icon">🔒</span>
-                        <input 
-                            type="password" 
-                            id="confirmPassword" 
-                            name="confirmPassword" 
-                            class="form-input" 
-                            placeholder="Ulangi password"
-                            required
-                        >
-                        <button type="button" class="form-toggle-password" id="toggleConfirmPassword">
-                            👁️
-                        </button>
-                        <div class="form-error" id="confirmPasswordError">Password tidak cocok</div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Konfirmasi Password</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-400"></i>
+                            </div>
+                            <input 
+                                type="password" 
+                                name="confirm_password" 
+                                id="confirmPassword"
+                                required
+                                class="input-field w-full pl-12 pr-12 py-3 rounded-xl bg-gray-50"
+                                placeholder="Ulangi password"
+                            />
+                            <button 
+                                type="button" 
+                                onclick="toggleConfirmPassword()"
+                                class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600"
+                            >
+                                <i class="fas fa-eye" id="toggleConfirmIcon"></i>
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Terms & Conditions -->
-                    <div class="form-check">
-                        <input type="checkbox" id="terms" name="terms" class="form-check-input" required>
-                        <label for="terms" class="form-check-label">
-                            Saya menyetujui <a href="#" class="form-link">Syarat & Ketentuan</a>
+                    <div class="flex items-start">
+                        <input type="checkbox" required class="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500 mt-1">
+                        <label class="ml-2 text-sm text-gray-600">
+                            Saya menyetujui <a href="#" class="gradient-text font-semibold hover:underline">Syarat & Ketentuan</a> 
+                            dan <a href="#" class="gradient-text font-semibold hover:underline">Kebijakan Privasi</a>
                         </label>
                     </div>
-                    <div class="form-error" id="termsError">Anda harus menyetujui syarat & ketentuan</div>
 
-                    <!-- Submit Button -->
-                    <button type="submit" class="btn btn-primary btn-block" id="registerBtn">
-                        Daftar Sekarang
+                    <!-- Register Button -->
+                    <button 
+                        type="submit"
+                        class="btn-gradient w-full py-4 rounded-xl text-white font-bold text-lg"
+                    >
+                        Daftar Sekarang <i class="fas fa-arrow-right ml-2"></i>
                     </button>
-                </form>
-            </div>
 
-            <!-- Footer -->
-            <div class="auth-footer">
-                <p style="margin-bottom: 1rem; color: var(--gray);">
-                    Sudah punya akun? 
-                    <a href="login.html" class="form-link">Masuk di sini</a>
-                </p>
-                <a href="../pages/index.html" class="form-link">
-                    ← Kembali ke Beranda
-                </a>
+                    <!-- Login Link -->
+                    <p class="text-center text-gray-600 text-sm">
+                        Sudah punya akun? 
+                        <a href="login.html" class="font-semibold gradient-text hover:underline">Masuk di sini</a>
+                    </p>
+                </form>
             </div>
         </div>
     </div>
 
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="spinner"></div>
-        <p>Mendaftarkan akun...</p>
-    </div>
-
-    <script src="../assets/js/validation.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const registerForm = document.getElementById('registerForm');
-            const namaInput = document.getElementById('nama');
-            const emailInput = document.getElementById('email');
+        function togglePassword() {
             const passwordInput = document.getElementById('password');
-            const confirmPasswordInput = document.getElementById('confirmPassword');
-            const termsCheckbox = document.getElementById('terms');
-            const togglePassword = document.getElementById('togglePassword');
-            const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
-            const registerBtn = document.getElementById('registerBtn');
-            const loadingOverlay = document.getElementById('loadingOverlay');
-            const alertContainer = document.getElementById('alertContainer');
-            const radioMahasiswa = document.getElementById('radioMahasiswa');
-            const radioDosen = document.getElementById('radioDosen');
-
-            // Radio button styling
-            document.querySelectorAll('input[name="role"]').forEach(radio => {
-                radio.addEventListener('change', function() {
-                    radioMahasiswa.classList.remove('checked');
-                    radioDosen.classList.remove('checked');
-                    if (this.value === 'mahasiswa') {
-                        radioMahasiswa.classList.add('checked');
-                    } else {
-                        radioDosen.classList.add('checked');
-                    }
-                });
-            });
-            radioMahasiswa.classList.add('checked');
-
-            // Toggle Password Visibility
-            togglePassword.addEventListener('click', function() {
-                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordInput.setAttribute('type', type);
-                this.textContent = type === 'password' ? '👁️' : '🙈';
-            });
-
-            toggleConfirmPassword.addEventListener('click', function() {
-                const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                confirmPasswordInput.setAttribute('type', type);
-                this.textContent = type === 'password' ? '👁️' : '🙈';
-            });
-
-            // Password Strength Indicator
-            passwordInput.addEventListener('input', function() {
-                const password = this.value;
-                const strengthIndicator = document.getElementById('passwordStrength');
-                const strengthProgress = document.getElementById('strengthProgress');
-                const strengthText = document.getElementById('strengthText');
-
-                if (password.length === 0) {
-                    strengthIndicator.classList.remove('show');
-                    return;
-                }
-
-                strengthIndicator.classList.add('show');
-
-                const strength = checkPasswordStrength(password);
-                
-                strengthProgress.className = 'strength-progress ' + strength.level;
-                strengthText.className = 'strength-text ' + strength.level;
-                strengthText.textContent = strength.text;
-            });
-
-            // Real-time validation
-            namaInput.addEventListener('blur', function() {
-                validateRequired(this.value, 'namaError', 'Nama lengkap harus diisi');
-            });
-
-            emailInput.addEventListener('blur', function() {
-                validateEmail(this.value, 'emailError');
-            });
-
-            passwordInput.addEventListener('blur', function() {
-                validatePassword(this.value, 'passwordError');
-            });
-
-            confirmPasswordInput.addEventListener('blur', function() {
-                validatePasswordMatch(passwordInput.value, this.value, 'confirmPasswordError');
-            });
-
-            // Form Submit
-            registerForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                // Clear previous alerts
-                alertContainer.innerHTML = '';
-
-                const nama = namaInput.value.trim();
-                const email = emailInput.value.trim();
-                const password = passwordInput.value;
-                const confirmPassword = confirmPasswordInput.value;
-                const role = document.querySelector('input[name="role"]:checked').value;
-                const terms = termsCheckbox.checked;
-
-                // Validate all fields
-                const isNamaValid = validateRequired(nama, 'namaError', 'Nama lengkap harus diisi');
-                const isEmailValid = validateEmail(email, 'emailError');
-                const isPasswordValid = validatePassword(password, 'passwordError');
-                const isConfirmPasswordValid = validatePasswordMatch(password, confirmPassword, 'confirmPasswordError');
-                
-                // Validate terms
-                const termsError = document.getElementById('termsError');
-                if (!terms) {
-                    termsError.classList.add('show');
-                } else {
-                    termsError.classList.remove('show');
-                }
-
-                if (!isNamaValid || !isEmailValid || !isPasswordValid || !isConfirmPasswordValid || !terms) {
-                    showAlert('error', 'Mohon lengkapi semua field dengan benar');
-                    return;
-                }
-
-                // Show loading
-                loadingOverlay.classList.add('show');
-                registerBtn.disabled = true;
-
-                // Simulate API call (replace with actual backend call)
-                setTimeout(() => {
-                    // Hide loading
-                    loadingOverlay.classList.remove('show');
-                    registerBtn.disabled = false;
-
-                    // Success
-                    showAlert('success', 'Pendaftaran berhasil! Mengalihkan ke halaman login...');
-                    
-                    setTimeout(() => {
-                        window.location.href = 'login.html';
-                    }, 2000);
-
-                    // INTEGRATION NOTE for Juan:
-                    // Replace above with actual backend call like:
-                    /*
-                    fetch('../backend/auth/register.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ nama, email, password, role })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            showAlert('success', 'Pendaftaran berhasil! Mengalihkan ke login...');
-                            setTimeout(() => {
-                                window.location.href = 'login.html';
-                            }, 2000);
-                        } else {
-                            showAlert('error', data.message || 'Pendaftaran gagal!');
-                        }
-                    })
-                    .catch(error => {
-                        showAlert('error', 'Terjadi kesalahan. Silakan coba lagi.');
-                        console.error('Error:', error);
-                    });
-                    */
-                }, 1500);
-            });
-
-            // Show Alert Function
-            function showAlert(type, message) {
-                const alertClass = type === 'success' ? 'alert-success' : 'alert-error';
-                alertContainer.innerHTML = `
-                    <div class="alert ${alertClass}">
-                        ${type === 'success' ? '✓' : '✕'} ${message}
-                    </div>
-                `;
+            const toggleIcon = document.getElementById('toggleIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
             }
+        }
 
-            // Check Password Strength
-            function checkPasswordStrength(password) {
-                let strength = 0;
-                
-                if (password.length >= 8) strength++;
-                if (password.match(/[a-z]+/)) strength++;
-                if (password.match(/[A-Z]+/)) strength++;
-                if (password.match(/[0-9]+/)) strength++;
-                if (password.match(/[$@#&!]+/)) strength++;
-
-                if (strength <= 2) {
-                    return { level: 'weak', text: 'Password Lemah' };
-                } else if (strength <= 4) {
-                    return { level: 'medium', text: 'Password Sedang' };
-                } else {
-                    return { level: 'strong', text: 'Password Kuat' };
-                }
+        function toggleConfirmPassword() {
+            const passwordInput = document.getElementById('confirmPassword');
+            const toggleIcon = document.getElementById('toggleConfirmIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
             }
-        });
+        }
     </script>
 </body>
 </html>
