@@ -6,6 +6,24 @@
  * Deskripsi: Mahasiswa keluar dari kelas
  * - Delete dari tabel kelas_mahasiswa
  * - Konfirmasi dan warning
+ * 
+ * Requirement Implementation Checklist:
+ *   ✓ Cek session mahasiswa - Validasi user sudah login & role = mahasiswa
+ *   ✓ Validasi input POST (id_kelas) - Parameter wajib & numeric
+ *   ✓ Verifikasi enrollment - Cek mahasiswa benar terdaftar di kelas
+ *     - Query JOIN kelas_mahasiswa & kelas untuk info kelas
+ *     - Return 404 jika mahasiswa tidak terdaftar
+ *   ✓ Delete enrollment dari kelas_mahasiswa
+ *     - DELETE WHERE id_kelas = ? AND id_mahasiswa = ?
+ *     - Submission & akses materi auto-hapus (ON DELETE CASCADE)
+ *   ✓ Return JSON success
+ *     - Konfirmasi data kelas yang ditinggalkan
+ *     - Info: id_kelas, nama_matakuliah, kode_kelas
+ *   ✓ Error handling
+ *     - 401: Unauthorized (bukan mahasiswa)
+ *     - 400: Bad request (parameter tidak valid)
+ *     - 404: Enrollment tidak ditemukan
+ *     - 500: Database error
  */
 
 header('Content-Type: application/json; charset=utf-8');

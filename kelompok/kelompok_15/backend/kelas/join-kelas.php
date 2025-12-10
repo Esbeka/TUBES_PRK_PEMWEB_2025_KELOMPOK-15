@@ -8,6 +8,29 @@
  * - Cek mahasiswa belum join (check duplicate)
  * - Cek kapasitas kelas belum penuh
  * - Insert ke tabel kelas_mahasiswa
+ * 
+ * Requirement Implementation Checklist:
+ *   ✓ Validasi kode kelas exists
+ *     - Query by kode_kelas (UNIQUE index pada tabel kelas)
+ *     - Return 404 jika kode tidak ditemukan
+ *   ✓ Cek duplicate enrollment
+ *     - SELECT COUNT dari kelas_mahasiswa
+ *     - Return 400 jika mahasiswa sudah terdaftar di kelas
+ *   ✓ Cek kapasitas kelas
+ *     - Compare jumlah_mahasiswa vs kapasitas
+ *     - Return 400 jika kelas sudah penuh
+ *   ✓ Insert enrollment
+ *     - INSERT ke tabel kelas_mahasiswa (id_kelas, id_mahasiswa)
+ *     - Auto-set joined_at timestamp
+ *   ✓ Return JSON success dengan data kelas
+ *     - Info kelas lengkap (nama, kode, semester, tahun ajaran)
+ *     - Info dosen (nama_dosen)
+ *     - Status enrollment (joined_at, jumlah_mahasiswa updated)
+ *   ✓ Error handling
+ *     - 401: Unauthorized (bukan mahasiswa)
+ *     - 400: Bad request / validation failed
+ *     - 404: Kode kelas tidak ditemukan
+ *     - 500: Database error
  */
 
 header('Content-Type: application/json; charset=utf-8');

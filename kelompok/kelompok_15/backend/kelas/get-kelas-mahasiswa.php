@@ -7,6 +7,26 @@
  * - Query kelas yang diikuti mahasiswa
  * - Join untuk info dosen
  * - Hitung progress (materi diakses, tugas submitted)
+ * 
+ * Requirement Implementation Checklist:
+ *   ✓ Query kelas yang diikuti mahasiswa
+ *     - JOIN kelas_mahasiswa WHERE id_mahasiswa
+ *     - Get semua kelas detail (nama, kode, semester, tahun ajaran, deskripsi)
+ *   ✓ Join untuk info dosen
+ *     - LEFT JOIN users untuk nama_dosen & email_dosen
+ *     - Include id_dosen relationship
+ *   ✓ Hitung progress per kelas
+ *     - Total materi vs materi yang diakses (dari log_akses_materi)
+ *     - Persentase progress materi: (accessed / total) * 100
+ *     - Total tugas vs tugas submitted (dari submission_tugas)
+ *     - Persentase progress tugas: (submitted / total) * 100
+ *   ✓ Hitung jumlah mahasiswa per kelas
+ *     - COUNT(DISTINCT km.id_mahasiswa) per kelas
+ *   ✓ Order by created_at DESC
+ *     - Kelas terbaru di atas untuk UX lebih baik
+ *   ✓ Return JSON array kelas
+ *     - Format lengkap dengan progress tracking
+ *     - Total count kelas yang diikuti
  */
 
 header('Content-Type: application/json; charset=utf-8');
