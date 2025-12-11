@@ -1,0 +1,163 @@
+/* ==========================================
+   ICON SIZE STANDARDS - KelasOnline
+   Konsisten dengan Export & Reporting Design
+   ========================================== */
+
+/* ========== ICON BOX SIZES ========== */
+/* Small Icon Box - 32px (w-8 h-8) */
+.icon-box-sm {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+/* Medium Icon Box - 40px (w-10 h-10) - STANDARD */
+.icon-box-md {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+}
+
+/* Large Icon Box - 48px (w-12 h-12) - Export Cards */
+.icon-box-lg {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+}
+
+/* ========== SVG ICON SIZES ========== */
+/* Extra Small - 14px (w-3.5 h-3.5) */
+.icon-xs {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+/* Small - 16px (w-4 h-4) */
+.icon-sm {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+/* Medium - 20px (w-5 h-5) - STANDARD */
+.icon-md {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+/* Large - 24px (w-6 h-6) - Export Cards */
+.icon-lg {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+/* ========== COMBINED ICON BOX + SVG ========== */
+/* Standard Stats Icon - 40px box + 20px icon */
+.stats-icon-box {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.stats-icon-box svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Export Card Icon - 48px box + 24px icon */
+.export-icon-box {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+.export-icon-box svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Avatar/Profile Icon - 40px circle */
+.avatar-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* ========== BUTTON ICON SIZES ========== */
+.btn-icon-sm {
+    width: 14px;
+    height: 14px;
+}
+
+.btn-icon-md {
+    width: 16px;
+    height: 16px;
+}
+
+.btn-icon-lg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ========== NAVBAR ICON STANDARDS ========== */
+.navbar-brand-icon {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+}
+
+.navbar-menu-icon {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+}
+
+/* ========== UTILITY CLASSES ========== */
+.icon-rounded {
+    border-radius: 8px;
+}
+
+.icon-circle {
+    border-radius: 50%;
+}
+
+.icon-shadow-sm {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.icon-shadow-md {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* ========== RESPONSIVE ADJUSTMENTS ========== */
+@media (max-width: 768px) {
+    .icon-box-lg {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .export-icon-box {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .export-icon-box svg {
+        width: 20px;
+        height: 20px;
+    }
+}
