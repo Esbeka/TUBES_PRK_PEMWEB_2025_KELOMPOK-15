@@ -291,13 +291,465 @@
 
         // Show join kelas modal
         function showJoinKelasModal() {
-            // Redirect to dashboard with modal trigger
-            window.location.href = 'dashboard-mahasiswa.php#join';
+            document.getElementById('joinKelasModal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+            // Reset modal state
+            resetJoinModal();
+        }
+
+        // Close join kelas modal
+        function closeJoinKelasModal() {
+            document.getElementById('joinKelasModal').classList.remove('show');
+            document.body.style.overflow = '';
+            resetJoinModal();
+        }
+
+        // Reset modal to initial state
+        function resetJoinModal() {
+            document.getElementById('kodeKelasInput').value = '';
+            document.getElementById('previewSection').classList.add('hidden');
+            document.getElementById('previewLoading').classList.add('hidden');
+            document.getElementById('previewError').classList.add('hidden');
+            document.getElementById('previewContent').classList.add('hidden');
+            document.getElementById('btnJoinKelas').disabled = true;
+            document.getElementById('btnJoinKelas').classList.add('opacity-50', 'cursor-not-allowed');
+        }
+
+        // Preview kelas with AJAX
+        let previewTimeout = null;
+        let currentKodeKelas = '';
+
+        function previewKelas() {
+            const kodeKelas = document.getElementById('kodeKelasInput').value.trim().toUpperCase();
+            
+            // Clear previous timeout
+            if (previewTimeout) {
+                clearTimeout(previewTimeout);
+            }
+            
+            // Minimum 4 characters to preview
+            if (kodeKelas.length < 4) {
+                document.getElementById('previewSection').classList.add('hidden');
+                document.getElementById('btnJoinKelas').disabled = true;
+                document.getElementById('btnJoinKelas').classList.add('opacity-50', 'cursor-not-allowed');
+                return;
+            }
+            
+            // Debounce: wait 500ms before making request
+            previewTimeout = setTimeout(() => {
+                fetchPreview(kodeKelas);
+            }, 500);
+        }
+
+        // Fetch preview from backend
+        async function fetchPreview(kodeKelas) {
+            currentKodeKelas = kodeKelas;
+            
+            // Show loading state
+            document.getElementById('previewSection').classList.remove('hidden');
+            document.getElementById('previewLoading').classList.remove('hidden');
+            document.getElementById('previewError').classList.add('hidden');
+            document.getElementById('previewContent').classList.add('hidden');
+            document.getElementById('btnJoinKelas').disabled = true;
+            document.getElementById('btnJoinKelas').classList.add('opacity-50', 'cursor-not-allowed');
+
+            try {
+                const response = await fetch(`../backend/kelas/preview-kelas.php?kode_kelas=${encodeURIComponent(kodeKelas)}`);
+                const result = await response.json();
+
+                // Check if this is still the current request
+                if (kodeKelas !== currentKodeKelas) return;
+
+                document.getElementById('previewLoading').classList.add('hidden');
+
+                if (result.success) {
+                    displayPreview(result.data);
+                } else {
+                    showPreviewError(result.message || 'Kode kelas tidak ditemukan');
+                }
+            } catch (error) {
+                if (kodeKelas !== currentKodeKelas) return;
+                document.getElementById('previewLoading').classList.add('hidden');
+                showPreviewError('Gagal terhubung ke server. Silakan coba lagi.');
+                console.error('Preview error:', error);
+            }
+        }
+
+        // Display preview data
+        function displayPreview(data) {
+            document.getElementById('previewContent').classList.remove('hidden');
+            
+            // Fill preview data
+            document.getElementById('prevNamaMatkul').textContent = data.nama_matakuliah;
+            document.getElementById('prevKodeMatkul').textContent = data.kode_matakuliah;
+            document.getElementById('prevNamaDosen').textContent = data.dosen.nama;
+            document.getElementById('prevEmailDosen').textContent = data.dosen.email;
+            document.getElementById('prevSemester').textContent = `Semester ${data.semester}`;
+            document.getElementById('prevTahunAjaran').textContent = data.tahun_ajaran;
+            document.getElementById('prevDeskripsi').textContent = data.deskripsi || 'Tidak ada deskripsi';
+            
+            // Capacity info
+            const sisaSlot = data.sisa_slot;
+            const kapasitas = data.kapasitas;
+            const jumlahMahasiswa = data.jumlah_mahasiswa;
+            const percentage = (jumlahMahasiswa / kapasitas) * 100;
+            const sudahTerdaftar = data.sudah_terdaftar || false;
+            
+            document.getElementById('prevKapasitas').textContent = `${jumlahMahasiswa}/${kapasitas} mahasiswa`;
+            document.getElementById('prevSisaSlot').textContent = `${sisaSlot} slot tersisa`;
+            document.getElementById('prevProgressBar').style.width = `${percentage}%`;
+            
+            // Update progress bar color based on capacity
+            const progressBar = document.getElementById('prevProgressBar');
+            const sisaSlotEl = document.getElementById('prevSisaSlot');
+            progressBar.className = 'h-full rounded-full transition-all duration-300';
+            sisaSlotEl.classList.remove('text-green-600', 'text-orange-600', 'text-red-600', 'text-blue-600');
+            
+            if (percentage >= 100) {
+                progressBar.classList.add('bg-red-500');
+                sisaSlotEl.classList.add('text-red-600');
+            } else if (percentage >= 80) {
+                progressBar.classList.add('bg-orange-500');
+                sisaSlotEl.classList.add('text-orange-600');
+            } else {
+                progressBar.classList.add('bg-green-500');
+                sisaSlotEl.classList.add('text-green-600');
+            }
+
+            // Handle join button state based on multiple conditions
+            const btnJoin = document.getElementById('btnJoinKelas');
+            
+            if (sudahTerdaftar) {
+                // Already enrolled
+                btnJoin.disabled = true;
+                btnJoin.classList.add('opacity-50', 'cursor-not-allowed');
+                btnJoin.classList.remove('from-pink-500', 'to-purple-600');
+                btnJoin.classList.add('bg-blue-500');
+                btnJoin.innerHTML = `
+                    <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Sudah Terdaftar
+                `;
+                sisaSlotEl.textContent = 'Anda sudah terdaftar di kelas ini';
+                sisaSlotEl.classList.remove('text-green-600', 'text-orange-600', 'text-red-600');
+                sisaSlotEl.classList.add('text-blue-600');
+            } else if (sisaSlot <= 0) {
+                // Class is full
+                btnJoin.disabled = true;
+                btnJoin.classList.add('opacity-50', 'cursor-not-allowed');
+                btnJoin.textContent = 'Kelas Penuh';
+            } else {
+                // Can join
+                btnJoin.disabled = false;
+                btnJoin.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-blue-500');
+                btnJoin.classList.add('from-pink-500', 'to-purple-600');
+                btnJoin.textContent = 'Join Kelas Ini';
+            }
+        }
+
+        // Show preview error
+        function showPreviewError(message) {
+            document.getElementById('previewError').classList.remove('hidden');
+            document.getElementById('previewErrorMsg').textContent = message;
+            document.getElementById('previewContent').classList.add('hidden');
+            document.getElementById('btnJoinKelas').disabled = true;
+            document.getElementById('btnJoinKelas').classList.add('opacity-50', 'cursor-not-allowed');
+        }
+
+        // Join kelas function
+        async function joinKelas() {
+            const kodeKelas = document.getElementById('kodeKelasInput').value.trim().toUpperCase();
+            
+            if (!kodeKelas) {
+                showNotification('Silakan masukkan kode kelas terlebih dahulu', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('btnJoinKelas');
+            const originalText = btn.textContent;
+            btn.disabled = true;
+            btn.innerHTML = `
+                <svg class="animate-spin h-5 w-5 mr-2 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Memproses...
+            `;
+
+            try {
+                const formData = new FormData();
+                formData.append('kode_kelas', kodeKelas);
+
+                const response = await fetch('../backend/kelas/join-kelas.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showNotification(result.message || 'Berhasil bergabung ke kelas!', 'success');
+                    closeJoinKelasModal();
+                    
+                    // Reload page to show new class (in production, you'd add to the grid dynamically)
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1500);
+                } else {
+                    // Handle specific error cases
+                    let errorType = 'error';
+                    if (result.message.includes('sudah terdaftar')) {
+                        errorType = 'warning';
+                    }
+                    showNotification(result.message || 'Gagal bergabung ke kelas', errorType);
+                    btn.disabled = false;
+                    btn.textContent = originalText;
+                }
+            } catch (error) {
+                console.error('Join error:', error);
+                showNotification('Gagal terhubung ke server. Silakan coba lagi.', 'error');
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        }
+
+        // Notification function
+        function showNotification(message, type = 'info') {
+            const notifContainer = document.getElementById('notificationContainer');
+            if (!notifContainer) return;
+
+            const colors = {
+                success: 'bg-green-500',
+                error: 'bg-red-500',
+                warning: 'bg-orange-500',
+                info: 'bg-blue-500'
+            };
+
+            const icons = {
+                success: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>',
+                error: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>',
+                warning: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>',
+                info: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>'
+            };
+
+            const notif = document.createElement('div');
+            notif.className = `${colors[type]} text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 transform translate-x-full transition-transform duration-300`;
+            notif.innerHTML = `
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    ${icons[type]}
+                </svg>
+                <span class="font-medium">${message}</span>
+            `;
+
+            notifContainer.appendChild(notif);
+            
+            // Animate in
+            setTimeout(() => {
+                notif.classList.remove('translate-x-full');
+            }, 100);
+
+            // Auto remove after 4 seconds
+            setTimeout(() => {
+                notif.classList.add('translate-x-full');
+                setTimeout(() => {
+                    notif.remove();
+                }, 300);
+            }, 4000);
         }
 
         // Initial render
         renderKelas(kelasData);
     </script>
+
+    <!-- Join Kelas Modal -->
+    <div id="joinKelasModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4" style="display: none;">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto animate-fade-in">
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-pink-500 to-purple-600 p-6 rounded-t-2xl">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Join Kelas Baru</h3>
+                            <p class="text-pink-100 text-sm">Masukkan kode kelas dari dosen</p>
+                        </div>
+                    </div>
+                    <button onclick="closeJoinKelasModal()" class="text-white/80 hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6">
+                <!-- Input Kode Kelas -->
+                <div class="mb-6">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Kode Kelas</label>
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            id="kodeKelasInput" 
+                            placeholder="Contoh: ABC123"
+                            maxlength="10"
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500/20 focus:border-pink-500 transition-all text-center text-2xl font-mono tracking-widest uppercase"
+                            oninput="previewKelas()"
+                            onkeyup="if(event.key === 'Enter' && !document.getElementById('btnJoinKelas').disabled) joinKelas()"
+                        >
+                        <div class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2 text-center">Kode kelas terdiri dari 6 karakter (huruf & angka)</p>
+                </div>
+
+                <!-- Preview Section -->
+                <div id="previewSection" class="hidden">
+                    <!-- Loading State -->
+                    <div id="previewLoading" class="hidden text-center py-8">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-pink-100 rounded-full mb-4">
+                            <svg class="animate-spin h-8 w-8 text-pink-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </div>
+                        <p class="text-gray-600">Mencari kelas...</p>
+                    </div>
+
+                    <!-- Error State -->
+                    <div id="previewError" class="hidden bg-red-50 border border-red-200 rounded-xl p-4 text-center">
+                        <div class="inline-flex items-center justify-center w-12 h-12 bg-red-100 rounded-full mb-3">
+                            <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </div>
+                        <p id="previewErrorMsg" class="text-red-600 font-medium">Kode kelas tidak ditemukan</p>
+                        <p class="text-red-500 text-sm mt-1">Periksa kembali kode kelas Anda</p>
+                    </div>
+
+                    <!-- Preview Content -->
+                    <div id="previewContent" class="hidden">
+                        <div class="border-t border-gray-200 pt-4 mb-4">
+                            <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Preview Kelas</h4>
+                        </div>
+
+                        <!-- Class Info Card -->
+                        <div class="bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl p-4 mb-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-14 h-14 bg-gradient-to-br from-pink-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 id="prevNamaMatkul" class="font-bold text-gray-800 text-lg">Nama Matakuliah</h4>
+                                    <p id="prevKodeMatkul" class="text-pink-600 font-medium text-sm">KODE123</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Details Grid -->
+                        <div class="grid grid-cols-2 gap-3 mb-4">
+                            <!-- Dosen -->
+                            <div class="bg-gray-50 rounded-lg p-3">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                    <span class="text-xs text-gray-500 font-medium">Dosen</span>
+                                </div>
+                                <p id="prevNamaDosen" class="font-semibold text-gray-800 text-sm">Nama Dosen</p>
+                                <p id="prevEmailDosen" class="text-gray-500 text-xs truncate">email@example.com</p>
+                            </div>
+
+                            <!-- Semester & Tahun -->
+                            <div class="bg-gray-50 rounded-lg p-3">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                    <span class="text-xs text-gray-500 font-medium">Periode</span>
+                                </div>
+                                <p id="prevSemester" class="font-semibold text-gray-800 text-sm">Semester 1</p>
+                                <p id="prevTahunAjaran" class="text-gray-500 text-xs">2024/2025</p>
+                            </div>
+                        </div>
+
+                        <!-- Deskripsi -->
+                        <div class="bg-gray-50 rounded-lg p-3 mb-4">
+                            <div class="flex items-center gap-2 mb-1">
+                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
+                                </svg>
+                                <span class="text-xs text-gray-500 font-medium">Deskripsi</span>
+                            </div>
+                            <p id="prevDeskripsi" class="text-gray-700 text-sm">Deskripsi kelas...</p>
+                        </div>
+
+                        <!-- Kapasitas -->
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                    </svg>
+                                    <span class="text-xs text-gray-500 font-medium">Kapasitas Kelas</span>
+                                </div>
+                                <span id="prevSisaSlot" class="text-xs font-semibold text-green-600">X slot tersisa</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div id="prevProgressBar" class="bg-green-500 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                            <p id="prevKapasitas" class="text-gray-600 text-xs mt-1 text-right">0/50 mahasiswa</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-6 pb-6">
+                <div class="flex gap-3">
+                    <button 
+                        onclick="closeJoinKelasModal()" 
+                        class="flex-1 px-4 py-3 border-2 border-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-colors"
+                    >
+                        Batal
+                    </button>
+                    <button 
+                        id="btnJoinKelas"
+                        onclick="joinKelas()"
+                        disabled
+                        class="flex-1 px-4 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold rounded-xl hover:shadow-lg transition-all opacity-50 cursor-not-allowed"
+                    >
+                        Join Kelas Ini
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notificationContainer" class="fixed top-4 right-4 z-[60] space-y-2"></div>
+
+    <style>
+        #joinKelasModal.show {
+            display: flex !important;
+        }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
 
 </body>
 </html>
