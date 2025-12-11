@@ -35,36 +35,38 @@
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen">
+<body class="bg-gradient-to-br from-pink-200 via-purple-200 to-pink-300 min-h-screen">
 
     <!-- Navbar -->
-    <nav class="bg-white/80 backdrop-blur-md shadow-lg border-b border-blue-100 sticky top-0 z-50">
+    <nav class="bg-white/95 backdrop-blur-lg border-b border-pink-200 sticky top-0 z-50 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-blue-950 via-blue-800 to-blue-600 rounded-lg flex items-center justify-center shadow-lg">
+                    <div class="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 7V6a2 2 0 012-2h14a2 2 0 012 2v1" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 7h18v11a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 10h.01M12 10h.01M16 10h.01" />
                         </svg>
                     </div>
                     <div>
-                        <h1 class="text-lg font-bold bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text text-transparent">KelasOnline</h1>
+                        <h1 class="text-lg font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">KelasOnline</h1>
                         <p class="text-xs text-gray-500">Manajemen Profil</p>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-4">
-                    <a href="dashboard-mahasiswa.php" class="text-gray-600 hover:text-blue-600 font-medium text-sm">← Kembali ke Dashboard</a>
-                    <button class="p-2 hover:bg-blue-50 rounded-lg transition-colors relative">
+                    <a href="dashboard-mahasiswa.php" class="text-gray-600 hover:text-pink-600 font-medium text-sm">← Kembali ke Dashboard</a>
+                    <button class="p-2 hover:bg-pink-50 rounded-xl transition-colors relative">
                         <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
                         </svg>
-                        <span class="absolute top-1 right-1 w-2 h-2 bg-red-600 rounded-full"></span>
+                        <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
                     </button>
                     <div class="relative">
-                        <button class="w-10 h-10 bg-gradient-to-br from-blue-800 to-blue-600 rounded-full flex items-center justify-center text-white font-semibold shadow-lg hover:shadow-xl transition-shadow">
+                        <a href="profil.php" class="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center text-white font-bold shadow-lg hover:shadow-xl transition-shadow">
                             M
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -76,17 +78,22 @@
         
         <!-- Header -->
         <div class="mb-8 animate-fade-in">
-            <h2 class="text-3xl font-bold bg-gradient-to-r from-blue-950 via-blue-800 to-blue-600 bg-clip-text text-transparent mb-2">
-                Profil Saya
-            </h2>
-            <p class="text-gray-600">Kelola informasi profil dan pengaturan akun Anda</p>
+            <div class="bg-gradient-to-r from-pink-400 via-pink-300 to-purple-400 rounded-3xl shadow-2xl overflow-hidden mb-4 p-8 flex items-center gap-6">
+                <div>
+                    <h2 class="text-3xl lg:text-4xl font-extrabold text-white mb-2 drop-shadow-lg">Profil Saya</h2>
+                    <p class="text-white/90 text-lg drop-shadow-md">Kelola informasi profil dan pengaturan akun Anda</p>
+                </div>
+                <div class="hidden lg:block flex-1 text-right">
+                    <img src="https://undraw.co/api/illustrations/undraw_profile_re_4a55.svg" alt="Profil Illustration" class="w-40 h-40 inline-block animate-float">
+                </div>
+            </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
             <!-- Left Column - Profile Card -->
             <div class="lg:col-span-1">
-                <div class="bg-white rounded-xl shadow-lg border-2 border-blue-100 p-6 animate-slide-in sticky top-24">
+                <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl border-2 border-pink-200 p-6 animate-slide-in sticky top-24">
                     <div class="text-center mb-6">
                         <div class="relative inline-block mb-4">
                             <img id="currentProfilePic" src="https://ui-avatars.com/api/?name=Ahmad+Zulfikar&size=200&background=1e40af&color=fff&bold=true" alt="Profile" class="w-32 h-32 rounded-full mx-auto border-4 border-blue-100 shadow-lg">
@@ -144,7 +151,7 @@
             <div class="lg:col-span-2 space-y-6">
                 
                 <!-- Form Edit Profil -->
-                <div class="bg-white rounded-xl shadow-lg border-2 border-blue-100 p-6 animate-fade-in">
+                <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl border-2 border-pink-200 p-6 animate-fade-in">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center">
                             <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -236,7 +243,7 @@
                 </div>
 
                 <!-- Form Ganti Password -->
-                <div class="bg-white rounded-xl shadow-lg border-2 border-purple-100 p-6 animate-fade-in" style="animation-delay: 0.1s;">
+                <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl border-2 border-purple-200 p-6 animate-fade-in" style="animation-delay: 0.1s;">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-10 h-10 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center">
                             <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">

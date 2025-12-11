@@ -15,28 +15,28 @@
         .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 via-white to-blue-50 min-h-screen">
+<body class="bg-gradient-to-br from-pink-200 via-purple-200 to-pink-300 min-h-screen">
 
     <!-- Navbar dengan Notification Bell -->
-    <nav class="bg-gradient-to-r from-blue-950 via-blue-800 to-blue-600 shadow-2xl sticky top-0 z-50">
+    <nav class="bg-white/95 backdrop-blur-lg border-b border-pink-200 sticky top-0 z-50 shadow-lg">
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <div class="bg-white p-2 rounded-lg shadow-lg">
-                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                         </svg>
                     </div>
                     <div>
-                        <h1 class="text-2xl font-bold text-white">KelasOnline</h1>
-                        <p class="text-blue-200 text-sm">Notifikasi</p>
+                        <h1 class="text-lg font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">KelasOnline</h1>
+                        <p class="text-xs text-gray-600">Notifikasi</p>
                     </div>
                 </div>
                 
                 <div class="flex items-center space-x-6">
                     <!-- Notification Bell -->
                     <div class="notification-container">
-                        <button id="notificationBell" class="relative text-white hover:text-blue-200 transition-colors">
+                        <button id="notificationBell" class="relative p-2 text-gray-600 hover:text-pink-600 hover:bg-pink-50 rounded-xl transition-colors">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
                             </svg>
@@ -46,11 +46,13 @@
                     </div>
                     
                     <!-- Profile -->
-                    <div class="flex items-center space-x-3">
-                        <img src="https://ui-avatars.com/api/?name=Cindy+Mahasiswa&background=3b82f6&color=fff&size=128" alt="Profile" class="w-10 h-10 rounded-full border-2 border-white shadow-lg">
+                    <div class="flex items-center gap-3 pl-3 border-l border-pink-200">
                         <div class="text-right">
-                            <p class="text-white font-semibold text-sm">Cindy</p>
-                            <p class="text-blue-200 text-xs">NPM: 2115101015</p>
+                            <p class="text-sm font-semibold text-gray-900">Cindy</p>
+                            <p class="text-xs text-gray-600">NPM: 2115101015</p>
+                        </div>
+                        <div class="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
+                            CM
                         </div>
                     </div>
                 </div>
@@ -63,13 +65,13 @@
         
         <!-- Header -->
         <div class="mb-8 animate-fade-in">
-            <h2 class="text-3xl font-bold text-gray-800 mb-2">Semua Notifikasi 🔔</h2>
-            <p class="text-gray-600">Pantau semua notifikasi dan pembaruan Anda</p>
+            <h2 class="text-3xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent mb-2">🔔 Semua Notifikasi</h2>
+            <p class="text-gray-700">Pantau semua notifikasi dan pembaruan kamu</p>
         </div>
 
         <!-- Filter Tabs -->
-        <div class="bg-white rounded-2xl shadow-xl p-6 mb-6">
-            <div class="flex items-center space-x-4 border-b-2 border-gray-100 pb-4">
+        <div class="bg-white/95 backdrop-blur-lg rounded-2xl shadow-xl p-6 mb-6 border-2 border-pink-200">
+            <div class="flex items-center space-x-4 border-b-2 border-pink-100 pb-4">
                 <button class="tab-button active" data-tab="all">
                     <span class="tab-text">Semua</span>
                     <span class="tab-badge">12</span>
@@ -93,9 +95,9 @@
                 <h3 class="text-sm font-bold text-gray-600 mb-3 uppercase tracking-wider">Hari Ini</h3>
                 
                 <!-- Notification Card 1 -->
-                <div class="bg-white rounded-2xl shadow-lg p-6 mb-4 border-l-4 border-blue-600 animate-fade-in hover:shadow-xl transition-all cursor-pointer">
+                <div class="bg-white rounded-2xl shadow-lg p-6 mb-4 border-l-4 border-pink-600 animate-fade-in hover:shadow-xl transition-all cursor-pointer">
                     <div class="flex items-start space-x-4">
-                        <div class="bg-gradient-to-br from-blue-600 to-blue-500 p-3 rounded-xl shadow-lg flex-shrink-0">
+                        <div class="bg-gradient-to-br from-pink-600 to-pink-500 p-3 rounded-xl shadow-lg flex-shrink-0">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
                             </svg>
@@ -103,12 +105,12 @@
                         <div class="flex-1">
                             <div class="flex items-start justify-between mb-2">
                                 <h4 class="text-lg font-bold text-gray-800">Tugas Baru: REST API</h4>
-                                <span class="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full font-semibold">BARU</span>
+                                <span class="bg-pink-100 text-pink-700 text-xs px-3 py-1 rounded-full font-semibold">BARU</span>
                             </div>
                             <p class="text-gray-600 mb-3">Tugas "REST API Development" telah ditambahkan di kelas Pemrograman Web. Deadline: 15 Desember 2025, 23:59</p>
                             <div class="flex items-center justify-between">
                                 <span class="text-sm text-gray-500">📚 Pemrograman Web • 2 menit yang lalu</span>
-                                <a href="#" class="text-blue-600 hover:text-blue-700 font-semibold text-sm">Lihat Detail →</a>
+                                <a href="#" class="text-pink-600 hover:text-pink-700 font-semibold text-sm">Lihat Detail →</a>
                             </div>
                         </div>
                     </div>

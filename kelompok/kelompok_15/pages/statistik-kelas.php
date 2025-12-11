@@ -42,35 +42,37 @@
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 via-white to-blue-50 min-h-screen">
+<body class="bg-gradient-to-br from-blue-100 via-blue-50 to-blue-100 min-h-screen">
 
     <!-- Navbar -->
-    <nav class="bg-gradient-to-r from-blue-950 via-blue-800 to-blue-600 shadow-2xl sticky top-0 z-50">
+    <nav class="bg-white/95 backdrop-blur-lg border-b border-blue-200 sticky top-0 z-50 shadow-lg">
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <div class="bg-white p-2 rounded-lg shadow-lg">
-                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                         </svg>
                     </div>
                     <div>
-                        <h1 class="text-2xl font-bold text-white">KelasOnline</h1>
-                        <p class="text-blue-200 text-sm">Statistik Kelas</p>
+                        <h1 class="text-lg font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">KelasOnline</h1>
+                        <p class="text-xs text-gray-600">Statistik Kelas</p>
                     </div>
                 </div>
                 
-                <div class="flex items-center space-x-6">
-                    <a href="dashboard-dosen.php" class="text-white hover:text-blue-200 transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                <div class="flex items-center gap-4">
+                    <a href="dashboard-dosen.php" class="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                         </svg>
                     </a>
-                    <div class="flex items-center space-x-3">
-                        <img src="https://ui-avatars.com/api/?name=Dr+Budi+Santoso&background=3b82f6&color=fff&size=128" alt="Profile" class="w-10 h-10 rounded-full border-2 border-white shadow-lg">
+                    <div class="flex items-center gap-3 pl-3 border-l border-blue-200">
                         <div class="text-right">
-                            <p class="text-white font-semibold text-sm">Dr. Budi Santoso, M.Kom</p>
-                            <p class="text-blue-200 text-xs">NIDN: 0012345678</p>
+                            <p class="text-sm font-semibold text-gray-900">Dr. Budi Santoso</p>
+                            <p class="text-xs text-gray-600">Dosen</p>
+                        </div>
+                        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
+                            BS
                         </div>
                     </div>
                 </div>
@@ -109,7 +111,7 @@
             </div>
 
             <!-- Kelas Info Card -->
-            <div class="bg-gradient-to-r from-blue-600 to-blue-500 rounded-2xl shadow-2xl p-6 text-white">
+            <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl shadow-xl p-6 text-white">
                 <div class="flex items-center justify-between">
                     <div>
                         <h3 class="text-2xl font-bold mb-2">Pemrograman Web</h3>

@@ -1,9 +1,260 @@
+<?php
+// Ambil ID kelas dari URL parameter
+$kelas_id = isset($_GET['id']) ? intval($_GET['id']) : 1;
+
+// Data kelas berdasarkan ID (sesuai dengan dashboard)
+$kelas_data = [
+    1 => [
+        'nama' => 'Pemrograman Web',
+        'kode' => 'KOM123',
+        'kode_kelas' => 'ABC123',
+        'dosen' => 'Prof. Dr. Budi Santoso',
+        'semester' => 'Semester 5',
+        'tahun' => '2024/2025',
+        'kelas' => 'TI2021A',
+        'deskripsi' => 'Mata kuliah ini membahas tentang pengembangan website modern menggunakan HTML5, CSS3, JavaScript, dan PHP Native. Mahasiswa akan belajar membuat website dinamis, responsif, dan interaktif.',
+        'mahasiswa' => 45,
+        'materi' => 24,
+        'tugas' => 12,
+        'jadwal' => 'Senin, 08:00 - 10:30 WIB',
+        'ruangan' => 'Lab Komputer 2 (Gedung H Lantai 3)',
+        'warna' => 'purple',
+        'warna_from' => 'purple-600',
+        'warna_to' => 'purple-400',
+        'initial' => 'BS',
+        'initial_bg' => 'purple-600'
+    ],
+    2 => [
+        'nama' => 'Basis Data',
+        'kode' => 'KOM201',
+        'kode_kelas' => 'DEF456',
+        'dosen' => 'Dr. Siti Nurhaliza',
+        'semester' => 'Semester 5',
+        'tahun' => '2024/2025',
+        'kelas' => 'TI2021A',
+        'deskripsi' => 'Mata kuliah ini membahas konsep database relasional, SQL, normalisasi, dan implementasi sistem basis data menggunakan MySQL. Mahasiswa akan belajar merancang dan mengelola database yang efisien.',
+        'mahasiswa' => 42,
+        'materi' => 20,
+        'tugas' => 10,
+        'jadwal' => 'Selasa, 10:00 - 12:30 WIB',
+        'ruangan' => 'Lab Database (Gedung H Lantai 2)',
+        'warna' => 'pink',
+        'warna_from' => 'pink-600',
+        'warna_to' => 'pink-400',
+        'initial' => 'SN',
+        'initial_bg' => 'pink-600'
+    ],
+    3 => [
+        'nama' => 'Struktur Data',
+        'kode' => 'KOM202',
+        'kode_kelas' => 'GHI789',
+        'dosen' => 'Dr. Ahmad Wijaya',
+        'semester' => 'Semester 5',
+        'tahun' => '2024/2025',
+        'kelas' => 'TI2021A',
+        'deskripsi' => 'Mata kuliah ini membahas struktur data fundamental seperti array, linked list, stack, queue, tree, dan graph. Mahasiswa akan mempelajari implementasi dan analisis kompleksitas algoritma.',
+        'mahasiswa' => 40,
+        'materi' => 22,
+        'tugas' => 11,
+        'jadwal' => 'Rabu, 13:00 - 15:30 WIB',
+        'ruangan' => 'Ruang Kelas 301 (Gedung F Lantai 3)',
+        'warna' => 'blue',
+        'warna_from' => 'blue-600',
+        'warna_to' => 'blue-400',
+        'initial' => 'AW',
+        'initial_bg' => 'blue-600'
+    ],
+    4 => [
+        'nama' => 'Jaringan Komputer',
+        'kode' => 'KOM301',
+        'kode_kelas' => 'JKL012',
+        'dosen' => 'Prof. Joko Susilo',
+        'semester' => 'Semester 5',
+        'tahun' => '2024/2025',
+        'kelas' => 'TI2021A',
+        'deskripsi' => 'Mata kuliah ini membahas konsep jaringan komputer, protokol TCP/IP, routing, switching, dan keamanan jaringan. Mahasiswa akan belajar konfigurasi dan troubleshooting jaringan.',
+        'mahasiswa' => 38,
+        'materi' => 18,
+        'tugas' => 9,
+        'jadwal' => 'Kamis, 08:00 - 10:30 WIB',
+        'ruangan' => 'Lab Jaringan (Gedung H Lantai 4)',
+        'warna' => 'green',
+        'warna_from' => 'green-600',
+        'warna_to' => 'green-400',
+        'initial' => 'JS',
+        'initial_bg' => 'green-600'
+    ],
+    5 => [
+        'nama' => 'Sistem Operasi',
+        'kode' => 'KOM302',
+        'kode_kelas' => 'MNO345',
+        'dosen' => 'Dr. Rina Kusuma',
+        'semester' => 'Semester 5',
+        'tahun' => '2024/2025',
+        'kelas' => 'TI2021A',
+        'deskripsi' => 'Mata kuliah ini membahas konsep sistem operasi, manajemen proses, memori, file system, dan virtualisasi. Mahasiswa akan mempelajari cara kerja sistem operasi Linux dan Windows.',
+        'mahasiswa' => 36,
+        'materi' => 19,
+        'tugas' => 8,
+        'jadwal' => 'Jumat, 10:00 - 12:30 WIB',
+        'ruangan' => 'Lab Sistem (Gedung H Lantai 3)',
+        'warna' => 'indigo',
+        'warna_from' => 'indigo-600',
+        'warna_to' => 'indigo-400',
+        'initial' => 'RK',
+        'initial_bg' => 'indigo-600'
+    ],
+    6 => [
+        'nama' => 'Matematika Diskrit',
+        'kode' => 'MTK201',
+        'kode_kelas' => 'PQR678',
+        'dosen' => 'Prof. Hadi Wijaya',
+        'semester' => 'Semester 4',
+        'tahun' => '2023/2024',
+        'kelas' => 'TI2021A',
+        'deskripsi' => 'Mata kuliah ini membahas logika matematika, teori himpunan, kombinatorik, graph theory, dan matematika diskrit lainnya yang penting untuk ilmu komputer.',
+        'mahasiswa' => 44,
+        'materi' => 16,
+        'tugas' => 7,
+        'jadwal' => 'Senin, 13:00 - 15:30 WIB',
+        'ruangan' => 'Ruang Kelas 201 (Gedung F Lantai 2)',
+        'warna' => 'orange',
+        'warna_from' => 'orange-600',
+        'warna_to' => 'orange-400',
+        'initial' => 'HW',
+        'initial_bg' => 'orange-600'
+    ],
+    7 => [
+        'nama' => 'Keamanan Informasi',
+        'kode' => 'KOM401',
+        'kode_kelas' => 'STU901',
+        'dosen' => 'Dr. Lisa Hartono',
+        'semester' => 'Semester 7',
+        'tahun' => '2023/2024',
+        'kelas' => 'TI2020A',
+        'deskripsi' => 'Mata kuliah ini membahas keamanan sistem informasi, kriptografi, ethical hacking, dan cyber security. Mahasiswa akan belajar mengidentifikasi dan mengatasi ancaman keamanan.',
+        'mahasiswa' => 32,
+        'materi' => 15,
+        'tugas' => 6,
+        'jadwal' => 'Selasa, 13:00 - 15:30 WIB',
+        'ruangan' => 'Lab Security (Gedung H Lantai 4)',
+        'warna' => 'teal',
+        'warna_from' => 'teal-600',
+        'warna_to' => 'teal-400',
+        'initial' => 'LH',
+        'initial_bg' => 'teal-600'
+    ],
+    8 => [
+        'nama' => 'Machine Learning',
+        'kode' => 'KOM501',
+        'kode_kelas' => 'VWX234',
+        'dosen' => 'Dr. Andi Prabowo',
+        'semester' => 'Semester 7',
+        'tahun' => '2023/2024',
+        'kelas' => 'TI2020A',
+        'deskripsi' => 'Mata kuliah ini membahas konsep machine learning, supervised learning, unsupervised learning, dan deep learning. Mahasiswa akan belajar implementasi model ML menggunakan Python.',
+        'mahasiswa' => 30,
+        'materi' => 17,
+        'tugas' => 8,
+        'jadwal' => 'Rabu, 10:00 - 12:30 WIB',
+        'ruangan' => 'Lab AI (Gedung H Lantai 5)',
+        'warna' => 'yellow',
+        'warna_from' => 'yellow-600',
+        'warna_to' => 'amber-400',
+        'initial' => 'AP',
+        'initial_bg' => 'amber-600'
+    ],
+    9 => [
+        'nama' => 'Cloud Computing',
+        'kode' => 'KOM502',
+        'kode_kelas' => 'YZA567',
+        'dosen' => 'Prof. Maya Sari',
+        'semester' => 'Semester 7',
+        'tahun' => '2023/2024',
+        'kelas' => 'TI2020A',
+        'deskripsi' => 'Mata kuliah ini membahas konsep cloud computing, layanan AWS, Azure, Google Cloud, dan deployment aplikasi di cloud. Mahasiswa akan belajar merancang arsitektur cloud.',
+        'mahasiswa' => 28,
+        'materi' => 14,
+        'tugas' => 7,
+        'jadwal' => 'Kamis, 13:00 - 15:30 WIB',
+        'ruangan' => 'Lab Cloud (Gedung H Lantai 5)',
+        'warna' => 'cyan',
+        'warna_from' => 'cyan-600',
+        'warna_to' => 'cyan-400',
+        'initial' => 'MS',
+        'initial_bg' => 'cyan-600'
+    ],
+    10 => [
+        'nama' => 'Mobile Programming',
+        'kode' => 'KOM402',
+        'kode_kelas' => 'BCD890',
+        'dosen' => 'Dr. Rudi Hartono',
+        'semester' => 'Semester 7',
+        'tahun' => '2023/2024',
+        'kelas' => 'TI2020A',
+        'deskripsi' => 'Mata kuliah ini membahas pengembangan aplikasi mobile untuk Android dan iOS menggunakan Flutter dan React Native. Mahasiswa akan belajar membuat aplikasi mobile yang responsif.',
+        'mahasiswa' => 35,
+        'materi' => 16,
+        'tugas' => 9,
+        'jadwal' => 'Jumat, 08:00 - 10:30 WIB',
+        'ruangan' => 'Lab Mobile (Gedung H Lantai 4)',
+        'warna' => 'lime',
+        'warna_from' => 'lime-600',
+        'warna_to' => 'lime-400',
+        'initial' => 'RH',
+        'initial_bg' => 'lime-700'
+    ],
+    11 => [
+        'nama' => 'Data Mining',
+        'kode' => 'KOM503',
+        'kode_kelas' => 'EFG123',
+        'dosen' => 'Prof. Nina Putri',
+        'semester' => 'Semester 7',
+        'tahun' => '2023/2024',
+        'kelas' => 'TI2020A',
+        'deskripsi' => 'Mata kuliah ini membahas teknik data mining, clustering, classification, dan pattern recognition. Mahasiswa akan belajar mengekstrak informasi dari big data.',
+        'mahasiswa' => 27,
+        'materi' => 13,
+        'tugas' => 6,
+        'jadwal' => 'Senin, 10:00 - 12:30 WIB',
+        'ruangan' => 'Lab Data (Gedung H Lantai 5)',
+        'warna' => 'rose',
+        'warna_from' => 'rose-600',
+        'warna_to' => 'rose-400',
+        'initial' => 'NP',
+        'initial_bg' => 'rose-600'
+    ],
+    12 => [
+        'nama' => 'Kecerdasan Buatan',
+        'kode' => 'KOM504',
+        'kode_kelas' => 'HIJ456',
+        'dosen' => 'Dr. Faisal Akbar',
+        'semester' => 'Semester 7',
+        'tahun' => '2023/2024',
+        'kelas' => 'TI2020A',
+        'deskripsi' => 'Mata kuliah ini membahas konsep kecerdasan buatan, search algorithms, game theory, dan expert systems. Mahasiswa akan belajar membangun sistem AI yang cerdas.',
+        'mahasiswa' => 29,
+        'materi' => 15,
+        'tugas' => 7,
+        'jadwal' => 'Selasa, 08:00 - 10:30 WIB',
+        'ruangan' => 'Lab AI (Gedung H Lantai 5)',
+        'warna' => 'violet',
+        'warna_from' => 'violet-600',
+        'warna_to' => 'violet-400',
+        'initial' => 'FA',
+        'initial_bg' => 'violet-600'
+    ]
+];
+
+// Ambil data kelas yang dipilih, default ke kelas 1 jika tidak ada
+$kelas = isset($kelas_data[$kelas_id]) ? $kelas_data[$kelas_id] : $kelas_data[1];
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Kelas - Pemrograman Web - KelasOnline</title>
+    <title>Detail Kelas - <?php echo $kelas['nama']; ?> - KelasOnline</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
@@ -27,8 +278,7 @@
         .animate-slide-in { animation: slideIn 0.6s ease-out; }
         .countdown-urgent { animation: pulse 1.5s ease-in-out infinite; }
         .tab-active { 
-            border-bottom: 3px solid #1e3a8a;
-            color: #1e3a8a;
+            border-bottom: 3px solid currentColor;
             font-weight: bold;
         }
         .accordion-content {
@@ -48,13 +298,13 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-blue-950 via-blue-800 to-blue-600 rounded-lg flex items-center justify-center shadow-lg">
+                    <div class="w-10 h-10 bg-gradient-to-br from-<?php echo $kelas['warna_from']; ?> to-<?php echo $kelas['warna_to']; ?> rounded-lg flex items-center justify-center shadow-lg">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                         </svg>
                     </div>
                     <div>
-                        <h1 class="text-lg font-bold bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text text-transparent">KelasOnline</h1>
+                        <h1 class="text-lg font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">KelasOnline</h1>
                         <p class="text-xs text-gray-500">Dashboard Mahasiswa</p>
                     </div>
                 </div>
@@ -81,42 +331,42 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
         <!-- Header Kelas -->
-        <div class="bg-gradient-to-r from-blue-600 to-blue-400 rounded-xl shadow-xl p-8 mb-8 text-white animate-fade-in">
+        <div class="bg-gradient-to-r from-<?php echo $kelas['warna_from']; ?> to-<?php echo $kelas['warna_to']; ?> rounded-xl shadow-xl p-8 mb-8 text-white animate-fade-in">
             <div class="flex items-start justify-between">
                 <div class="flex-1">
                     <div class="flex items-center gap-3 mb-3">
-                        <h2 class="text-3xl font-bold">Pemrograman Web</h2>
-                        <span class="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-sm font-bold rounded-full">TI2021A</span>
+                        <h2 class="text-3xl font-bold"><?php echo $kelas['nama']; ?></h2>
+                        <span class="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-sm font-bold rounded-full"><?php echo $kelas['kelas']; ?></span>
                     </div>
-                    <p class="text-blue-100 text-lg mb-4">TINFC2025 • Semester 5 • 2024/2025</p>
+                    <p class="text-white/90 text-lg mb-4"><?php echo $kelas['kode']; ?> • <?php echo $kelas['semester']; ?> • <?php echo $kelas['tahun']; ?></p>
                     
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-400 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
-                            BS
+                        <div class="w-10 h-10 bg-gradient-to-br from-<?php echo $kelas['initial_bg']; ?> to-<?php echo str_replace('600', '400', $kelas['initial_bg']); ?> rounded-full flex items-center justify-center text-white font-bold shadow-lg">
+                            <?php echo $kelas['initial']; ?>
                         </div>
                         <div>
-                            <p class="font-semibold text-lg">Prof. Dr. Budi Santoso</p>
-                            <p class="text-blue-100 text-sm">Dosen Pengampu</p>
+                            <p class="font-semibold text-lg"><?php echo $kelas['dosen']; ?></p>
+                            <p class="text-white/80 text-sm">Dosen Pengampu</p>
                         </div>
                     </div>
 
                     <p class="text-white/90 leading-relaxed max-w-3xl">
-                        Mata kuliah ini membahas tentang pengembangan website modern menggunakan HTML5, CSS3, JavaScript, dan PHP Native. Mahasiswa akan belajar membuat website dinamis, responsif, dan interaktif.
+                        <?php echo $kelas['deskripsi']; ?>
                     </p>
                 </div>
 
                 <div class="flex flex-col gap-3">
                     <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center min-w-[120px]">
-                        <p class="text-3xl font-bold">45</p>
-                        <p class="text-blue-100 text-sm">Mahasiswa</p>
+                        <p class="text-3xl font-bold"><?php echo $kelas['mahasiswa']; ?></p>
+                        <p class="text-white/80 text-sm">Mahasiswa</p>
                     </div>
                     <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-                        <p class="text-3xl font-bold">24</p>
-                        <p class="text-blue-100 text-sm">Materi</p>
+                        <p class="text-3xl font-bold"><?php echo $kelas['materi']; ?></p>
+                        <p class="text-white/80 text-sm">Materi</p>
                     </div>
                     <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-                        <p class="text-3xl font-bold">12</p>
-                        <p class="text-blue-100 text-sm">Tugas</p>
+                        <p class="text-3xl font-bold"><?php echo $kelas['tugas']; ?></p>
+                        <p class="text-white/80 text-sm">Tugas</p>
                     </div>
                 </div>
             </div>
@@ -167,15 +417,15 @@
                 <div class="space-y-4">
                     <div class="bg-gray-50 rounded-lg p-4">
                         <p class="text-sm font-semibold text-gray-600 mb-1">Kode Kelas</p>
-                        <p class="text-lg font-bold text-blue-600">ABC123</p>
+                        <p class="text-lg font-bold text-<?php echo $kelas['warna']; ?>-600"><?php echo $kelas['kode_kelas']; ?></p>
                     </div>
                     <div class="bg-gray-50 rounded-lg p-4">
                         <p class="text-sm font-semibold text-gray-600 mb-1">Jadwal</p>
-                        <p class="text-lg text-gray-800">Senin, 08:00 - 10:30 WIB</p>
+                        <p class="text-lg text-gray-800"><?php echo $kelas['jadwal']; ?></p>
                     </div>
                     <div class="bg-gray-50 rounded-lg p-4">
                         <p class="text-sm font-semibold text-gray-600 mb-1">Ruangan</p>
-                        <p class="text-lg text-gray-800">Lab Komputer 2 (Gedung H Lantai 3)</p>
+                        <p class="text-lg text-gray-800"><?php echo $kelas['ruangan']; ?></p>
                     </div>
                 </div>
             </div>
@@ -197,13 +447,13 @@
                 </div>
 
                 <!-- Progress Bar -->
-                <div class="bg-blue-50 rounded-lg p-4 mb-6 border border-blue-200">
+                <div class="bg-<?php echo $kelas['warna']; ?>-50 rounded-lg p-4 mb-6 border border-<?php echo $kelas['warna']; ?>-200">
                     <div class="flex items-center justify-between mb-2">
-                        <p class="text-sm font-semibold text-blue-900">Progress Materi</p>
-                        <p class="text-sm font-bold text-blue-600">18 / 24 Materi (75%)</p>
+                        <p class="text-sm font-semibold text-<?php echo $kelas['warna']; ?>-900">Progress Materi</p>
+                        <p class="text-sm font-bold text-<?php echo $kelas['warna']; ?>-600">18 / <?php echo $kelas['materi']; ?> Materi (75%)</p>
                     </div>
-                    <div class="w-full bg-blue-200 rounded-full h-3 overflow-hidden shadow-inner">
-                        <div class="bg-gradient-to-r from-blue-600 to-blue-400 h-3 rounded-full shadow-sm" style="width: 75%"></div>
+                    <div class="w-full bg-<?php echo $kelas['warna']; ?>-200 rounded-full h-3 overflow-hidden shadow-inner">
+                        <div class="bg-gradient-to-r from-<?php echo $kelas['warna_from']; ?> to-<?php echo $kelas['warna_to']; ?> h-3 rounded-full shadow-sm" style="width: 75%"></div>
                     </div>
                 </div>
 
@@ -212,18 +462,18 @@
                     
                     <!-- Pertemuan 1 -->
                     <div class="border border-gray-200 rounded-lg overflow-hidden">
-                        <button onclick="toggleAccordion('pertemuan1')" class="w-full bg-gradient-to-r from-blue-50 to-white hover:from-blue-100 hover:to-blue-50 px-6 py-4 flex items-center justify-between transition-colors">
+                        <button onclick="toggleAccordion('pertemuan1')" class="w-full bg-gradient-to-r from-<?php echo $kelas['warna']; ?>-50 to-white hover:from-<?php echo $kelas['warna']; ?>-100 hover:to-<?php echo $kelas['warna']; ?>-50 px-6 py-4 flex items-center justify-between transition-colors">
                             <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-400 rounded-lg flex items-center justify-center text-white font-bold shadow-md">
+                                <div class="w-10 h-10 bg-gradient-to-br from-<?php echo $kelas['warna_from']; ?> to-<?php echo $kelas['warna_to']; ?> rounded-lg flex items-center justify-center text-white font-bold shadow-md">
                                     1
                                 </div>
                                 <div class="text-left">
                                     <h4 class="text-lg font-bold text-gray-800">Pertemuan 1</h4>
-                                    <p class="text-sm text-gray-600">Pengenalan Web Development & HTML Dasar</p>
+                                    <p class="text-sm text-gray-600">Pengenalan <?php echo $kelas['nama']; ?></p>
                                 </div>
                             </div>
                             <div class="flex items-center gap-4">
-                                <span class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-full">3 Materi</span>
+                                <span class="px-3 py-1 bg-<?php echo $kelas['warna']; ?>-100 text-<?php echo $kelas['warna']; ?>-700 text-xs font-bold rounded-full">3 Materi</span>
                                 <svg class="w-5 h-5 text-gray-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Kelas - Search & Filter Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- CSS -->
     <link rel="stylesheet" href="../assets/css/style.css">
@@ -13,88 +14,196 @@
     <!-- JavaScript -->
     <script src="../assets/js/ui-interactions.js" defer></script>
     <script src="../assets/js/search-filter.js" defer></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fadeIn 0.5s ease-out; }
+        
+        /* Modern Card Style */
+        .kelas-card {
+            @apply bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] overflow-hidden border-2 border-white/50 animate-fade-in;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            max-width: 350px;
+        }
+        
+        /* Card Icon Header with 3D effect */
+        .card-icon-wrapper {
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            position: relative;
+            perspective: 1000px;
+        }
+        
+        .card-3d-icon {
+            width: 140px;
+            height: 160px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            transform: rotate(-8deg);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .card-3d-bg1, .card-3d-bg2 {
+            position: absolute;
+            border-radius: 16px;
+        }
+        
+        .card-3d-bg1 {
+            width: 130px;
+            height: 150px;
+            opacity: 0.3;
+            transform: rotate(5deg);
+            z-index: 0;
+            top: 50%;
+            left: 50%;
+            margin-left: -65px;
+            margin-top: -75px;
+        }
+        
+        .card-3d-bg2 {
+            width: 120px;
+            height: 140px;
+            opacity: 0.2;
+            transform: rotate(-15deg);
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            margin-left: -60px;
+            margin-top: -70px;
+        }
+        
+        .kelas-card-body {
+            @apply px-6 pb-4;
+            flex: 1;
+        }
+        
+        .kelas-title {
+            @apply text-xl font-bold mb-2;
+            color: #1f2937;
+        }
+        
+        .kelas-code {
+            @apply text-sm font-semibold mb-4;
+        }
+        
+        .status-row {
+            @apply flex items-center justify-between mb-4;
+        }
+        
+        .status-badge {
+            @apply flex items-center gap-2 text-sm font-bold;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        
+        .kelas-card-footer {
+            @apply px-6 pb-6;
+        }
+        
+        .btn-card {
+            @apply w-full text-center text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all;
+            font-size: 15px;
+        }
+        
+        .kelas-meta, .kelas-stats {
+            display: none;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-gradient-to-br from-pink-200 via-purple-200 to-pink-300 min-h-screen">
     <!-- Navbar -->
-    <nav class="navbar">
-        <div class="navbar-container">
-            <div class="navbar-brand">
-                <svg class="navbar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-                </svg>
-                <span class="navbar-title">KelasOnline</span>
-            </div>
-            
-            <div class="navbar-menu">
-                <a href="dashboard-mahasiswa.php" class="navbar-link">
-                    <svg class="navbar-link-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-                    </svg>
-                    Dashboard
-                </a>
+    <nav class="bg-white/95 backdrop-blur-lg border-b border-pink-200 sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">KelasOnline</h1>
+                        <p class="text-xs text-gray-600">Daftar Kelas</p>
+                    </div>
+                </div>
                 
-                <a href="search-filter-demo.php" class="navbar-link active">
-                    <svg class="navbar-link-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-                    </svg>
-                    Kelas Saya
-                </a>
-                
-                <a href="profil.php" class="navbar-link">
-                    <svg class="navbar-link-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                    </svg>
-                    Profil
-                </a>
+                <div class="flex items-center gap-4">
+                    <a href="dashboard-mahasiswa.php" class="p-2 text-gray-600 hover:text-pink-600 hover:bg-pink-50 rounded-xl transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                        </svg>
+                    </a>
+                    <div class="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
+                        CM
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="animate-fade-in">
             <!-- Page Header -->
-            <div class="page-header">
-                <div class="page-title-section">
-                    <h1 class="page-title">Daftar Kelas</h1>
-                    <p class="page-subtitle">Kelola dan akses semua kelas yang Anda ikuti</p>
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h1 class="text-3xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent mb-2">🔍 Daftar Kelas</h1>
+                    <p class="text-gray-700">Kelola dan akses semua kelas yang kamu ikuti</p>
                 </div>
                 
-                <button class="btn-primary" onclick="showJoinKelasModal()">
-                    <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                <button onclick="showJoinKelasModal()" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                     </svg>
                     Join Kelas
                 </button>
             </div>
 
             <!-- Search & Filter Section -->
-            <div class="search-filter-section" data-search-filter>
+            <div class="bg-white/95 backdrop-blur-lg rounded-2xl shadow-xl p-6 mb-6 border-2 border-pink-200" data-search-filter>
                 <!-- Search Bar -->
-                <div class="search-bar-container">
-                    <div class="search-bar">
-                        <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="mb-6">
+                    <div class="relative">
+                        <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                         </svg>
                         <input 
                             type="text" 
                             id="searchInput" 
-                            placeholder="Cari kelas (nama, kode, deskripsi)..."
+                            placeholder="🔍 Cari kelas (nama, kode, deskripsi)..."
                             autocomplete="off"
+                            class="w-full pl-12 pr-12 py-3 border-2 border-pink-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-white text-gray-900 placeholder-gray-400"
                         >
-                        <div class="search-loading"></div>
-                        <button class="search-clear-btn" onclick="document.getElementById('searchInput').value = ''; searchFilterSystem.handleSearch()">
+                        <button onclick="document.getElementById('searchInput').value = ''; searchFilterSystem.handleSearch()" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-pink-600 transition-colors">
                             ✕
                         </button>
                     </div>
                 </div>
 
                 <!-- Filter Controls -->
-                <div class="filter-controls">
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
                     <!-- Semester Filter -->
-                    <div class="filter-group">
-                        <label class="filter-label" for="filterSemester">Semester</label>
-                        <select id="filterSemester" class="filter-select">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2" for="filterSemester">📚 Semester</label>
+                        <select id="filterSemester" class="w-full px-4 py-2 border-2 border-pink-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-white text-gray-900">
                             <option value="all">Semua Semester</option>
                             <option value="1">Semester 1</option>
                             <option value="2">Semester 2</option>
@@ -108,9 +217,9 @@
                     </div>
 
                     <!-- Tahun Filter -->
-                    <div class="filter-group">
-                        <label class="filter-label" for="filterTahun">Tahun Ajaran</label>
-                        <select id="filterTahun" class="filter-select">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2" for="filterTahun">📅 Tahun Ajaran</label>
+                        <select id="filterTahun" class="w-full px-4 py-2 border-2 border-pink-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-white text-gray-900">
                             <option value="all">Semua Tahun</option>
                             <option value="2024/2025">2024/2025</option>
                             <option value="2023/2024">2023/2024</option>
@@ -119,9 +228,9 @@
                     </div>
 
                     <!-- Status Filter -->
-                    <div class="filter-group">
-                        <label class="filter-label" for="filterStatus">Status</label>
-                        <select id="filterStatus" class="filter-select">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2" for="filterStatus">✨ Status</label>
+                        <select id="filterStatus" class="w-full px-4 py-2 border-2 border-pink-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-white text-gray-900">
                             <option value="all">Semua Status</option>
                             <option value="aktif">Aktif</option>
                             <option value="selesai">Selesai</option>
@@ -130,9 +239,9 @@
                     </div>
 
                     <!-- Sort Options -->
-                    <div class="filter-group">
-                        <label class="filter-label" for="sortSelect">Urutkan</label>
-                        <select id="sortSelect" class="filter-select">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2" for="sortSelect">🔄 Urutkan</label>
+                        <select id="sortSelect" class="w-full px-4 py-2 border-2 border-pink-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-white text-gray-900">
                             <option value="nama-asc">Nama (A-Z)</option>
                             <option value="nama-desc">Nama (Z-A)</option>
                             <option value="tanggal-desc">Terbaru</option>
@@ -143,27 +252,26 @@
                     </div>
 
                     <!-- Clear Filters Button -->
-                    <div class="filter-group" style="margin-top: auto;">
-                        <label class="filter-label" style="opacity: 0;">Clear</label>
-                        <button id="clearFiltersBtn" class="clear-filters-btn" disabled>
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="flex items-end">
+                        <button id="clearFiltersBtn" class="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold px-4 py-2 rounded-xl shadow-lg hover:shadow-xl transition-all" disabled>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
-                            Reset Filter
+                            Reset
                         </button>
                     </div>
                 </div>
             </div>
 
             <!-- Result Status -->
-            <div class="result-status">
-                <div id="resultCount" class="result-count">
-                    Menampilkan <strong>12</strong> item
+            <div class="mb-6">
+                <div id="resultCount" class="text-gray-700 font-semibold">
+                    Menampilkan <span class="text-pink-600">12</span> kelas
                 </div>
             </div>
 
             <!-- Kelas Grid -->
-            <div id="kelasGrid" class="grid grid-cols-3" style="transition: opacity 0.3s ease, transform 0.3s ease;">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" data-kelas-container>
                 <!-- Kelas 1 -->
                 <div class="kelas-card" 
                      data-item
@@ -174,49 +282,27 @@
                      data-status="aktif"
                      data-tanggal="2024-09-01"
                      data-deskripsi="Belajar HTML CSS JavaScript PHP">
-                    <div class="kelas-card-header" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);">
-                        <div class="kelas-info">
-                            <h3 class="kelas-title">Pemrograman Web</h3>
-                            <p class="kelas-code">IF301</p>
+                    <div class="card-icon-wrapper" style="background: linear-gradient(135deg, #e9d5ff 0%, #f3e8ff 100%);">
+                        <div class="card-3d-bg1" style="background: linear-gradient(135deg, #a855f7 0%, #c084fc 100%);"></div>
+                        <div class="card-3d-bg2" style="background: linear-gradient(135deg, #a855f7 0%, #c084fc 100%);"></div>
+                        <div class="card-3d-icon" style="background: linear-gradient(135deg, #7e22ce 0%, #9333ea 100%);">
+                            WEB
                         </div>
-                        <span class="badge badge-success">Aktif</span>
                     </div>
                     <div class="kelas-card-body">
-                        <div class="kelas-meta">
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                                </svg>
-                                <span>Dr. Ahmad Sutanto, M.Kom</span>
+                        <h3 class="kelas-title">Pemrograman Web</h3>
+                        <p class="kelas-code" style="color: #a855f7;">KOM123 • Prof. Budi Santoso</p>
+                        <div class="status-row">
+                            <div class="status-badge" style="color: #16a34a;">
+                                <span class="status-dot" style="background: #16a34a;"></span>
+                                AKTIF
                             </div>
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                </svg>
-                                <span>Semester 5 • 2024/2025</span>
-                            </div>
-                        </div>
-                        <div class="kelas-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">24</div>
-                                <div class="stat-label">Materi</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">12</div>
-                                <div class="stat-label">Tugas</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">85%</div>
-                                <div class="stat-label">Progress</div>
-                            </div>
+                            <span style="color: #7e22ce; font-weight: bold;">2 Tugas</span>
                         </div>
                     </div>
                     <div class="kelas-card-footer">
-                        <a href="detail-kelas-mahasiswa.php?id=1" class="btn-card">
+                        <a href="detail-kelas-mahasiswa.php?id=1" class="btn-card" style="background: linear-gradient(135deg, #7e22ce 0%, #9333ea 100%);">
                             Lihat Detail
-                            <svg class="btn-icon-right" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
                         </a>
                     </div>
                 </div>
@@ -224,56 +310,34 @@
                 <!-- Kelas 2 -->
                 <div class="kelas-card" 
                      data-item
-                     data-nama="Struktur Data"
-                     data-kode="IF202"
+                     data-nama="Basis Data"
+                     data-kode="KOM201"
                      data-semester="3"
                      data-tahun="2024/2025"
                      data-status="aktif"
                      data-tanggal="2024-09-01"
-                     data-deskripsi="Array Linked List Stack Queue Tree Graph">
-                    <div class="kelas-card-header" style="background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);">
-                        <div class="kelas-info">
-                            <h3 class="kelas-title">Struktur Data</h3>
-                            <p class="kelas-code">IF202</p>
+                     data-deskripsi="SQL NoSQL Database Design">
+                    <div class="card-icon-wrapper" style="background: linear-gradient(135deg, #fce7f3 0%, #fce7f3 100%);">
+                        <div class="card-3d-bg1" style="background: linear-gradient(135deg, #f472b6 0%, #f9a8d4 100%);"></div>
+                        <div class="card-3d-bg2" style="background: linear-gradient(135deg, #f472b6 0%, #f9a8d4 100%);"></div>
+                        <div class="card-3d-icon" style="background: linear-gradient(135deg, #db2777 0%, #ec4899 100%);">
+                            DB
                         </div>
-                        <span class="badge badge-success">Aktif</span>
                     </div>
                     <div class="kelas-card-body">
-                        <div class="kelas-meta">
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                                </svg>
-                                <span>Prof. Siti Rahma, Ph.D</span>
+                        <h3 class="kelas-title">Basis Data</h3>
+                        <p class="kelas-code" style="color: #db2777;">KOM201 • Dr. Siti Nurhaliza</p>
+                        <div class="status-row">
+                            <div class="status-badge" style="color: #16a34a;">
+                                <span class="status-dot" style="background: #16a34a;"></span>
+                                AKTIF
                             </div>
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                </svg>
-                                <span>Semester 3 • 2024/2025</span>
-                            </div>
-                        </div>
-                        <div class="kelas-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">20</div>
-                                <div class="stat-label">Materi</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">10</div>
-                                <div class="stat-label">Tugas</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">78%</div>
-                                <div class="stat-label">Progress</div>
-                            </div>
+                            <span style="color: #db2777; font-weight: bold;">0 Tugas</span>
                         </div>
                     </div>
                     <div class="kelas-card-footer">
-                        <a href="detail-kelas-mahasiswa.php?id=2" class="btn-card">
+                        <a href="detail-kelas-mahasiswa.php?id=2" class="btn-card" style="background: linear-gradient(135deg, #db2777 0%, #ec4899 100%);">
                             Lihat Detail
-                            <svg class="btn-icon-right" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
                         </a>
                     </div>
                 </div>
@@ -281,56 +345,34 @@
                 <!-- Kelas 3 -->
                 <div class="kelas-card" 
                      data-item
-                     data-nama="Basis Data"
+                     data-nama="Struktur Data"
                      data-kode="IF303"
                      data-semester="5"
                      data-tahun="2024/2025"
                      data-status="aktif"
                      data-tanggal="2024-09-01"
                      data-deskripsi="MySQL SQL Query Normalisasi ERD">
-                    <div class="kelas-card-header" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
-                        <div class="kelas-info">
-                            <h3 class="kelas-title">Basis Data</h3>
-                            <p class="kelas-code">IF303</p>
+                    <div class="card-icon-wrapper" style="background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%);">
+                        <div class="card-3d-bg1" style="background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%);"></div>
+                        <div class="card-3d-bg2" style="background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%);"></div>
+                        <div class="card-3d-icon" style="background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);">
+                            DATA
                         </div>
-                        <span class="badge badge-success">Aktif</span>
                     </div>
                     <div class="kelas-card-body">
-                        <div class="kelas-meta">
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                                </svg>
-                                <span>Dr. Budi Santoso, M.T</span>
+                        <h3 class="kelas-title">Struktur Data</h3>
+                        <p class="kelas-code" style="color: #2563eb;">KOM202 • Dr. Ahmad Wijaya</p>
+                        <div class="status-row">
+                            <div class="status-badge" style="color: #16a34a;">
+                                <span class="status-dot" style="background: #16a34a;"></span>
+                                AKTIF
                             </div>
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                </svg>
-                                <span>Semester 5 • 2024/2025</span>
-                            </div>
-                        </div>
-                        <div class="kelas-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">26</div>
-                                <div class="stat-label">Materi</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">15</div>
-                                <div class="stat-label">Tugas</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">68%</div>
-                                <div class="stat-label">Progress</div>
-                            </div>
+                            <span style="color: #2563eb; font-weight: bold;">1 Tugas</span>
                         </div>
                     </div>
                     <div class="kelas-card-footer">
-                        <a href="detail-kelas-mahasiswa.php?id=3" class="btn-card">
+                        <a href="detail-kelas-mahasiswa.php?id=3" class="btn-card" style="background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);">
                             Lihat Detail
-                            <svg class="btn-icon-right" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
                         </a>
                     </div>
                 </div>
@@ -338,118 +380,39 @@
                 <!-- Kelas 4 -->
                 <div class="kelas-card" 
                      data-item
-                     data-nama="Algoritma Pemrograman"
+                     data-nama="Jaringan Komputer"
                      data-kode="IF101"
                      data-semester="1"
                      data-tahun="2023/2024"
-                     data-status="selesai"
+                     data-status="aktif"
                      data-tanggal="2023-09-01"
                      data-deskripsi="Flowchart Pseudocode Sorting Searching">
-                    <div class="kelas-card-header" style="background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);">
-                        <div class="kelas-info">
-                            <h3 class="kelas-title">Algoritma Pemrograman</h3>
-                            <p class="kelas-code">IF101</p>
+                    <div class="card-icon-wrapper" style="background: linear-gradient(135deg, #d1fae5 0%, #ecfdf5 100%);">
+                        <div class="card-3d-bg1" style="background: linear-gradient(135deg, #34d399 0%, #6ee7b7 100%);"></div>
+                        <div class="card-3d-bg2" style="background: linear-gradient(135deg, #34d399 0%, #6ee7b7 100%);"></div>
+                        <div class="card-3d-icon" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
+                            NET
                         </div>
-                        <span class="badge badge-secondary">Selesai</span>
                     </div>
                     <div class="kelas-card-body">
-                        <div class="kelas-meta">
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                                </svg>
-                                <span>Ir. Dewi Lestari, M.Kom</span>
+                        <h3 class="kelas-title">Jaringan Komputer</h3>
+                        <p class="kelas-code" style="color: #059669;">KOM301 • Prof. Joko Susilo</p>
+                        <div class="status-row">
+                            <div class="status-badge" style="color: #16a34a;">
+                                <span class="status-dot" style="background: #16a34a;"></span>
+                                AKTIF
                             </div>
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                </svg>
-                                <span>Semester 1 • 2023/2024</span>
-                            </div>
-                        </div>
-                        <div class="kelas-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">18</div>
-                                <div class="stat-label">Materi</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">8</div>
-                                <div class="stat-label">Tugas</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">100%</div>
-                                <div class="stat-label">Progress</div>
-                            </div>
+                            <span style="color: #059669; font-weight: bold;">0 Tugas</span>
                         </div>
                     </div>
                     <div class="kelas-card-footer">
-                        <a href="detail-kelas-mahasiswa.php?id=4" class="btn-card">
+                        <a href="detail-kelas-mahasiswa.php?id=4" class="btn-card" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
                             Lihat Detail
-                            <svg class="btn-icon-right" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
                         </a>
                     </div>
                 </div>
 
                 <!-- Kelas 5 -->
-                <div class="kelas-card" 
-                     data-item
-                     data-nama="Jaringan Komputer"
-                     data-kode="IF404"
-                     data-semester="7"
-                     data-tahun="2024/2025"
-                     data-status="aktif"
-                     data-tanggal="2024-09-01"
-                     data-deskripsi="TCP IP OSI Routing Switching">
-                    <div class="kelas-card-header" style="background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);">
-                        <div class="kelas-info">
-                            <h3 class="kelas-title">Jaringan Komputer</h3>
-                            <p class="kelas-code">IF404</p>
-                        </div>
-                        <span class="badge badge-success">Aktif</span>
-                    </div>
-                    <div class="kelas-card-body">
-                        <div class="kelas-meta">
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                                </svg>
-                                <span>Dr. Hendra Wijaya, M.Sc</span>
-                            </div>
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                </svg>
-                                <span>Semester 7 • 2024/2025</span>
-                            </div>
-                        </div>
-                        <div class="kelas-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">22</div>
-                                <div class="stat-label">Materi</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">11</div>
-                                <div class="stat-label">Tugas</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">62%</div>
-                                <div class="stat-label">Progress</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="kelas-card-footer">
-                        <a href="detail-kelas-mahasiswa.php?id=5" class="btn-card">
-                            Lihat Detail
-                            <svg class="btn-icon-right" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Kelas 6 -->
                 <div class="kelas-card" 
                      data-item
                      data-nama="Sistem Operasi"
@@ -458,50 +421,63 @@
                      data-tahun="2024/2025"
                      data-status="aktif"
                      data-tanggal="2024-09-01"
-                     data-deskripsi="Linux Windows Process Thread Scheduling">
-                    <div class="kelas-card-header" style="background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);">
-                        <div class="kelas-info">
-                            <h3 class="kelas-title">Sistem Operasi</h3>
-                            <p class="kelas-code">IF302</p>
+                     data-deskripsi="Linux Windows Process Thread">
+                    <div class="card-icon-wrapper" style="background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%);">
+                        <div class="card-3d-bg1" style="background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%);"></div>
+                        <div class="card-3d-bg2" style="background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%);"></div>
+                        <div class="card-3d-icon" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);">
+                            OS
                         </div>
-                        <span class="badge badge-success">Aktif</span>
                     </div>
                     <div class="kelas-card-body">
-                        <div class="kelas-meta">
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                                </svg>
-                                <span>Dr. Irfan Maulana, M.T</span>
+                        <h3 class="kelas-title">Sistem Operasi</h3>
+                        <p class="kelas-code" style="color: #1e40af;">KOM302 • Dr. Rina Kusuma</p>
+                        <div class="status-row">
+                            <div class="status-badge" style="color: #16a34a;">
+                                <span class="status-dot" style="background: #16a34a;"></span>
+                                AKTIF
                             </div>
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                </svg>
-                                <span>Semester 5 • 2024/2025</span>
-                            </div>
-                        </div>
-                        <div class="kelas-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">28</div>
-                                <div class="stat-label">Materi</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">14</div>
-                                <div class="stat-label">Tugas</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">71%</div>
-                                <div class="stat-label">Progress</div>
-                            </div>
+                            <span style="color: #1e40af; font-weight: bold;">0 Tugas</span>
                         </div>
                     </div>
                     <div class="kelas-card-footer">
-                        <a href="detail-kelas-mahasiswa.php?id=6" class="btn-card">
+                        <a href="detail-kelas-mahasiswa.php?id=5" class="btn-card" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);">
                             Lihat Detail
-                            <svg class="btn-icon-right" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Kelas 6 -->
+                <div class="kelas-card" 
+                     data-item
+                     data-nama="Matematika Diskrit"
+                     data-kode="MTK201"
+                     data-semester="3"
+                     data-tahun="2023/2024"
+                     data-status="selesai"
+                     data-tanggal="2024-01-15"
+                     data-deskripsi="Logic Set Graph Theory">
+                    <div class="card-icon-wrapper" style="background: linear-gradient(135deg, #fed7aa 0%, #ffedd5 100%);">
+                        <div class="card-3d-bg1" style="background: linear-gradient(135deg, #fb923c 0%, #fdba74 100%);"></div>
+                        <div class="card-3d-bg2" style="background: linear-gradient(135deg, #fb923c 0%, #fdba74 100%);"></div>
+                        <div class="card-3d-icon" style="background: linear-gradient(135deg, #c2410c 0%, #ea580c 100%);">
+                            MATH
+                        </div>
+                    </div>
+                    <div class="kelas-card-body">
+                        <h3 class="kelas-title">Matematika Diskrit</h3>
+                        <p class="kelas-code" style="color: #c2410c;">MTK201 • Prof. Hadi Wijaya</p>
+                        <div class="status-row">
+                            <div class="status-badge" style="color: #ea580c;">
+                                <span class="status-dot" style="background: #ea580c;"></span>
+                                SELESAI
+                            </div>
+                            <span style="color: #c2410c; font-weight: bold;">0 Tugas</span>
+                        </div>
+                    </div>
+                    <div class="kelas-card-footer">
+                        <a href="detail-kelas-mahasiswa.php?id=6" class="btn-card" style="background: linear-gradient(135deg, #c2410c 0%, #ea580c 100%);">
+                            Lihat Detail
                         </a>
                     </div>
                 </div>
@@ -509,56 +485,34 @@
                 <!-- Kelas 7 -->
                 <div class="kelas-card" 
                      data-item
-                     data-nama="Pemrograman Mobile"
+                     data-nama="Keamanan Informasi"
                      data-kode="IF405"
                      data-semester="7"
                      data-tahun="2024/2025"
-                     data-status="pending"
+                     data-status="selesai"
                      data-tanggal="2024-12-01"
-                     data-deskripsi="Android React Native Flutter Kotlin">
-                    <div class="kelas-card-header" style="background: linear-gradient(135deg, #c026d3 0%, #d946ef 100%);">
-                        <div class="kelas-info">
-                            <h3 class="kelas-title">Pemrograman Mobile</h3>
-                            <p class="kelas-code">IF405</p>
+                     data-deskripsi="Android React Native Flutter">
+                    <div class="card-icon-wrapper" style="background: linear-gradient(135deg, #ccfbf1 0%, #f0fdfa 100%);">
+                        <div class="card-3d-bg1" style="background: linear-gradient(135deg, #5eead4 0%, #99f6e4 100%);"></div>
+                        <div class="card-3d-bg2" style="background: linear-gradient(135deg, #5eead4 0%, #99f6e4 100%);"></div>
+                        <div class="card-3d-icon" style="background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);">
+                            SEC
                         </div>
-                        <span class="badge badge-warning">Pending</span>
                     </div>
                     <div class="kelas-card-body">
-                        <div class="kelas-meta">
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                                </svg>
-                                <span>Dr. Joko Prasetyo, M.Kom</span>
+                        <h3 class="kelas-title">Keamanan Informasi</h3>
+                        <p class="kelas-code" style="color: #0f766e;">KOM401 • Dr. Lisa Hartono</p>
+                        <div class="status-row">
+                            <div class="status-badge" style="color: #ea580c;">
+                                <span class="status-dot" style="background: #ea580c;"></span>
+                                SELESAI
                             </div>
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                </svg>
-                                <span>Semester 7 • 2024/2025</span>
-                            </div>
-                        </div>
-                        <div class="kelas-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Materi</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Tugas</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0%</div>
-                                <div class="stat-label">Progress</div>
-                            </div>
+                            <span style="color: #0f766e; font-weight: bold;">0 Tugas</span>
                         </div>
                     </div>
                     <div class="kelas-card-footer">
-                        <a href="detail-kelas-mahasiswa.php?id=7" class="btn-card">
+                        <a href="detail-kelas-mahasiswa.php?id=7" class="btn-card" style="background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);">
                             Lihat Detail
-                            <svg class="btn-icon-right" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
                         </a>
                     </div>
                 </div>
@@ -570,52 +524,30 @@
                      data-kode="IF406"
                      data-semester="8"
                      data-tahun="2024/2025"
-                     data-status="pending"
+                     data-status="selesai"
                      data-tanggal="2025-02-01"
                      data-deskripsi="Python TensorFlow Neural Network">
-                    <div class="kelas-card-header" style="background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);">
-                        <div class="kelas-info">
-                            <h3 class="kelas-title">Machine Learning</h3>
-                            <p class="kelas-code">IF406</p>
+                    <div class="card-icon-wrapper" style="background: linear-gradient(135deg, #fef3c7 0%, #fefce8 100%);">
+                        <div class="card-3d-bg1" style="background: linear-gradient(135deg, #fbbf24 0%, #fcd34d 100%);"></div>
+                        <div class="card-3d-bg2" style="background: linear-gradient(135deg, #fbbf24 0%, #fcd34d 100%);"></div>
+                        <div class="card-3d-icon" style="background: linear-gradient(135deg, #92400e 0%, #b45309 100%);">
+                            ML
                         </div>
-                        <span class="badge badge-warning">Pending</span>
                     </div>
                     <div class="kelas-card-body">
-                        <div class="kelas-meta">
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                                </svg>
-                                <span>Prof. Kartika Sari, Ph.D</span>
+                        <h3 class="kelas-title">Machine Learning</h3>
+                        <p class="kelas-code" style="color: #92400e;">KOM501 • Dr. Andi Prabowo</p>
+                        <div class="status-row">
+                            <div class="status-badge" style="color: #ea580c;">
+                                <span class="status-dot" style="background: #ea580c;"></span>
+                                SELESAI
                             </div>
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                </svg>
-                                <span>Semester 8 • 2024/2025</span>
-                            </div>
-                        </div>
-                        <div class="kelas-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Materi</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Tugas</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0%</div>
-                                <div class="stat-label">Progress</div>
-                            </div>
+                            <span style="color: #92400e; font-weight: bold;">0 Tugas</span>
                         </div>
                     </div>
                     <div class="kelas-card-footer">
-                        <a href="detail-kelas-mahasiswa.php?id=8" class="btn-card">
+                        <a href="detail-kelas-mahasiswa.php?id=8" class="btn-card" style="background: linear-gradient(135deg, #92400e 0%, #b45309 100%);">
                             Lihat Detail
-                            <svg class="btn-icon-right" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
                         </a>
                     </div>
                 </div>
@@ -624,55 +556,33 @@
                 <div class="kelas-card" 
                      data-item
                      data-nama="Pemrograman Python"
-                     data-kode="IF201"
+                     data-kode="KOM601"
                      data-semester="2"
                      data-tahun="2023/2024"
                      data-status="selesai"
                      data-tanggal="2024-01-15"
                      data-deskripsi="Python Pandas NumPy OOP">
-                    <div class="kelas-card-header" style="background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);">
-                        <div class="kelas-info">
-                            <h3 class="kelas-title">Pemrograman Python</h3>
-                            <p class="kelas-code">IF201</p>
+                    <div class="card-icon-wrapper" style="background: linear-gradient(135deg, #fecaca 0%, #fee2e2 100%);">
+                        <div class="card-3d-bg1" style="background: linear-gradient(135deg, #f87171 0%, #fca5a5 100%);"></div>
+                        <div class="card-3d-bg2" style="background: linear-gradient(135deg, #f87171 0%, #fca5a5 100%);"></div>
+                        <div class="card-3d-icon" style="background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);">
+                            PY
                         </div>
-                        <span class="badge badge-secondary">Selesai</span>
                     </div>
                     <div class="kelas-card-body">
-                        <div class="kelas-meta">
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                                </svg>
-                                <span>Dr. Lina Marlina, M.Kom</span>
+                        <h3 class="kelas-title">Pemrograman Python</h3>
+                        <p class="kelas-code" style="color: #b91c1c;">KOM601 • Dr. Lina Marlina</p>
+                        <div class="status-row">
+                            <div class="status-badge" style="color: #ea580c;">
+                                <span class="status-dot" style="background: #ea580c;"></span>
+                                SELESAI
                             </div>
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                </svg>
-                                <span>Semester 2 • 2023/2024</span>
-                            </div>
-                        </div>
-                        <div class="kelas-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">16</div>
-                                <div class="stat-label">Materi</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">9</div>
-                                <div class="stat-label">Tugas</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">100%</div>
-                                <div class="stat-label">Progress</div>
-                            </div>
+                            <span style="color: #b91c1c; font-weight: bold;">0 Tugas</span>
                         </div>
                     </div>
                     <div class="kelas-card-footer">
-                        <a href="detail-kelas-mahasiswa.php?id=9" class="btn-card">
+                        <a href="detail-kelas-mahasiswa.php?id=9" class="btn-card" style="background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);">
                             Lihat Detail
-                            <svg class="btn-icon-right" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
                         </a>
                     </div>
                 </div>
@@ -681,55 +591,33 @@
                 <div class="kelas-card" 
                      data-item
                      data-nama="Keamanan Jaringan"
-                     data-kode="IF407"
+                     data-kode="KOM602"
                      data-semester="8"
                      data-tahun="2024/2025"
                      data-status="aktif"
                      data-tanggal="2024-09-01"
                      data-deskripsi="Cryptography Firewall Security">
-                    <div class="kelas-card-header" style="background: linear-gradient(135deg, #991b1b 0%, #b91c1c 100%);">
-                        <div class="kelas-info">
-                            <h3 class="kelas-title">Keamanan Jaringan</h3>
-                            <p class="kelas-code">IF407</p>
+                    <div class="card-icon-wrapper" style="background: linear-gradient(135deg, #fecaca 0%, #fee2e2 100%);">
+                        <div class="card-3d-bg1" style="background: linear-gradient(135deg, #f87171 0%, #fca5a5 100%);"></div>
+                        <div class="card-3d-bg2" style="background: linear-gradient(135deg, #f87171 0%, #fca5a5 100%);"></div>
+                        <div class="card-3d-icon" style="background: linear-gradient(135deg, #991b1b 0%, #b91c1c 100%);">
+                            SEC
                         </div>
-                        <span class="badge badge-success">Aktif</span>
                     </div>
                     <div class="kelas-card-body">
-                        <div class="kelas-meta">
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                                </svg>
-                                <span>Dr. Muhammad Rizki, M.Sc</span>
+                        <h3 class="kelas-title">Keamanan Jaringan</h3>
+                        <p class="kelas-code" style="color: #991b1b;">KOM602 • Dr. Muhammad Rizki</p>
+                        <div class="status-row">
+                            <div class="status-badge" style="color: #16a34a;">
+                                <span class="status-dot" style="background: #16a34a;"></span>
+                                AKTIF
                             </div>
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                </svg>
-                                <span>Semester 8 • 2024/2025</span>
-                            </div>
-                        </div>
-                        <div class="kelas-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">19</div>
-                                <div class="stat-label">Materi</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">11</div>
-                                <div class="stat-label">Tugas</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">55%</div>
-                                <div class="stat-label">Progress</div>
-                            </div>
+                            <span style="color: #991b1b; font-weight: bold;">1 Tugas</span>
                         </div>
                     </div>
                     <div class="kelas-card-footer">
-                        <a href="detail-kelas-mahasiswa.php?id=10" class="btn-card">
+                        <a href="detail-kelas-mahasiswa.php?id=10" class="btn-card" style="background: linear-gradient(135deg, #991b1b 0%, #b91c1c 100%);">
                             Lihat Detail
-                            <svg class="btn-icon-right" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
                         </a>
                     </div>
                 </div>
@@ -738,55 +626,33 @@
                 <div class="kelas-card" 
                      data-item
                      data-nama="Rekayasa Perangkat Lunak"
-                     data-kode="IF304"
+                     data-kode="KOM603"
                      data-semester="6"
                      data-tahun="2024/2025"
                      data-status="aktif"
                      data-tanggal="2024-09-01"
                      data-deskripsi="UML SDLC Agile Scrum">
-                    <div class="kelas-card-header" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);">
-                        <div class="kelas-info">
-                            <h3 class="kelas-title">Rekayasa Perangkat Lunak</h3>
-                            <p class="kelas-code">IF304</p>
+                    <div class="card-icon-wrapper" style="background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%);">
+                        <div class="card-3d-bg1" style="background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%);"></div>
+                        <div class="card-3d-bg2" style="background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%);"></div>
+                        <div class="card-3d-icon" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);">
+                            RPL
                         </div>
-                        <span class="badge badge-success">Aktif</span>
                     </div>
                     <div class="kelas-card-body">
-                        <div class="kelas-meta">
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                                </svg>
-                                <span>Dr. Nur Hidayat, M.T</span>
+                        <h3 class="kelas-title">Rekayasa Perangkat Lunak</h3>
+                        <p class="kelas-code" style="color: #1e40af;">KOM603 • Dr. Nur Hidayat</p>
+                        <div class="status-row">
+                            <div class="status-badge" style="color: #16a34a;">
+                                <span class="status-dot" style="background: #16a34a;"></span>
+                                AKTIF
                             </div>
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                </svg>
-                                <span>Semester 6 • 2024/2025</span>
-                            </div>
-                        </div>
-                        <div class="kelas-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">23</div>
-                                <div class="stat-label">Materi</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">13</div>
-                                <div class="stat-label">Tugas</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">73%</div>
-                                <div class="stat-label">Progress</div>
-                            </div>
+                            <span style="color: #1e40af; font-weight: bold;">2 Tugas</span>
                         </div>
                     </div>
                     <div class="kelas-card-footer">
-                        <a href="detail-kelas-mahasiswa.php?id=11" class="btn-card">
+                        <a href="detail-kelas-mahasiswa.php?id=11" class="btn-card" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);">
                             Lihat Detail
-                            <svg class="btn-icon-right" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
                         </a>
                     </div>
                 </div>
@@ -795,69 +661,47 @@
                 <div class="kelas-card" 
                      data-item
                      data-nama="Sistem Informasi"
-                     data-kode="IF203"
+                     data-kode="KOM604"
                      data-semester="4"
                      data-tahun="2024/2025"
                      data-status="aktif"
                      data-tanggal="2024-09-01"
                      data-deskripsi="Business Process ERP CRM">
-                    <div class="kelas-card-header" style="background: linear-gradient(135deg, #15803d 0%, #16a34a 100%);">
-                        <div class="kelas-info">
-                            <h3 class="kelas-title">Sistem Informasi</h3>
-                            <p class="kelas-code">IF203</p>
+                    <div class="card-icon-wrapper" style="background: linear-gradient(135deg, #d1fae5 0%, #ecfdf5 100%);">
+                        <div class="card-3d-bg1" style="background: linear-gradient(135deg, #34d399 0%, #6ee7b7 100%);"></div>
+                        <div class="card-3d-bg2" style="background: linear-gradient(135deg, #34d399 0%, #6ee7b7 100%);"></div>
+                        <div class="card-3d-icon" style="background: linear-gradient(135deg, #15803d 0%, #16a34a 100%);">
+                            SI
                         </div>
-                        <span class="badge badge-success">Aktif</span>
                     </div>
                     <div class="kelas-card-body">
-                        <div class="kelas-meta">
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                                </svg>
-                                <span>Dr. Oktavia Rani, M.Kom</span>
+                        <h3 class="kelas-title">Sistem Informasi</h3>
+                        <p class="kelas-code" style="color: #15803d;">KOM604 • Dr. Oktavia Rani</p>
+                        <div class="status-row">
+                            <div class="status-badge" style="color: #16a34a;">
+                                <span class="status-dot" style="background: #16a34a;"></span>
+                                AKTIF
                             </div>
-                            <div class="meta-item">
-                                <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                </svg>
-                                <span>Semester 4 • 2024/2025</span>
-                            </div>
-                        </div>
-                        <div class="kelas-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">21</div>
-                                <div class="stat-label">Materi</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">12</div>
-                                <div class="stat-label">Tugas</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">80%</div>
-                                <div class="stat-label">Progress</div>
-                            </div>
+                            <span style="color: #15803d; font-weight: bold;">0 Tugas</span>
                         </div>
                     </div>
                     <div class="kelas-card-footer">
-                        <a href="detail-kelas-mahasiswa.php?id=12" class="btn-card">
+                        <a href="detail-kelas-mahasiswa.php?id=12" class="btn-card" style="background: linear-gradient(135deg, #15803d 0%, #16a34a 100%);">
                             Lihat Detail
-                            <svg class="btn-icon-right" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
                         </a>
                     </div>
                 </div>
             </div>
 
             <!-- No Results Placeholder (Hidden by default) -->
-            <div id="noResults" class="no-results-message" style="display: none;">
-                <div class="no-results-card">
-                    <svg class="no-results-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div id="noResults" class="hidden text-center py-16" style="display: none;">
+                <div class="inline-block p-8 bg-pink-50 rounded-3xl border-2 border-pink-200">
+                    <svg class="w-20 h-20 mx-auto text-pink-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                     </svg>
-                    <h3>Tidak Ada Hasil</h3>
-                    <p>Tidak ada kelas yang cocok dengan filter Anda. Coba ubah kriteria pencarian.</p>
-                    <button onclick="searchFilterSystem.clearFilters()" class="btn-clear-inline">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🔍 Tidak Ada Hasil</h3>
+                    <p class="text-gray-600 mb-4">Tidak ada kelas yang cocok dengan filter Anda. Coba ubah kriteria pencarian.</p>
+                    <button onclick="searchFilterSystem.clearFilters()" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all">
                         Reset Filter
                     </button>
                 </div>
