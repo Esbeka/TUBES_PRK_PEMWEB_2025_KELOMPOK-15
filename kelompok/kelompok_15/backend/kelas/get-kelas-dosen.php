@@ -1,16 +1,12 @@
 <?php
 /**
  * FITUR 2: MANAJEMEN KELAS - GET KELAS DOSEN
- * Tanggung Jawab: SURYA (Backend Developer)
- * 
- * Deskripsi: Get semua kelas yang dibuat dosen
- * - Query kelas berdasarkan id_dosen
- * - Join untuk hitung jumlah mahasiswa
- * - Return JSON array kelas
+ * Retrieve semua kelas yang dibuat oleh dosen
  */
 
-session_start();
+require_once __DIR__ . '/../auth/session-helper.php';
 header('Content-Type: application/json');
+header('Access-Control-Allow-Credentials: true');
 
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../auth/session-check.php';
@@ -18,7 +14,7 @@ require_once __DIR__ . '/../auth/session-check.php';
 $response = ['success' => false, 'message' => '', 'data' => []];
 
 try {
-    requireRole('dosen');
+    requireDosen();
     $id_dosen = getUserId();
 
     $query = "SELECT 
@@ -57,11 +53,16 @@ try {
         ];
     }
 
+    http_response_code(200);
     $response['success'] = true;
     $response['message'] = count($data) . ' kelas ditemukan';
     $response['data'] = $data;
 
 } catch(Exception $e) {
+    $code = $e->getCode() ?: 500;
+    if ($code === 0) $code = 500;
+    http_response_code($code);
+    
     $response['message'] = $e->getMessage();
 }
 

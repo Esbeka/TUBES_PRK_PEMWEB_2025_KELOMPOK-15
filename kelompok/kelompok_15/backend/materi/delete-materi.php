@@ -1,20 +1,49 @@
 <?php
 /**
- * FITUR 3: MANAJEMEN MATERI - DELETE
- * Tanggung Jawab: SURYA (Backend Developer)
- * 
- * Deskripsi: Hapus materi
- * - Delete record database
- * - Hapus file fisik dari server
+ * DELETE MATERI
  */
+header('Content-Type: application/json');
+require_once __DIR__ . '/../auth/session-helper.php';
+require_once __DIR__ . '/../config/database.php';
 
-// TODO: Implement delete materi
-// 1. Cek session dosen
-// 2. Validasi input POST (id_materi)
-// 3. Query materi untuk get file_path
-// 4. Cek ownership
-// 5. Delete record database
-// 6. Hapus file fisik (jika tipe = pdf)
-// 7. Return JSON success/error
+try {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        throw new Exception('Method not allowed');
+    }
 
+    if (!isset($_SESSION['id_user']) || $_SESSION['role'] !== 'dosen') {
+        http_response_code(401);
+        throw new Exception('Unauthorized');
+    }
+
+    $data = json_decode(file_get_contents('php://input'), true);
+    $id_materi = $data['id_materi'] ?? null;
+    $id_dosen = $_SESSION['id_user'];
+
+    if (!$id_materi) {
+        http_response_code(400);
+        throw new Exception('id_materi required');
+    }
+
+    $stmt = $pdo->prepare('SELECT file_path FROM materi WHERE id_materi = ? AND id_dosen = ?');
+    $stmt->execute([$id_materi, $id_dosen]);
+    $materi = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if (!$materi) {
+        http_response_code(403);
+        throw new Exception('Forbidden');
+    }
+
+    $file_path = __DIR__ . '/../../uploads/materi/' . $materi['file_path'];
+    if (file_exists($file_path)) unlink($file_path);
+
+    $delStmt = $pdo->prepare('DELETE FROM materi WHERE id_materi = ?');
+    $delStmt->execute([$id_materi]);
+
+    echo json_encode(['success' => true, 'message' => 'Materi berhasil dihapus']);
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+}
 ?>

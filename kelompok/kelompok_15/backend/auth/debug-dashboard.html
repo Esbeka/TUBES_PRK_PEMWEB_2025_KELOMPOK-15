@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Session Flow</title>
+    <style>
+        body { font-family: Arial; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .test-section { border: 1px solid #ccc; padding: 15px; margin: 15px 0; }
+        .response { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-y: auto; max-height: 300px; }
+        pre { margin: 0; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Dashboard Debug - Session & API Flow</h1>
+    
+    <div class="test-section">
+        <h2>1. Check LocalStorage</h2>
+        <button onclick="checkLocalStorage()">Check Storage</button>
+        <div id="storageResponse" class="response" style="display:none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Test apiFetch Helper</h2>
+        <button onclick="testApiFetchHelper()">Test apiFetch</button>
+        <div id="apiFetchResponse" class="response" style="display:none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Debug Header Session</h2>
+        <button onclick="testHeaderSession()">Check Headers</button>
+        <div id="headerSessionResponse" class="response" style="display:none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>4. Test Get Kelas</h2>
+        <button onclick="testGetKelas()">Get Kelas Dosen</button>
+        <div id="getKelasResponse" class="response" style="display:none;"></div>
+    </div>
+
+    <script>
+        const API_BASE = '/TUGASAKHIR/kelompok/kelompok_15/backend';
+
+        // Copy apiFetch from dashboard
+        async function apiFetch(url, options = {}) {
+            const sessionId = localStorage.getItem('sessionId');
+            
+            console.log('🔹 apiFetch called');
+            console.log('   URL:', url);
+            console.log('   Session ID from localStorage:', sessionId);
+            
+            // Initialize headers if not provided
+            if (!options.headers) {
+                options.headers = {};
+            }
+            
+            // Add session ID header jika tersedia
+            if (sessionId) {
+                options.headers['X-Session-ID'] = sessionId;
+                console.log('   ✅ Added X-Session-ID header');
+            } else {
+                console.log('   ❌ No session ID found in localStorage!');
+            }
+            
+            // Always include credentials
+            options.credentials = 'include';
+            
+            console.log('   Final headers:', options.headers);
+            console.log('   Final options:', options);
+            
+            return fetch(url, options);
+        }
+
+        function showResponse(elementId, data) {
+            const elem = document.getElementById(elementId);
+            elem.style.display = 'block';
+            elem.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        }
+
+        function checkLocalStorage() {
+            const data = {
+                sessionId: localStorage.getItem('sessionId'),
+                userData: localStorage.getItem('userData'),
+                allKeys: Object.keys(localStorage)
+            };
+            showResponse('storageResponse', data);
+        }
+
+        async function testApiFetchHelper() {
+            try {
+                console.log('🧪 Testing apiFetch helper...');
+                
+                // Test with a simple endpoint
+                const response = await apiFetch(API_BASE + '/auth/debug-header-session.php');
+                const data = await response.json();
+                showResponse('apiFetchResponse', data);
+            } catch (e) {
+                showResponse('apiFetchResponse', { error: e.message });
+            }
+        }
+
+        async function testHeaderSession() {
+            try {
+                const sessionId = localStorage.getItem('sessionId');
+                
+                const response = await fetch(API_BASE + '/auth/debug-header-session.php', {
+                    credentials: 'include',
+                    headers: {
+                        'X-Session-ID': sessionId || 'NONE'
+                    }
+                });
+                const data = await response.json();
+                showResponse('headerSessionResponse', data);
+            } catch (e) {
+                showResponse('headerSessionResponse', { error: e.message });
+            }
+        }
+
+        async function testGetKelas() {
+            try {
+                const response = await apiFetch(API_BASE + '/kelas/get-kelas-dosen.php');
+                const data = await response.json();
+                showResponse('getKelasResponse', data);
+            } catch (e) {
+                showResponse('getKelasResponse', { error: e.message });
+            }
+        }
+    </script>
+</body>
+</html>

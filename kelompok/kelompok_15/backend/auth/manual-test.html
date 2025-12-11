@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manual Login Test</title>
+    <style>
+        body { font-family: Arial; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .test-section { border: 1px solid #ccc; padding: 15px; margin: 15px 0; }
+        .form-group { margin: 10px 0; }
+        input, select { padding: 8px; width: 100%; max-width: 300px; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
+        .response { background: #f5f5f5; padding: 15px; margin-top: 10px; border-radius: 5px; max-height: 400px; overflow-y: auto; }
+        pre { margin: 0; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Manual Login Test</h1>
+    
+    <div class="test-section">
+        <h2>0. Check Browser Cookies</h2>
+        <button onclick="checkBrowserCookies()">Show Cookies</button>
+        <div id="cookiesResponse" class="response" style="display:none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>1. Check Database</h2>
+        <button onclick="testDatabase()">Check Database</button>
+        <div id="dbResponse" class="response" style="display:none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Check Session After Login</h2>
+        <button onclick="testSessionBefore()">Check Session (Before Login)</button>
+        <div id="sessionBeforeResponse" class="response" style="display:none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Perform Login</h2>
+        <div class="form-group">
+            <label>NPM/NIDN:</label>
+            <input type="text" id="npm" value="2" placeholder="e.g. 2 for dosen dika">
+        </div>
+        <div class="form-group">
+            <label>Password:</label>
+            <input type="password" id="password" value="dika123" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label>Role:</label>
+            <select id="role">
+                <option value="dosen">Dosen</option>
+                <option value="mahasiswa">Mahasiswa</option>
+            </select>
+        </div>
+        <button onclick="testLogin()">Login</button>
+        <div id="loginResponse" class="response" style="display:none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>4. Check Session After Login</h2>
+        <button onclick="testSessionAfter()">Check Session (After Login)</button>
+        <div id="sessionAfterResponse" class="response" style="display:none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>5. Test Create Kelas API</h2>
+        <button onclick="testCreateKelas()">Create Kelas</button>
+        <div id="createKelasResponse" class="response" style="display:none;"></div>
+    </div>
+
+    <script>
+        const API_BASE = '/TUGASAKHIR/kelompok/kelompok_15/backend';
+        let currentSessionId = null;  // Store session ID from login response
+
+        function showResponse(elementId, data, isError = false) {
+            const elem = document.getElementById(elementId);
+            elem.style.display = 'block';
+            elem.innerHTML = `<pre class="${isError ? 'error' : 'success'}">${JSON.stringify(data, null, 2)}</pre>`;
+        }
+
+        function checkBrowserCookies() {
+            const cookies = document.cookie
+                .split(';')
+                .map(c => c.trim())
+                .filter(c => c.length > 0);
+            
+            const cookieData = {
+                all_cookies: cookies,
+                cookie_count: cookies.length,
+                has_phpid: cookies.some(c => c.startsWith('PHPID')),
+                has_phpsessid: cookies.some(c => c.startsWith('PHPSESSID')),
+                stored_session_id: currentSessionId
+            };
+            
+            showResponse('cookiesResponse', cookieData);
+        }
+
+        async function testDatabase() {
+            try {
+                const response = await fetch(API_BASE + '/auth/debug-database.php', { credentials: 'include' });
+                const data = await response.json();
+                showResponse('dbResponse', data);
+            } catch (e) {
+                showResponse('dbResponse', { error: e.message }, true);
+            }
+        }
+
+        async function testSessionBefore() {
+            try {
+                const headers = {};
+                if (currentSessionId) {
+                    headers['X-Session-ID'] = currentSessionId;
+                }
+                
+                const response = await fetch(API_BASE + '/auth/check-session-debug.php', { 
+                    credentials: 'include',
+                    headers: headers
+                });
+                const data = await response.json();
+                showResponse('sessionBeforeResponse', data);
+            } catch (e) {
+                showResponse('sessionBeforeResponse', { error: e.message }, true);
+            }
+        }
+
+        async function testLogin() {
+            try {
+                const npm = document.getElementById('npm').value;
+                const password = document.getElementById('password').value;
+                const role = document.getElementById('role').value;
+
+                const formData = new FormData();
+                formData.append('npm_nidn', npm);
+                formData.append('password', password);
+                formData.append('role', role);
+
+                const response = await fetch(API_BASE + '/auth/login.php', {
+                    method: 'POST',
+                    credentials: 'include',
+                    body: formData
+                });
+
+                const data = await response.json();
+                
+                // Store the session ID returned from login
+                if (data.session_id) {
+                    currentSessionId = data.session_id;
+                    data.stored_session_id = currentSessionId;
+                    console.log('✅ Session ID stored:', currentSessionId);
+                }
+                
+                showResponse('loginResponse', data);
+            } catch (e) {
+                showResponse('loginResponse', { error: e.message }, true);
+            }
+        }
+
+        async function testSessionAfter() {
+            try {
+                const headers = {};
+                if (currentSessionId) {
+                    headers['X-Session-ID'] = currentSessionId;
+                }
+                
+                const response = await fetch(API_BASE + '/auth/check-session-debug.php', { 
+                    credentials: 'include',
+                    headers: headers
+                });
+                const data = await response.json();
+                showResponse('sessionAfterResponse', data);
+            } catch (e) {
+                showResponse('sessionAfterResponse', { error: e.message }, true);
+            }
+        }
+
+        async function testCreateKelas() {
+            try {
+                const headers = {
+                    'Content-Type': 'application/json'
+                };
+                
+                // Add session ID header if available
+                if (currentSessionId) {
+                    headers['X-Session-ID'] = currentSessionId;
+                }
+                
+                const payload = {
+                    nama_matakuliah: "Test Kelas " + Date.now(),
+                    kode_matakuliah: "TST" + Math.floor(Math.random() * 1000),
+                    semester: "5",
+                    tahun_ajaran: "2024",
+                    deskripsi: "Kelas untuk test",
+                    kapasitas: 30
+                };
+
+                const response = await fetch(API_BASE + '/kelas/create-kelas.php', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: headers,
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+                data.used_session_id = currentSessionId;
+                showResponse('createKelasResponse', data);
+            } catch (e) {
+                showResponse('createKelasResponse', { error: e.message }, true);
+            }
+        }
+
+        // Auto test database on load
+        window.addEventListener('load', testDatabase);
+    </script>
+</body>
+</html>
