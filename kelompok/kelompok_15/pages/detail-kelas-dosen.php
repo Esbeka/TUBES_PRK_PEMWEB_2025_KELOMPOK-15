@@ -11,8 +11,15 @@
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         .animate-fadeIn {
             animation: fadeIn 0.3s ease-out;
+        }
+        .animate-slideIn {
+            animation: slideIn 0.4s ease-out;
         }
         .tab-content {
             display: none;
@@ -87,7 +94,7 @@
         </a>
 
         <!-- Header Card with Class Code -->
-        <div class="bg-white rounded-3xl shadow-xl p-8 mb-6 animate-fadeIn">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 mb-6 hover:shadow-2xl transition-all duration-300 animate-fadeIn">
             <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                 <div class="flex-1">
                     <div class="flex items-center gap-3 mb-4">
@@ -103,13 +110,13 @@
                 </div>
 
                 <!-- Kode Kelas Card -->
-                <div class="bg-gradient-to-br from-pink-100 to-purple-100 rounded-2xl p-6 border-2 border-pink-300 shadow-lg">
+                <div class="bg-gradient-to-br from-pink-100 to-purple-100 rounded-2xl p-6 border-2 border-pink-300 shadow-xl hover:shadow-2xl transition-all duration-300">
                     <p class="text-sm font-semibold text-gray-700 mb-2">🔑 Kode Kelas</p>
                     <div class="flex items-center gap-3">
                         <div class="bg-white px-6 py-3 rounded-xl shadow-inner">
                             <p id="kodeKelas" class="text-3xl font-black bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent tracking-wider">ABC123</p>
                         </div>
-                        <button onclick="copyKodeKelas()" class="p-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                        <button onclick="copyKodeKelas()" class="p-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
                             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -142,9 +149,9 @@
         </div>
 
         <!-- Tabs Navigation -->
-        <div class="bg-white rounded-2xl shadow-lg p-2 mb-6 animate-fadeIn">
+        <div class="bg-white rounded-2xl shadow-xl p-2 mb-6 animate-fadeIn">
             <div class="flex flex-wrap gap-2">
-                <button onclick="switchTab('info')" class="tab-btn active flex-1 min-w-[120px] px-6 py-3 rounded-xl font-bold transition-all" data-tab="info">
+                <button onclick="switchTab('info')" class="tab-btn active flex-1 min-w-[120px] px-6 py-3 rounded-xl font-bold transition-all duration-300" data-tab="info">
                     <svg class="w-5 h-5 inline-block mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="10"></circle>
                         <line x1="12" y1="16" x2="12" y2="12"></line>
@@ -152,7 +159,7 @@
                     </svg>
                     Info Kelas
                 </button>
-                <button onclick="switchTab('mahasiswa')" class="tab-btn flex-1 min-w-[120px] px-6 py-3 rounded-xl font-bold transition-all" data-tab="mahasiswa">
+                <button onclick="switchTab('mahasiswa')" class="tab-btn flex-1 min-w-[120px] px-6 py-3 rounded-xl font-bold transition-all duration-300" data-tab="mahasiswa">
                     <svg class="w-5 h-5 inline-block mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                         <circle cx="9" cy="7" r="4"></circle>
@@ -161,14 +168,14 @@
                     </svg>
                     Mahasiswa
                 </button>
-                <button onclick="switchTab('materi')" class="tab-btn flex-1 min-w-[120px] px-6 py-3 rounded-xl font-bold transition-all" data-tab="materi">
+                <button onclick="switchTab('materi')" class="tab-btn flex-1 min-w-[120px] px-6 py-3 rounded-xl font-bold transition-all duration-300" data-tab="materi">
                     <svg class="w-5 h-5 inline-block mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                         <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
                     </svg>
                     Materi
                 </button>
-                <button onclick="switchTab('tugas')" class="tab-btn flex-1 min-w-[120px] px-6 py-3 rounded-xl font-bold transition-all" data-tab="tugas">
+                <button onclick="switchTab('tugas')" class="tab-btn flex-1 min-w-[120px] px-6 py-3 rounded-xl font-bold transition-all duration-300" data-tab="tugas">
                     <svg class="w-5 h-5 inline-block mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                         <path d="M14 2v6h6"></path>
@@ -185,10 +192,10 @@
         
         <!-- Tab: Info Kelas -->
         <div id="info-tab" class="tab-content active">
-            <div class="bg-white rounded-3xl shadow-xl p-8 animate-fadeIn">
+            <div class="bg-white rounded-3xl shadow-2xl p-8 hover:shadow-2xl transition-all duration-300 animate-fadeIn">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-2xl font-bold text-gray-900">Informasi Kelas</h2>
-                    <button onclick="openEditKelasModal()" class="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-bold px-6 py-3 rounded-xl shadow-lg transition-all">
+                    <button onclick="openEditKelasModal()" class="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
@@ -222,7 +229,7 @@
                 </div>
 
                 <div class="mt-8 pt-6 border-t border-gray-200">
-                    <button onclick="openDeleteKelasModal()" class="inline-flex items-center gap-2 bg-red-100 hover:bg-red-200 text-red-700 font-bold px-6 py-3 rounded-xl transition-all">
+                    <button onclick="openDeleteKelasModal()" class="inline-flex items-center gap-2 bg-red-100 hover:bg-red-200 text-red-700 font-bold px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105">
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M3 6h18"></path>
                             <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
@@ -236,15 +243,15 @@
 
         <!-- Tab: Mahasiswa -->
         <div id="mahasiswa-tab" class="tab-content">
-            <div class="bg-white rounded-3xl shadow-xl p-8 animate-fadeIn">
+            <div class="bg-white rounded-3xl shadow-2xl p-8 hover:shadow-2xl transition-all duration-300 animate-fadeIn">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                     <div>
                         <h2 class="text-2xl font-bold text-gray-900">Daftar Mahasiswa</h2>
                         <p class="text-gray-600">32 dari 40 mahasiswa terdaftar</p>
                     </div>
                     <div class="flex gap-3">
-                        <input type="text" placeholder="Cari mahasiswa..." class="px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-pink-500 focus:ring-4 focus:ring-pink-500/10 outline-none">
-                        <button class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-xl font-bold hover:from-green-600 hover:to-teal-600 transition-all">
+                        <input type="text" placeholder="Cari mahasiswa..." class="px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-pink-500 focus:ring-4 focus:ring-pink-500/10 outline-none transition-all duration-300">
+                        <button class="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
                             Export Excel
                         </button>
                     </div>
@@ -253,7 +260,7 @@
                 <!-- Mahasiswa List -->
                 <div class="space-y-3">
                     <!-- Mahasiswa Item 1 -->
-                    <div class="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-200 hover:shadow-lg transition-all">
+                    <div class="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-200 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
                                 AW
@@ -270,7 +277,7 @@
                     </div>
 
                     <!-- Mahasiswa Item 2 -->
-                    <div class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl border-2 border-blue-200 hover:shadow-lg transition-all">
+                    <div class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl border-2 border-blue-200 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
                                 SP
@@ -287,7 +294,7 @@
                     </div>
 
                     <!-- Mahasiswa Item 3 -->
-                    <div class="flex items-center justify-between p-4 bg-gradient-to-r from-green-50 to-teal-50 rounded-2xl border-2 border-green-200 hover:shadow-lg transition-all">
+                    <div class="flex items-center justify-between p-4 bg-gradient-to-r from-green-50 to-teal-50 rounded-2xl border-2 border-green-200 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
                                 BK
@@ -308,13 +315,13 @@
 
         <!-- Tab: Materi -->
         <div id="materi-tab" class="tab-content">
-            <div class="bg-white rounded-3xl shadow-xl p-8 animate-fadeIn">
+            <div class="bg-white rounded-3xl shadow-2xl p-8 hover:shadow-2xl transition-all duration-300 animate-fadeIn">
                 <div class="flex justify-between items-center mb-6">
                     <div>
                         <h2 class="text-2xl font-bold text-gray-900">Materi Pembelajaran</h2>
                         <p class="text-gray-600">12 materi tersedia</p>
                     </div>
-                    <a href="kelola-materi.php" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg transition-all">
+                    <a href="kelola-materi.php" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M12 5v14M5 12h14"/>
                         </svg>
@@ -325,7 +332,7 @@
                 <!-- Materi List -->
                 <div class="space-y-4">
                     <!-- Materi Item 1 -->
-                    <div class="p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-200 hover:shadow-lg transition-all">
+                    <div class="p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-200 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
                         <div class="flex justify-between items-start mb-3">
                             <div class="flex items-center gap-3">
                                 <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center text-white font-bold">
@@ -340,20 +347,20 @@
                         </div>
                         <p class="text-gray-700 mb-4">Materi dasar HTML meliputi tag, atribut, dan struktur dokumen HTML5.</p>
                         <div class="flex gap-2">
-                            <button class="px-4 py-2 bg-blue-100 text-blue-700 font-semibold rounded-lg hover:bg-blue-200 transition-colors">
+                            <button class="px-4 py-2.5 bg-blue-100 text-blue-700 font-semibold rounded-lg hover:bg-blue-200 transition-all duration-300 transform hover:scale-105">
                                 Lihat Materi
                             </button>
-                            <button class="px-4 py-2 bg-yellow-100 text-yellow-700 font-semibold rounded-lg hover:bg-yellow-200 transition-colors">
+                            <button class="px-4 py-2.5 bg-yellow-100 text-yellow-700 font-semibold rounded-lg hover:bg-yellow-200 transition-all duration-300 transform hover:scale-105">
                                 Edit
                             </button>
-                            <button class="px-4 py-2 bg-red-100 text-red-700 font-semibold rounded-lg hover:bg-red-200 transition-colors">
+                            <button class="px-4 py-2.5 bg-red-100 text-red-700 font-semibold rounded-lg hover:bg-red-200 transition-all duration-300 transform hover:scale-105">
                                 Hapus
                             </button>
                         </div>
                     </div>
 
                     <!-- Materi Item 2 -->
-                    <div class="p-6 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl border-2 border-blue-200 hover:shadow-lg transition-all">
+                    <div class="p-6 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl border-2 border-blue-200 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
                         <div class="flex justify-between items-start mb-3">
                             <div class="flex items-center gap-3">
                                 <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center text-white font-bold">
@@ -368,13 +375,13 @@
                         </div>
                         <p class="text-gray-700 mb-4">Styling website menggunakan CSS, selector, properties, dan layout.</p>
                         <div class="flex gap-2">
-                            <button class="px-4 py-2 bg-blue-100 text-blue-700 font-semibold rounded-lg hover:bg-blue-200 transition-colors">
+                            <button class="px-4 py-2.5 bg-blue-100 text-blue-700 font-semibold rounded-lg hover:bg-blue-200 transition-all duration-300 transform hover:scale-105">
                                 Lihat Video
                             </button>
-                            <button class="px-4 py-2 bg-yellow-100 text-yellow-700 font-semibold rounded-lg hover:bg-yellow-200 transition-colors">
+                            <button class="px-4 py-2.5 bg-yellow-100 text-yellow-700 font-semibold rounded-lg hover:bg-yellow-200 transition-all duration-300 transform hover:scale-105">
                                 Edit
                             </button>
-                            <button class="px-4 py-2 bg-red-100 text-red-700 font-semibold rounded-lg hover:bg-red-200 transition-colors">
+                            <button class="px-4 py-2.5 bg-red-100 text-red-700 font-semibold rounded-lg hover:bg-red-200 transition-all duration-300 transform hover:scale-105">
                                 Hapus
                             </button>
                         </div>
@@ -385,13 +392,13 @@
 
         <!-- Tab: Tugas -->
         <div id="tugas-tab" class="tab-content">
-            <div class="bg-white rounded-3xl shadow-xl p-8 animate-fadeIn">
+            <div class="bg-white rounded-3xl shadow-2xl p-8 hover:shadow-2xl transition-all duration-300 animate-fadeIn">
                 <div class="flex justify-between items-center mb-6">
                     <div>
                         <h2 class="text-2xl font-bold text-gray-900">Daftar Tugas</h2>
                         <p class="text-gray-600">8 tugas diberikan</p>
                     </div>
-                    <a href="kelola-tugas.php" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg transition-all">
+                    <a href="kelola-tugas.php" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M12 5v14M5 12h14"/>
                         </svg>
@@ -402,7 +409,7 @@
                 <!-- Tugas List -->
                 <div class="space-y-4">
                     <!-- Tugas Item 1 -->
-                    <div class="p-6 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-2xl border-2 border-orange-200 hover:shadow-lg transition-all">
+                    <div class="p-6 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-2xl border-2 border-orange-200 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
                         <div class="flex justify-between items-start mb-3">
                             <div>
                                 <h3 class="font-bold text-gray-900 text-lg">Tugas 1: Membuat Landing Page</h3>
@@ -412,20 +419,20 @@
                         </div>
                         <p class="text-gray-700 mb-4">Buat landing page sederhana menggunakan HTML dan CSS dengan tema bebas.</p>
                         <div class="flex gap-2">
-                            <button class="px-4 py-2 bg-blue-100 text-blue-700 font-semibold rounded-lg hover:bg-blue-200 transition-colors">
+                            <button class="px-4 py-2.5 bg-blue-100 text-blue-700 font-semibold rounded-lg hover:bg-blue-200 transition-all duration-300 transform hover:scale-105">
                                 Lihat Submission (28/32)
                             </button>
-                            <button class="px-4 py-2 bg-yellow-100 text-yellow-700 font-semibold rounded-lg hover:bg-yellow-200 transition-colors">
+                            <button class="px-4 py-2.5 bg-yellow-100 text-yellow-700 font-semibold rounded-lg hover:bg-yellow-200 transition-all duration-300 transform hover:scale-105">
                                 Edit
                             </button>
-                            <button class="px-4 py-2 bg-red-100 text-red-700 font-semibold rounded-lg hover:bg-red-200 transition-colors">
+                            <button class="px-4 py-2.5 bg-red-100 text-red-700 font-semibold rounded-lg hover:bg-red-200 transition-all duration-300 transform hover:scale-105">
                                 Hapus
                             </button>
                         </div>
                     </div>
 
                     <!-- Tugas Item 2 -->
-                    <div class="p-6 bg-gradient-to-r from-green-50 to-teal-50 rounded-2xl border-2 border-green-200 hover:shadow-lg transition-all">
+                    <div class="p-6 bg-gradient-to-r from-green-50 to-teal-50 rounded-2xl border-2 border-green-200 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
                         <div class="flex justify-between items-start mb-3">
                             <div>
                                 <h3 class="font-bold text-gray-900 text-lg">Tugas 2: Responsive Design</h3>
@@ -435,13 +442,13 @@
                         </div>
                         <p class="text-gray-700 mb-4">Implementasi responsive design menggunakan media queries dan flexbox.</p>
                         <div class="flex gap-2">
-                            <button class="px-4 py-2 bg-blue-100 text-blue-700 font-semibold rounded-lg hover:bg-blue-200 transition-colors">
+                            <button class="px-4 py-2.5 bg-blue-100 text-blue-700 font-semibold rounded-lg hover:bg-blue-200 transition-all duration-300 transform hover:scale-105">
                                 Lihat Submission (32/32)
                             </button>
-                            <button class="px-4 py-2 bg-yellow-100 text-yellow-700 font-semibold rounded-lg hover:bg-yellow-200 transition-colors">
+                            <button class="px-4 py-2.5 bg-yellow-100 text-yellow-700 font-semibold rounded-lg hover:bg-yellow-200 transition-all duration-300 transform hover:scale-105">
                                 Edit
                             </button>
-                            <button class="px-4 py-2 bg-red-100 text-red-700 font-semibold rounded-lg hover:bg-red-200 transition-colors">
+                            <button class="px-4 py-2.5 bg-red-100 text-red-700 font-semibold rounded-lg hover:bg-red-200 transition-all duration-300 transform hover:scale-105">
                                 Hapus
                             </button>
                         </div>

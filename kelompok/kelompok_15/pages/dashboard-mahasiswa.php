@@ -211,6 +211,91 @@
             </div>
         </div>
 
+        <!-- Quick Access Menu -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 animate-fade-in">
+            <!-- Progress Belajar Card -->
+            <a href="progress-mahasiswa.php" class="group block bg-gradient-to-br from-pink-500 to-purple-600 rounded-3xl shadow-xl p-8 hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden relative">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full"></div>
+                <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-white/10 rounded-full"></div>
+                <div class="relative flex items-center justify-between">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                            </div>
+                            <div class="text-white">
+                                <h3 class="text-2xl font-bold mb-1">📊 Progress Belajar</h3>
+                                <p class="text-pink-100 text-sm">Pantau perkembangan belajar kamu</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-white/90">
+                            <span class="text-sm font-semibold">Lihat Progress</span>
+                            <svg class="w-5 h-5 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Notifikasi Card -->
+            <a href="notifikasi.php" class="group block bg-gradient-to-br from-orange-500 to-orange-600 rounded-3xl shadow-xl p-8 hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden relative">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full"></div>
+                <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-white/10 rounded-full"></div>
+                <div class="relative flex items-center justify-between">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center relative">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                                </svg>
+                                <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
+                            </div>
+                            <div class="text-white">
+                                <h3 class="text-2xl font-bold mb-1">🔔 Notifikasi</h3>
+                                <p class="text-orange-100 text-sm">Lihat update terbaru</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-white/90">
+                            <span class="text-sm font-semibold">Lihat Semua</span>
+                            <svg class="w-5 h-5 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Search & Filter Card -->
+        <a href="search-filter-demo.php" class="group block bg-gradient-to-br from-blue-500 to-blue-600 rounded-3xl shadow-xl p-8 hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden relative mb-8 animate-fade-in">
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full"></div>
+            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-white/10 rounded-full"></div>
+            <div class="relative flex items-center justify-between">
+                <div class="flex-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                        </div>
+                        <div class="text-white">
+                            <h3 class="text-2xl font-bold mb-1">🔍 Cari & Filter Kelas</h3>
+                            <p class="text-blue-100 text-sm">Temukan kelas dengan mudah menggunakan filter</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 text-white/90">
+                        <span class="text-sm font-semibold">Buka Search & Filter</span>
+                        <svg class="w-5 h-5 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </a>
+
         <!-- Action Section -->
         <div class="flex items-center justify-between mb-6">
             <h3 class="text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">Kelas Saya</h3>

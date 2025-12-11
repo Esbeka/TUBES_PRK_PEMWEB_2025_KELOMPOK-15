@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Create & Load Kelas Flow</title>
+    <style>
+        body { font-family: Arial; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .test-section { border: 1px solid #ccc; padding: 15px; margin: 15px 0; }
+        .response { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-y: auto; max-height: 400px; }
+        pre { margin: 0; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; margin: 5px; }
+        input { padding: 8px; margin: 5px; width: 200px; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Create & Load Kelas Flow Test</h1>
+    
+    <div class="test-section">
+        <h2>1. Load Existing Kelas</h2>
+        <button onclick="testLoadKelas()">Load Kelas Dosen</button>
+        <div id="loadKelasResponse" class="response" style="display:none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Create New Kelas</h2>
+        <input type="text" id="namaMK" placeholder="Nama MK" value="Test Kelas">
+        <input type="text" id="kodeMK" placeholder="Kode MK" value="TEST101">
+        <input type="number" id="semester" placeholder="Semester" value="5">
+        <input type="number" id="tahun" placeholder="Tahun" value="2024">
+        <input type="text" id="deskripsi" placeholder="Deskripsi" value="Test">
+        <input type="number" id="kapasitas" placeholder="Kapasitas" value="30">
+        <button onclick="testCreateKelas()">Create Kelas</button>
+        <div id="createKelasResponse" class="response" style="display:none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Load Kelas Again (After Create)</h2>
+        <button onclick="testLoadKelasAgain()">Load Kelas Again</button>
+        <div id="loadKelasAgainResponse" class="response" style="display:none;"></div>
+    </div>
+
+    <script>
+        const API_BASE = '/TUGASAKHIR/kelompok/kelompok_15/backend';
+
+        // Copy apiFetch from dashboard
+        async function apiFetch(url, options = {}) {
+            const sessionId = localStorage.getItem('sessionId');
+            
+            if (!options.headers) {
+                options.headers = {};
+            }
+            
+            if (sessionId) {
+                options.headers['X-Session-ID'] = sessionId;
+            }
+            
+            options.credentials = 'include';
+            return fetch(url, options);
+        }
+
+        function showResponse(elementId, data) {
+            const elem = document.getElementById(elementId);
+            elem.style.display = 'block';
+            elem.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        }
+
+        async function testLoadKelas() {
+            try {
+                console.log('📥 Loading kelas...');
+                const response = await apiFetch(API_BASE + '/kelas/get-kelas-dosen.php');
+                const data = await response.json();
+                console.log('✅ Loaded:', data.data?.length || 0, 'kelas');
+                showResponse('loadKelasResponse', data);
+            } catch (e) {
+                showResponse('loadKelasResponse', { error: e.message });
+            }
+        }
+
+        async function testCreateKelas() {
+            try {
+                console.log('📝 Creating kelas...');
+                const payload = {
+                    nama_matakuliah: document.getElementById('namaMK').value + ' ' + Date.now(),
+                    kode_matakuliah: document.getElementById('kodeMK').value,
+                    semester: document.getElementById('semester').value,
+                    tahun_ajaran: document.getElementById('tahun').value,
+                    deskripsi: document.getElementById('deskripsi').value,
+                    kapasitas: parseInt(document.getElementById('kapasitas').value)
+                };
+
+                const response = await apiFetch(API_BASE + '/kelas/create-kelas.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+                console.log('✅ Created:', data.data?.kode_kelas || 'unknown');
+                showResponse('createKelasResponse', data);
+            } catch (e) {
+                showResponse('createKelasResponse', { error: e.message });
+            }
+        }
+
+        async function testLoadKelasAgain() {
+            try {
+                console.log('📥 Loading kelas again...');
+                const response = await apiFetch(API_BASE + '/kelas/get-kelas-dosen.php');
+                const data = await response.json();
+                console.log('✅ Now have:', data.data?.length || 0, 'kelas');
+                showResponse('loadKelasAgainResponse', data);
+            } catch (e) {
+                showResponse('loadKelasAgainResponse', { error: e.message });
+            }
+        }
+    </script>
+</body>
+</html>

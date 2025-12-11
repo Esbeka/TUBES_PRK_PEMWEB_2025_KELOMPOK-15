@@ -298,6 +298,7 @@
 
             <!-- Kelola Kelas Card -->
             <a href="#daftar-kelas" class="group block bg-gradient-to-br from-purple-500 to-pink-500 rounded-3xl shadow-xl p-8 hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden relative">
+            <button onclick="openKelolaMaterModal()" class="group block w-full text-left bg-gradient-to-br from-purple-500 to-pink-500 rounded-3xl shadow-xl p-8 hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden relative border-0 cursor-pointer">
                 <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full"></div>
                 <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-white/10 rounded-full"></div>
                 <div class="relative flex items-center justify-between">
@@ -322,6 +323,7 @@
                     </div>
                 </div>
             </a>
+            </button>
         </div>
 
         <!-- Daftar Kelas -->
@@ -377,9 +379,14 @@
                             </span>
                             <span class="text-purple-700 text-sm font-semibold">32 Mhs</span>
                         </div>
-                        <a href="detail-kelas-dosen.php?id=1" class="block w-full text-center bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
-                            Lihat Detail
-                        </a>
+                        <div class="flex gap-2">
+                            <a href="detail-kelas-dosen.php?id=1" class="flex-1 text-center bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Lihat Detail
+                            </a>
+                            <button onclick="goToKelolaMaterI(1)" class="flex-1 text-center bg-gradient-to-r from-pink-600 to-pink-700 hover:from-pink-700 hover:to-pink-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Kelola Materi
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -405,9 +412,14 @@
                             </span>
                             <span class="text-pink-700 text-sm font-semibold">28 Mhs</span>
                         </div>
-                        <a href="detail-kelas-dosen.php?id=2" class="block w-full text-center bg-gradient-to-r from-pink-600 to-pink-700 hover:from-pink-700 hover:to-pink-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
-                            Lihat Detail
-                        </a>
+                        <div class="flex gap-2">
+                            <a href="detail-kelas-dosen.php?id=2" class="flex-1 text-center bg-gradient-to-r from-pink-600 to-pink-700 hover:from-pink-700 hover:to-pink-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Lihat Detail
+                            </a>
+                            <button onclick="goToKelolaMaterI(2)" class="flex-1 text-center bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Kelola Materi
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -433,9 +445,14 @@
                             </span>
                             <span class="text-blue-700 text-sm font-semibold">35 Mhs</span>
                         </div>
-                        <a href="detail-kelas-dosen.php?id=3" class="block w-full text-center bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
-                            Lihat Detail
-                        </a>
+                        <div class="flex gap-2">
+                            <a href="detail-kelas-dosen.php?id=3" class="flex-1 text-center bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Lihat Detail
+                            </a>
+                            <button onclick="goToKelolaMaterI(3)" class="flex-1 text-center bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Kelola Materi
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -461,9 +478,14 @@
                             </span>
                             <span class="text-yellow-700 text-sm font-semibold">30 Mhs</span>
                         </div>
-                        <a href="detail-kelas-dosen.php?id=4" class="block w-full text-center bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-700 hover:to-yellow-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
-                            Lihat Detail
-                        </a>
+                        <div class="flex gap-2">
+                            <a href="detail-kelas-dosen.php?id=4" class="flex-1 text-center bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-700 hover:to-yellow-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Lihat Detail
+                            </a>
+                            <button onclick="goToKelolaMaterI(4)" class="flex-1 text-center bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Kelola Materi
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -489,9 +511,14 @@
                             </span>
                             <span class="text-green-700 text-sm font-semibold">26 Mhs</span>
                         </div>
-                        <a href="detail-kelas-dosen.php?id=5" class="block w-full text-center bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
-                            Lihat Detail
-                        </a>
+                        <div class="flex gap-2">
+                            <a href="detail-kelas-dosen.php?id=5" class="flex-1 text-center bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Lihat Detail
+                            </a>
+                            <button onclick="goToKelolaMaterI(5)" class="flex-1 text-center bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Kelola Materi
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -517,9 +544,14 @@
                             </span>
                             <span class="text-indigo-700 text-sm font-semibold">29 Mhs</span>
                         </div>
-                        <a href="detail-kelas-dosen.php?id=6" class="block w-full text-center bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
-                            Lihat Detail
-                        </a>
+                        <div class="flex gap-2">
+                            <a href="detail-kelas-dosen.php?id=6" class="flex-1 text-center bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Lihat Detail
+                            </a>
+                            <button onclick="goToKelolaMaterI(6)" class="flex-1 text-center bg-gradient-to-r from-violet-600 to-violet-700 hover:from-violet-700 hover:to-violet-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Kelola Materi
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -545,9 +577,14 @@
                             </span>
                             <span class="text-orange-700 text-sm font-semibold">31 Mhs</span>
                         </div>
-                        <a href="detail-kelas-dosen.php?id=7" class="block w-full text-center bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
-                            Lihat Detail
-                        </a>
+                        <div class="flex gap-2">
+                            <a href="detail-kelas-dosen.php?id=7" class="flex-1 text-center bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Lihat Detail
+                            </a>
+                            <button onclick="goToKelolaMaterI(7)" class="flex-1 text-center bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Kelola Materi
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -573,9 +610,14 @@
                             </span>
                             <span class="text-teal-700 text-sm font-semibold">27 Mhs</span>
                         </div>
-                        <a href="detail-kelas-dosen.php?id=8" class="block w-full text-center bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
-                            Lihat Detail
-                        </a>
+                        <div class="flex gap-2">
+                            <a href="detail-kelas-dosen.php?id=8" class="flex-1 text-center bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Lihat Detail
+                            </a>
+                            <button onclick="goToKelolaMaterI(8)" class="flex-1 text-center bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Kelola Materi
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -601,9 +643,14 @@
                             </span>
                             <span class="text-yellow-700 text-sm font-semibold">24 Mhs</span>
                         </div>
-                        <a href="detail-kelas-dosen.php?id=9" class="block w-full text-center bg-gradient-to-r from-yellow-600 to-amber-700 hover:from-yellow-700 hover:to-amber-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
-                            Lihat Detail
-                        </a>
+                        <div class="flex gap-2">
+                            <a href="detail-kelas-dosen.php?id=9" class="flex-1 text-center bg-gradient-to-r from-yellow-600 to-amber-700 hover:from-yellow-700 hover:to-amber-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Lihat Detail
+                            </a>
+                            <button onclick="goToKelolaMaterI(9)" class="flex-1 text-center bg-gradient-to-r from-orange-500 to-yellow-600 hover:from-orange-600 hover:to-yellow-700 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Kelola Materi
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -629,9 +676,14 @@
                             </span>
                             <span class="text-cyan-700 text-sm font-semibold">28 Mhs</span>
                         </div>
-                        <a href="detail-kelas-dosen.php?id=10" class="block w-full text-center bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
-                            Lihat Detail
-                        </a>
+                        <div class="flex gap-2">
+                            <a href="detail-kelas-dosen.php?id=10" class="flex-1 text-center bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Lihat Detail
+                            </a>
+                            <button onclick="goToKelolaMaterI(10)" class="flex-1 text-center bg-gradient-to-r from-sky-600 to-sky-700 hover:from-sky-700 hover:to-sky-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Kelola Materi
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -657,9 +709,14 @@
                             </span>
                             <span class="text-lime-700 text-sm font-semibold">33 Mhs</span>
                         </div>
-                        <a href="detail-kelas-dosen.php?id=11" class="block w-full text-center bg-gradient-to-r from-lime-600 to-lime-700 hover:from-lime-700 hover:to-lime-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
-                            Lihat Detail
-                        </a>
+                        <div class="flex gap-2">
+                            <a href="detail-kelas-dosen.php?id=11" class="flex-1 text-center bg-gradient-to-r from-lime-600 to-lime-700 hover:from-lime-700 hover:to-lime-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Lihat Detail
+                            </a>
+                            <button onclick="goToKelolaMaterI(11)" class="flex-1 text-center bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Kelola Materi
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -685,9 +742,14 @@
                             </span>
                             <span class="text-rose-700 text-sm font-semibold">25 Mhs</span>
                         </div>
-                        <a href="detail-kelas-dosen.php?id=12" class="block w-full text-center bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
-                            Lihat Detail
-                        </a>
+                        <div class="flex gap-2">
+                            <a href="detail-kelas-dosen.php?id=12" class="flex-1 text-center bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Lihat Detail
+                            </a>
+                            <button onclick="goToKelolaMaterI(12)" class="flex-1 text-center bg-gradient-to-r from-pink-600 to-pink-700 hover:from-pink-700 hover:to-pink-800 text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg">
+                                Kelola Materi
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1024,12 +1086,187 @@
     </div>
 
     <script>
-        // Modal Functions
-        function openJoinKelasModal() {
-            document.getElementById('createModal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
+        // Global state untuk kelas
+        let allKelas = [];
+        let currentEditKelasId = null;
+        let currentDeleteKelasId = null;
+
+        // Helper function untuk fetch dengan session ID
+        async function apiFetch(url, options = {}) {
+            const sessionId = localStorage.getItem('sessionId');
+            
+            // Initialize headers if not provided
+            if (!options.headers) {
+                options.headers = {};
+            }
+            
+            // Add session ID header jika tersedia
+            if (sessionId) {
+                options.headers['X-Session-ID'] = sessionId;
+            }
+            
+            // Always include credentials
+            options.credentials = 'include';
+            
+            return fetch(url, options);
         }
 
+        // Load kelas dari backend saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            loadKelasFromBackend();
+        });
+
+        // Load semua kelas dari backend
+        async function loadKelasFromBackend() {
+            try {
+                console.log('📥 Loading kelas...');
+                const response = await apiFetch('../backend/kelas/get-kelas-dosen.php');
+                const result = await response.json();
+                
+                console.log('✅ API Response:', result);
+                
+                if (result.success && result.data) {
+                    console.log('📊 Setting allKelas to', result.data.length, 'items');
+                    allKelas = result.data;
+                    console.log('🎨 Calling renderKelasCards()');
+                    renderKelasCards();
+                } else {
+                    console.error('❌ Error loading kelas:', result.message);
+                }
+            } catch (error) {
+                console.error('❌ Fetch error:', error);
+            }
+        }
+
+        // Render kelas cards
+        function renderKelasCards() {
+            console.log('🎨 renderKelasCards called');
+            console.log('   allKelas.length:', allKelas.length);
+            
+            // Target kelasGrid dengan ID yang pasti
+            const kelasGrid = document.getElementById('kelasGrid');
+            
+            if (!kelasGrid) {
+                console.error('❌ kelasGrid element not found! Searching for alternatives...');
+                const allGrids = document.querySelectorAll('[id*="grid"], [id*="Grid"]');
+                console.log('   Found', allGrids.length, 'grid-like elements:', Array.from(allGrids).map(e => e.id));
+                return;
+            }
+            
+            console.log('✅ Found kelasGrid element');
+            console.log('   Current children:', kelasGrid.children.length);
+
+            // Clear semua cards yang lama
+            const oldCards = kelasGrid.querySelectorAll('[data-kelas-id]');
+            console.log('   Removing', oldCards.length, 'old cards');
+            oldCards.forEach(card => card.remove());
+
+            // Add kelas dari backend
+            console.log('   Creating', allKelas.length, 'new cards');
+            allKelas.forEach((kelas, index) => {
+                try {
+                    const colors = getColorForKelas(kelas.id_kelas);
+                    const card = createKelasCard(kelas, colors);
+                    kelasGrid.appendChild(card);
+                    console.log(`   ✅ Card ${index + 1} added: ${kelas.nama_matakuliah}`);
+                } catch (err) {
+                    console.error(`   ❌ Error creating card ${index + 1}:`, err);
+                }
+            });
+            
+            console.log(`✅ Render complete. Grid now has ${kelasGrid.children.length} children`);
+        }
+
+        // Create kelas card element
+        function createKelasCard(kelas, colors) {
+            try {
+                const div = document.createElement('div');
+                div.className = 'group bg-gradient-to-br from-pink-100 via-pink-50 to-white rounded-2xl overflow-hidden shadow-lg border-2 hover:shadow-2xl hover:scale-105 transition-all duration-300';
+                div.style.borderColor = colors.border;
+                div.setAttribute('data-kelas-id', kelas.id_kelas);
+
+                const gradientColor = colors.gradient;
+                const textColor = colors.text;
+
+                div.innerHTML = `
+                <div class="bg-gradient-to-br p-6 flex items-center justify-center h-32 relative overflow-hidden" style="background: linear-gradient(135deg, ${gradientColor} 0%, ${colors.gradientDark} 100%);">
+                    <div class="absolute inset-0 opacity-20">
+                        <div class="absolute top-2 left-4 w-16 h-20 bg-white/20 rounded transform -rotate-12"></div>
+                        <div class="absolute bottom-2 right-4 w-16 h-20 bg-white/20 rounded transform rotate-6"></div>
+                    </div>
+                    <div class="relative w-20 h-24 bg-white/10 rounded-lg shadow-xl transform -rotate-12 flex items-center justify-center">
+                        <span class="text-3xl font-bold text-white/80">${kelas.kode_matakuliah.substring(0, 2)}</span>
+                    </div>
+                </div>
+                <div class="p-5 bg-white">
+                    <h3 class="font-bold text-lg mb-1 line-clamp-2" style="color: ${textColor};">${kelas.nama_matakuliah}</h3>
+                    <p class="text-sm mb-3" style="color: ${colors.textMuted};">${kelas.kode_matakuliah} • ${kelas.semester} ${kelas.tahun_ajaran}</p>
+                    
+                    <!-- Kode Kelas -->
+                    <div class="mb-3 p-3 bg-blue-50 rounded-lg border border-blue-200 flex items-center justify-between">
+                        <div>
+                            <p class="text-xs text-gray-600 font-semibold">Kode Kelas</p>
+                            <p class="text-lg font-bold text-blue-700">${kelas.kode_kelas}</p>
+                        </div>
+                        <button onclick="copyKodeKelas('${kelas.kode_kelas}')" class="p-2 hover:bg-blue-100 rounded-lg transition-colors" title="Salin kode">
+                            <svg class="w-5 h-5 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center gap-1 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full">
+                            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                            AKTIF
+                        </span>
+                        <span style="color: ${textColor};" class="text-sm font-semibold">${kelas.jumlah_mahasiswa} Mhs</span>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <a href="detail-kelas-dosen.php?id=${kelas.id_kelas}" class="flex-1 text-center text-white font-bold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg" style="background: linear-gradient(135deg, ${gradientColor} 0%, ${colors.gradientDark} 100%);">
+                            Lihat Detail
+                        </a>
+                        <button onclick="openEditModal(${kelas.id_kelas})" class="p-2.5 hover:bg-gray-100 rounded-lg transition-colors" title="Edit">
+                            <svg class="w-5 h-5 text-yellow-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                        </button>
+                        <button onclick="openDeleteModal(${kelas.id_kelas}, '${kelas.nama_matakuliah.replace(/'/g, "\\'")}')" class="p-2.5 hover:bg-gray-100 rounded-lg transition-colors" title="Hapus">
+                            <svg class="w-5 h-5 text-red-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 6h18"></path>
+                                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `;
+                
+                return div;
+            } catch (err) {
+                console.error('Error in createKelasCard:', err);
+                throw err;
+            }
+        }
+
+        // Get warna untuk kelas
+        function getColorForKelas(id) {
+            const colors = [
+                { border: '#ec4899', gradient: '#ec4899', gradientDark: '#be185d', text: '#831843', textMuted: '#ec4899' },
+                { border: '#f59e0b', gradient: '#f59e0b', gradientDark: '#d97706', text: '#b45309', textMuted: '#f59e0b' },
+                { border: '#8b5cf6', gradient: '#8b5cf6', gradientDark: '#6d28d9', text: '#4c1d95', textMuted: '#8b5cf6' },
+                { border: '#06b6d4', gradient: '#06b6d4', gradientDark: '#0891b2', text: '#164e63', textMuted: '#06b6d4' },
+                { border: '#10b981', gradient: '#10b981', gradientDark: '#059669', text: '#065f46', textMuted: '#10b981' },
+                { border: '#f43f5e', gradient: '#f43f5e', gradientDark: '#be185d', text: '#831843', textMuted: '#f43f5e' }
+            ];
+            
+            return colors[id % colors.length];
+        }
+
+        // Modal Functions
         function openCreateModal() {
             document.getElementById('createModal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
@@ -1039,37 +1276,72 @@
             document.getElementById('createModal').classList.add('hidden');
             document.body.style.overflow = 'auto';
             document.getElementById('createKelasForm').reset();
+            document.getElementById('createAlertContainer').innerHTML = '';
         }
 
-        function openEditModal(kodeKelas) {
+        async function openEditModal(kelasId) {
+            const kelas = allKelas.find(k => k.id_kelas === kelasId);
+            if (!kelas) return;
+
+            currentEditKelasId = kelasId;
+            document.getElementById('editNamaMK').value = kelas.nama_matakuliah;
+            document.getElementById('editKodeMK').value = kelas.kode_matakuliah;
+            document.getElementById('editSemester').value = kelas.semester;
+            document.getElementById('editTahun').value = kelas.tahun_ajaran;
+            document.getElementById('editDeskripsi').value = kelas.deskripsi || '';
+            document.getElementById('editKapasitas').value = kelas.kapasitas;
+            document.getElementById('editAlertContainer').innerHTML = '';
+            
             document.getElementById('editModal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
-            // TODO: Load data kelas berdasarkan kode
         }
 
         function closeEditModal() {
             document.getElementById('editModal').classList.add('hidden');
             document.body.style.overflow = 'auto';
+            currentEditKelasId = null;
         }
 
-        function openDeleteModal(kodeKelas, namaKelas) {
+        function openDeleteModal(kelasId, namaKelas) {
             document.getElementById('deleteModal').classList.remove('hidden');
             document.getElementById('deleteKelasName').textContent = namaKelas;
             document.body.style.overflow = 'hidden';
-            // Store kodeKelas for deletion
-            window.currentDeleteKode = kodeKelas;
+            currentDeleteKelasId = kelasId;
         }
 
         function closeDeleteModal() {
             document.getElementById('deleteModal').classList.add('hidden');
             document.body.style.overflow = 'auto';
+            currentDeleteKelasId = null;
         }
 
-        function confirmDelete() {
-            // TODO: Send delete request to backend
-            console.log('Deleting kelas:', window.currentDeleteKode);
-            showToast('Kelas Dihapus', 'Kelas berhasil dihapus dari sistem', 'success');
-            closeDeleteModal();
+        async function confirmDelete() {
+            if (!currentDeleteKelasId) return;
+
+            try {
+                const response = await apiFetch('../backend/kelas/delete-kelas.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id_kelas: currentDeleteKelasId
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    closeDeleteModal();
+                    showToast('Kelas Dihapus', result.message, 'success');
+                    loadKelasFromBackend();
+                } else {
+                    showToast('Error', result.message, 'error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showToast('Error', 'Gagal menghapus kelas', 'error');
+            }
         }
 
         // Copy Kode Kelas
@@ -1096,65 +1368,219 @@
         }
 
         // Form Submit Handler - Create Kelas
-        document.getElementById('createKelasForm').addEventListener('submit', function(e) {
+        document.getElementById('createKelasForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const formData = new FormData(this);
+            const formData = {
+                nama_matakuliah: document.getElementById('namaMK').value,
+                kode_matakuliah: document.getElementById('kodeMK').value,
+                semester: document.getElementById('semester').value,
+                tahun_ajaran: document.getElementById('tahun').value,
+                deskripsi: document.getElementById('deskripsi').value,
+                kapasitas: parseInt(document.getElementById('kapasitas').value)
+            };
+
             const alertContainer = document.getElementById('createAlertContainer');
             
-            // TODO: Send to backend
-            console.log('Creating kelas:', Object.fromEntries(formData));
-            
-            // Simulate success
-            alertContainer.innerHTML = `
-                <div class="bg-green-50 border-2 border-green-500 rounded-lg p-4 flex items-start gap-3">
-                    <svg class="w-6 h-6 text-green-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                    </svg>
-                    <div class="flex-1">
-                        <strong class="block text-green-900 font-semibold mb-1">Kelas Berhasil Dibuat!</strong>
-                        <p class="text-green-700 text-sm">Kode kelas: <strong>ABC123</strong></p>
+            try {
+                const response = await apiFetch('../backend/kelas/create-kelas.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    alertContainer.innerHTML = `
+                        <div class="bg-green-50 border-2 border-green-500 rounded-lg p-4 flex items-start gap-3">
+                            <svg class="w-6 h-6 text-green-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                            <div class="flex-1">
+                                <strong class="block text-green-900 font-semibold mb-1">Kelas Berhasil Dibuat!</strong>
+                                <p class="text-green-700 text-sm">Kode kelas: <strong>${result.data.kode_kelas}</strong></p>
+                            </div>
+                        </div>
+                    `;
+                    
+                    setTimeout(() => {
+                        closeCreateModal();
+                        showToast('Kelas Dibuat', 'Kelas baru berhasil ditambahkan', 'success');
+                        loadKelasFromBackend();
+                    }, 1500);
+                } else {
+                    alertContainer.innerHTML = `
+                        <div class="bg-red-50 border-2 border-red-500 rounded-lg p-4 flex items-start gap-3">
+                            <svg class="w-6 h-6 text-red-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                                <line x1="12" y1="9" x2="12" y2="13"></line>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg>
+                            <div class="flex-1">
+                                <strong class="block text-red-900 font-semibold mb-1">Error!</strong>
+                                <p class="text-red-700 text-sm">${result.message}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alertContainer.innerHTML = `
+                    <div class="bg-red-50 border-2 border-red-500 rounded-lg p-4 flex items-start gap-3">
+                        <svg class="w-6 h-6 text-red-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        <div class="flex-1">
+                            <strong class="block text-red-900 font-semibold mb-1">Error!</strong>
+                            <p class="text-red-700 text-sm">Gagal membuat kelas</p>
+                        </div>
                     </div>
-                </div>
-            `;
-            
-            setTimeout(() => {
-                closeCreateModal();
-                showToast('Kelas Dibuat', 'Kelas baru berhasil ditambahkan', 'success');
-                // TODO: Refresh kelas list
-            }, 1500);
+                `;
+            }
         });
 
         // Form Submit Handler - Edit Kelas
-        document.getElementById('editKelasForm').addEventListener('submit', function(e) {
+        document.getElementById('editKelasForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const formData = new FormData(this);
+            const formData = {
+                id_kelas: currentEditKelasId,
+                nama_matakuliah: document.getElementById('editNamaMK').value,
+                kode_matakuliah: document.getElementById('editKodeMK').value,
+                semester: document.getElementById('editSemester').value,
+                tahun_ajaran: document.getElementById('editTahun').value,
+                deskripsi: document.getElementById('editDeskripsi').value,
+                kapasitas: parseInt(document.getElementById('editKapasitas').value)
+            };
+
             const alertContainer = document.getElementById('editAlertContainer');
             
-            // TODO: Send to backend
-            console.log('Updating kelas:', Object.fromEntries(formData));
-            
-            alertContainer.innerHTML = `
-                <div class="bg-green-50 border-2 border-green-500 rounded-lg p-4 flex items-start gap-3">
-                    <svg class="w-6 h-6 text-green-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                    </svg>
-                    <div class="flex-1">
-                        <strong class="block text-green-900 font-semibold mb-1">Perubahan Disimpan!</strong>
-                        <p class="text-green-700 text-sm">Data kelas berhasil diupdate</p>
+            try {
+                const response = await apiFetch('../backend/kelas/update-kelas.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    alertContainer.innerHTML = `
+                        <div class="bg-green-50 border-2 border-green-500 rounded-lg p-4 flex items-start gap-3">
+                            <svg class="w-6 h-6 text-green-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                            <div class="flex-1">
+                                <strong class="block text-green-900 font-semibold mb-1">Perubahan Disimpan!</strong>
+                                <p class="text-green-700 text-sm">Data kelas berhasil diupdate</p>
+                            </div>
+                        </div>
+                    `;
+                    
+                    setTimeout(() => {
+                        closeEditModal();
+                        showToast('Kelas Diupdate', 'Perubahan berhasil disimpan', 'success');
+                        loadKelasFromBackend();
+                    }, 1500);
+                } else {
+                    alertContainer.innerHTML = `
+                        <div class="bg-red-50 border-2 border-red-500 rounded-lg p-4 flex items-start gap-3">
+                            <svg class="w-6 h-6 text-red-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                                <line x1="12" y1="9" x2="12" y2="13"></line>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg>
+                            <div class="flex-1">
+                                <strong class="block text-red-900 font-semibold mb-1">Error!</strong>
+                                <p class="text-red-700 text-sm">${result.message}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alertContainer.innerHTML = `
+                    <div class="bg-red-50 border-2 border-red-500 rounded-lg p-4 flex items-start gap-3">
+                        <svg class="w-6 h-6 text-red-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        <div class="flex-1">
+                            <strong class="block text-red-900 font-semibold mb-1">Error!</strong>
+                            <p class="text-red-700 text-sm">Gagal mengupdate kelas</p>
+                        </div>
                     </div>
-                </div>
-            `;
-            
-            setTimeout(() => {
-                closeEditModal();
-                showToast('Kelas Diupdate', 'Perubahan berhasil disimpan', 'success');
-                // TODO: Refresh kelas list
-            }, 1500);
+                `;
+            }
         });
+
+        // Kelola Materi Modal
+        function openKelolaMaterModal() {
+            const modal = document.getElementById('kelolaMaterModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            loadKelasToModal();
+        }
+
+        function closeKelolaMaterModal() {
+            const modal = document.getElementById('kelolaMaterModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function pilihKelasUntukKelola(id_kelas, nama_kelas) {
+            window.location.href = `kelola-materi.php?id_kelas=${id_kelas}`;
+        }
+
+        async function loadKelasToModal() {
+            const kelasList = document.getElementById('kelasList');
+            kelasList.innerHTML = '<div class="text-center py-8 text-gray-500"><p class="text-sm">Memuat data kelas...</p></div>';
+
+            try {
+                const response = await apiFetch('../backend/kelas/get-kelas-dosen.php', {
+                    method: 'GET'
+                });
+
+                const result = await response.json();
+                
+                if (result.success && result.data && result.data.length > 0) {
+                    kelasList.innerHTML = result.data.map(kelas => `
+                        <button onclick="pilihKelasUntukKelola(${kelas.id_kelas}, '${kelas.nama_matakuliah}')" 
+                                class="w-full text-left p-4 bg-gradient-to-r from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 rounded-xl border-2 border-purple-200 hover:border-pink-400 transition-all duration-200 group">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-gray-900 group-hover:text-purple-700 transition-colors">${kelas.nama_matakuliah}</h4>
+                                    <p class="text-sm text-gray-600 mt-1">${kelas.kode_matakuliah}</p>
+                                </div>
+                                <div class="text-right ml-3">
+                                    <span class="inline-flex items-center gap-1 bg-purple-100 text-purple-700 text-xs font-bold px-2 py-1 rounded-full">
+                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+                                        </svg>
+                                        ${kelas.jumlah_mahasiswa || 0}
+                                    </span>
+                                </div>
+                            </div>
+                        </button>
+                    `).join('');
+                } else {
+                    kelasList.innerHTML = '<div class="text-center py-8 text-gray-500"><p class="text-sm">Anda belum memiliki kelas</p></div>';
+                }
+            } catch (error) {
+                console.error('Error loading kelas:', error);
+                kelasList.innerHTML = '<div class="text-center py-8 text-red-500"><p class="text-sm">Error memuat data kelas</p></div>';
+            }
+        }
 
         // Close modals on ESC key
         document.addEventListener('keydown', function(e) {
@@ -1162,8 +1588,54 @@
                 closeCreateModal();
                 closeEditModal();
                 closeDeleteModal();
+                closeKelolaMaterModal();
             }
         });
+
+        // Navigate to Kelola Materi page
+        function goToKelolaMaterI(idKelas) {
+            window.location.href = 'kelola-materi.php?id_kelas=' + idKelas;
+        }
+
+        // Scroll to Kelas List section
+        function showKelasList() {
+            const kelasSection = document.getElementById('kelasGrid');
+            if (kelasSection) {
+                kelasSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
     </script>
+
+    <!-- Kelola Materi Modal -->
+    <div id="kelolaMaterModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 animate-fadeIn">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-4 flex items-center justify-between">
+                <h3 class="text-xl font-bold text-white">Pilih Kelas untuk Dikelola</h3>
+                <button onclick="closeKelolaMaterModal()" class="text-white hover:bg-white/20 p-2 rounded-lg transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Content -->
+            <div class="p-6">
+                <div class="space-y-3 max-h-96 overflow-y-auto" id="kelasList">
+                    <!-- Kelas akan di-load dari backend -->
+                    <div class="text-center py-8 text-gray-500">
+                        <p class="text-sm">Memuat data kelas...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="border-t px-6 py-4 flex justify-end gap-3">
+                <button onclick="closeKelolaMaterModal()" class="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors font-semibold">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

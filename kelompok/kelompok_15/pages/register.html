@@ -45,6 +45,11 @@
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
         }
 
+        .btn-gradient:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         .illustration-float {
             animation: float 3s ease-in-out infinite;
         }
@@ -68,6 +73,59 @@
         .step-indicator.active {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+        }
+
+        .alert-error {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fca5a5;
+        }
+
+        .alert-warning {
+            background-color: #fef3c7;
+            color: #b45309;
+            border: 1px solid #fde68a;
+        }
+
+        .alert-info {
+            background-color: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #93c5fd;
+        }
+
+        .password-strength {
+            height: 4px;
+            border-radius: 2px;
+            margin-top: 0.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .password-strength.weak {
+            background-color: #ef4444;
+            width: 33%;
+        }
+
+        .password-strength.medium {
+            background-color: #f59e0b;
+            width: 66%;
+        }
+
+        .password-strength.strong {
+            background-color: #10b981;
+            width: 100%;
         }
     </style>
 </head>
@@ -131,7 +189,14 @@
                     <p class="text-gray-500 text-sm">Lengkapi data diri Anda untuk mendaftar</p>
                 </div>
 
-                <form action="../backend/auth/register.php" method="POST" class="space-y-3.5">
+                <form id="registerForm" class="space-y-3.5">
+                    <!-- Alert Message -->
+                    <div id="alertMessage" class="hidden p-3 rounded-xl text-sm font-medium"></div>
+
+                <!-- Alert Container -->
+                <div id="alertContainer"></div>
+
+                <form id="registerForm" class="space-y-3.5">
                     <!-- Role Selection (First) -->
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 mb-1.5">Daftar sebagai</label>
@@ -162,7 +227,8 @@
                             </div>
                             <input 
                                 type="text" 
-                                name="nama" 
+                                name="nama"
+                                id="nama"
                                 required
                                 class="input-field w-full pl-12 pr-4 py-3 rounded-xl bg-gray-50"
                                 placeholder="Masukkan nama lengkap"
@@ -179,7 +245,8 @@
                             </div>
                             <input 
                                 type="text" 
-                                name="npm_nidn" 
+                                name="npm_nidn"
+                                id="npm_nidn"
                                 required
                                 class="input-field w-full pl-12 pr-4 py-3 rounded-xl bg-gray-50"
                                 placeholder="Masukkan NPM atau NIDN"
@@ -196,7 +263,8 @@
                             </div>
                             <input 
                                 type="email" 
-                                name="email" 
+                                name="email"
+                                id="email"
                                 required
                                 class="input-field w-full pl-12 pr-4 py-3 rounded-xl bg-gray-50"
                                 placeholder="nama@email.com"
@@ -218,15 +286,18 @@
                                 required
                                 class="input-field w-full pl-12 pr-12 py-3 rounded-xl bg-gray-50"
                                 placeholder="Minimal 8 karakter"
+                                oninput="checkPasswordStrength()"
                             />
                             <button 
                                 type="button" 
-                                onclick="togglePassword()"
+                                onclick="togglePassword('password')"
                                 class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600"
                             >
                                 <i class="fas fa-eye" id="toggleIcon"></i>
                             </button>
                         </div>
+                        <div id="passwordStrength" class="password-strength"></div>
+                        <p id="passwordRequirements" class="text-xs text-gray-600 mt-1"></p>
                     </div>
 
                     <!-- Confirm Password -->
@@ -238,25 +309,27 @@
                             </div>
                             <input 
                                 type="password" 
-                                name="confirm_password" 
-                                id="confirmPassword"
+                                name="password_confirm" 
+                                id="passwordConfirm"
                                 required
                                 class="input-field w-full pl-12 pr-12 py-3 rounded-xl bg-gray-50"
                                 placeholder="Ulangi password"
+                                oninput="checkPasswordMatch()"
                             />
                             <button 
                                 type="button" 
-                                onclick="toggleConfirmPassword()"
+                                onclick="togglePassword('passwordConfirm')"
                                 class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600"
                             >
                                 <i class="fas fa-eye" id="toggleConfirmIcon"></i>
                             </button>
                         </div>
+                        <p id="passwordMatch" class="text-xs mt-1"></p>
                     </div>
 
                     <!-- Terms & Conditions -->
                     <div class="flex items-start">
-                        <input type="checkbox" required class="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500 mt-1">
+                        <input type="checkbox" id="termsCheckbox" required class="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500 mt-1">
                         <label class="ml-2 text-sm text-gray-600">
                             Saya menyetujui <a href="#" class="gradient-text font-semibold hover:underline">Syarat & Ketentuan</a> 
                             dan <a href="#" class="gradient-text font-semibold hover:underline">Kebijakan Privasi</a>
@@ -266,9 +339,11 @@
                     <!-- Register Button -->
                     <button 
                         type="submit"
+                        id="btnRegister"
+                        id="registerBtn"
                         class="btn-gradient w-full py-4 rounded-xl text-white font-bold text-lg"
                     >
-                        Daftar Sekarang <i class="fas fa-arrow-right ml-2"></i>
+                        <span id="btnText">Daftar Sekarang</span> <i class="fas fa-arrow-right ml-2"></i>
                     </button>
 
                     <!-- Login Link -->
@@ -281,36 +356,198 @@
         </div>
     </div>
 
+    <script src="../assets/js/auth.js"></script>
     <script>
-        function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const toggleIcon = document.getElementById('toggleIcon');
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            const iconId = fieldId === 'password' ? 'toggleIcon' : 'toggleConfirmIcon';
+            const toggleIcon = document.getElementById(iconId);
             
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
+            if (field.type === 'password') {
+                field.type = 'text';
                 toggleIcon.classList.remove('fa-eye');
                 toggleIcon.classList.add('fa-eye-slash');
             } else {
-                passwordInput.type = 'password';
+                field.type = 'password';
                 toggleIcon.classList.remove('fa-eye-slash');
                 toggleIcon.classList.add('fa-eye');
             }
         }
 
-        function toggleConfirmPassword() {
-            const passwordInput = document.getElementById('confirmPassword');
-            const toggleIcon = document.getElementById('toggleConfirmIcon');
+        function checkPasswordStrength() {
+            const password = document.getElementById('password').value;
+            const strengthBar = document.getElementById('passwordStrength');
+            const requirements = document.getElementById('passwordRequirements');
             
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                toggleIcon.classList.remove('fa-eye');
-                toggleIcon.classList.add('fa-eye-slash');
+            let strength = 'weak';
+            let requirementsText = [];
+            
+            // Check length
+            if (password.length >= 8) {
+                requirementsText.push('✓ Minimal 8 karakter');
             } else {
-                passwordInput.type = 'password';
-                toggleIcon.classList.remove('fa-eye-slash');
-                toggleIcon.classList.add('fa-eye');
+                requirementsText.push('✗ Minimal 8 karakter');
+            }
+            
+            // Check uppercase
+            if (/[A-Z]/.test(password)) {
+                requirementsText.push('✓ Huruf besar');
+            } else {
+                requirementsText.push('✗ Huruf besar');
+            }
+            
+            // Check numbers
+            if (/[0-9]/.test(password)) {
+                requirementsText.push('✓ Angka');
+            } else {
+                requirementsText.push('✗ Angka');
+            }
+            
+            // Determine strength
+            if (password.length >= 8 && /[A-Z]/.test(password) && /[0-9]/.test(password)) {
+                strength = 'strong';
+            } else if (password.length >= 8 && (/[A-Z]/.test(password) || /[0-9]/.test(password))) {
+                strength = 'medium';
+            }
+            
+            strengthBar.className = `password-strength ${strength}`;
+            requirements.innerHTML = requirementsText.join(' | ');
+        }
+
+        function checkPasswordMatch() {
+            const password = document.getElementById('password').value;
+            const passwordConfirm = document.getElementById('passwordConfirm').value;
+            const matchText = document.getElementById('passwordMatch');
+            
+            if (passwordConfirm === '') {
+                matchText.innerHTML = '';
+                return;
+            }
+            
+            if (password === passwordConfirm) {
+                matchText.innerHTML = '✓ Password cocok';
+                matchText.className = 'text-xs text-green-600 mt-1';
+            } else {
+                matchText.innerHTML = '✗ Password tidak cocok';
+                matchText.className = 'text-xs text-red-600 mt-1';
             }
         }
+
+        // Show alert message
+        function showAlert(message, type = 'error') {
+            const alert = document.getElementById('alertMessage');
+            alert.textContent = message;
+            alert.classList.remove('hidden', 'bg-green-100', 'text-green-700', 'bg-red-100', 'text-red-700');
+            
+            if (type === 'success') {
+                alert.classList.add('bg-green-100', 'text-green-700');
+            } else {
+                alert.classList.add('bg-red-100', 'text-red-700');
+            }
+            
+            // Scroll to alert
+            alert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Handle form submission with AJAX
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('btnRegister');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Memproses...';
+
+            const formData = new FormData(this);
+
+            // Client-side validation
+            const password = formData.get('password');
+            const confirmPassword = formData.get('confirm_password');
+            
+            if (password !== confirmPassword) {
+                showAlert('Konfirmasi password tidak cocok', 'error');
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+                return;
+            }
+
+            try {
+                const response = await fetch('../backend/auth/register.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showAlert(result.message, 'success');
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000);
+                } else {
+                    showAlert(result.message, 'error');
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                }
+            } catch (error) {
+                showAlert('Gagal terhubung ke server. Silakan coba lagi.', 'error');
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+        // Handle register form submission
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const nama = document.getElementById('nama').value;
+            const email = document.getElementById('email').value;
+            const npm_nidn = document.getElementById('npm_nidn').value;
+            const password = document.getElementById('password').value;
+            const password_confirm = document.getElementById('passwordConfirm').value;
+            const role = document.querySelector('input[name="role"]:checked').value;
+            const registerBtn = document.getElementById('registerBtn');
+            
+            // Validasi
+            if (!document.getElementById('termsCheckbox').checked) {
+                Auth.showAlert('warning', 'Anda harus menyetujui Syarat & Ketentuan', document.getElementById('alertContainer'));
+                return;
+            }
+            
+            // Disable button during submission
+            registerBtn.disabled = true;
+            registerBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sedang mendaftar...';
+            
+            try {
+                const userData = {
+                    nama,
+                    email,
+                    npm_nidn,
+                    password,
+                    password_confirm,
+                    role
+                };
+                
+                const response = await Auth.register(userData);
+                
+                if (response.status) {
+                    Auth.showAlert('success', response.message, document.getElementById('alertContainer'));
+                    
+                    // Reset form
+                    document.getElementById('registerForm').reset();
+                    
+                    // Redirect to login after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = './login.html';
+                    }, 2000);
+                } else {
+                    Auth.showAlert('error', response.message, document.getElementById('alertContainer'));
+                    registerBtn.disabled = false;
+                    registerBtn.innerHTML = 'Daftar Sekarang <i class="fas fa-arrow-right ml-2"></i>';
+                }
+            } catch (error) {
+                Auth.showAlert('error', 'Terjadi kesalahan: ' + error.message, document.getElementById('alertContainer'));
+                registerBtn.disabled = false;
+                registerBtn.innerHTML = 'Daftar Sekarang <i class="fas fa-arrow-right ml-2"></i>';
+            }
+        });
     </script>
 </body>
 </html>

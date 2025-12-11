@@ -3,355 +3,321 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Export Data - Demo System</title>
-    
-    <!-- CSS -->
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/dashboard.css">
-    <link rel="stylesheet" href="../assets/css/export-system.css">
-    
-    <!-- JavaScript -->
-    <script src="../assets/js/ui-interactions.js" defer></script>
+    <title>FITUR 12: Export & Reporting - KelasOnline</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="../assets/js/export-system.js" defer></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fadeIn 0.5s ease-out; }
+    </style>
 </head>
-<body>
+<body class="bg-gradient-to-br from-pink-50 via-purple-50 to-pink-50 min-h-screen">
+
     <!-- Navbar -->
-    <nav class="navbar">
-        <div class="navbar-container">
-            <div class="navbar-brand">
-                <svg class="navbar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-                </svg>
-                <span class="navbar-title">KelasOnline</span>
-            </div>
-            
-            <div class="navbar-menu">
-                <a href="dashboard-mahasiswa.php" class="navbar-link">
-                    <svg class="navbar-link-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-                    </svg>
-                    Dashboard
-                </a>
+    <nav class="bg-gradient-to-r from-pink-600 via-purple-600 to-pink-500 shadow-2xl sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-white p-2 rounded-lg shadow-lg">
+                        <svg class="w-8 h-8 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-white">KelasOnline</h1>
+                        <p class="text-pink-200 text-sm">Export & Reporting System</p>
+                    </div>
+                </div>
                 
-                <a href="export-demo.php" class="navbar-link active">
-                    <svg class="navbar-link-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                    </svg>
-                    Export Data
-                </a>
-                
-                <a href="profil.php" class="navbar-link">
-                    <svg class="navbar-link-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                    </svg>
-                    Profil
-                </a>
+                <div class="flex items-center space-x-6">
+                    <a href="dashboard-mahasiswa.php" class="text-white hover:text-pink-200 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                        </svg>
+                    </a>
+                    <div class="flex items-center space-x-3">
+                        <img src="https://ui-avatars.com/api/?name=Cindy&background=ec4899&color=fff&size=128" alt="Profile" class="w-10 h-10 rounded-full border-2 border-white shadow-lg">
+                        <div class="text-right">
+                            <p class="text-white font-semibold text-sm">Cindy</p>
+                            <p class="text-pink-200 text-xs">Frontend Developer</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="main-content" style="margin-left: 0; width: 100%;">
-        <div class="container">
-            <!-- Page Header -->
-            <div class="page-header">
-                <div class="page-title-section">
-                    <h1 class="page-title">Export & Reporting</h1>
-                    <p class="page-subtitle">Export data mahasiswa dan nilai dalam berbagai format</p>
+    <div class="container mx-auto px-6 py-8">
+        
+        <!-- Header -->
+        <div class="mb-8 animate-fade-in">
+            <h2 class="text-4xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent mb-2">
+                📊 FITUR 12: Export & Reporting System
+            </h2>
+            <p class="text-gray-600 text-lg">Demo lengkap fitur export data dengan modal pilihan format dan loading indicator</p>
+        </div>
+
+        <!-- Feature Info -->
+        <div class="bg-gradient-to-br from-pink-600 to-purple-600 rounded-3xl shadow-2xl p-8 mb-8 text-white">
+            <h3 class="text-2xl font-bold mb-4">✨ Fitur yang Diimplementasikan:</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6">
+                    <div class="text-4xl mb-3">📤</div>
+                    <h4 class="font-bold text-lg mb-2">Export Button</h4>
+                    <p class="text-pink-100 text-sm">Button export yang menarik di halaman list mahasiswa & nilai</p>
                 </div>
-            </div>
-
-            <!-- Export Cards Grid -->
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 32px;">
-                <!-- Export Mahasiswa Card -->
-                <div class="card" style="padding: 20px; border: 1px solid #e5e7eb; transition: all 0.3s ease;">
-                    <div style="display: flex; align-items: flex-start; gap: 16px;">
-                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);">
-                            <svg style="width: 24px; height: 24px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                            </svg>
-                        </div>
-                        <div style="flex: 1;">
-                            <h3 style="font-size: 18px; font-weight: 700; color: #1f2937; margin: 0 0 4px 0; line-height: 1.3;">
-                                Daftar Mahasiswa
-                            </h3>
-                            <p style="font-size: 13px; color: #6b7280; margin-bottom: 16px; line-height: 1.4;">
-                                Export daftar lengkap mahasiswa yang terdaftar di kelas ini termasuk NPM, nama, email, dan status.
-                            </p>
-                            
-                            <!-- Stats -->
-                            <div style="display: flex; gap: 16px; margin-bottom: 16px; padding: 10px 12px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.04) 0%, rgba(37, 99, 235, 0.04) 100%); border-radius: 6px; border: 1px solid rgba(59, 130, 246, 0.12);">
-                                <div style="flex: 1;">
-                                    <div style="font-size: 20px; font-weight: 700; color: #3b82f6; line-height: 1;">45</div>
-                                    <div style="font-size: 11px; color: #6b7280; margin-top: 2px;">Total Mahasiswa</div>
-                                </div>
-                                <div style="border-left: 1px solid #e5e7eb; padding-left: 16px; flex: 1;">
-                                    <div style="font-size: 20px; font-weight: 700; color: #10b981; line-height: 1;">42</div>
-                                    <div style="font-size: 11px; color: #6b7280; margin-top: 2px;">Aktif</div>
-                                </div>
-                                <div style="border-left: 1px solid #e5e7eb; padding-left: 16px; flex: 1;">
-                                    <div style="font-size: 20px; font-weight: 700; color: #f59e0b; line-height: 1;">3</div>
-                                    <div style="font-size: 11px; color: #6b7280; margin-top: 2px;">Tidak Aktif</div>
-                                </div>
-                            </div>
-
-                            <button 
-                                class="export-button" 
-                                data-export-type="mahasiswa"
-                                data-export-data='{"kelas_id": 1, "semester": "5"}'
-                                style="width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; border: none; padding: 10px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);">
-                                <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                                </svg>
-                                Export Daftar Mahasiswa
-                            </button>
-                        </div>
-                    </div>
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6">
+                    <div class="text-4xl mb-3">🎨</div>
+                    <h4 class="font-bold text-lg mb-2">Modal Pilih Format</h4>
+                    <p class="text-pink-100 text-sm">Modal interaktif untuk memilih format Excel atau PDF</p>
                 </div>
-
-                <!-- Export Nilai Card -->
-                <div class="card" style="padding: 20px; border: 1px solid #e5e7eb; transition: all 0.3s ease;">
-                    <div style="display: flex; align-items: flex-start; gap: 16px;">
-                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);">
-                            <svg style="width: 24px; height: 24px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
-                            </svg>
-                        </div>
-                        <div style="flex: 1;">
-                            <h3 style="font-size: 18px; font-weight: 700; color: #1f2937; margin: 0 0 4px 0; line-height: 1.3;">
-                                Rekap Nilai
-                            </h3>
-                            <p style="font-size: 13px; color: #6b7280; margin-bottom: 16px; line-height: 1.4;">
-                                Export rekap nilai mahasiswa lengkap dengan statistik, rata-rata, dan status kelulusan.
-                            </p>
-                            
-                            <!-- Stats -->
-                            <div style="display: flex; gap: 16px; margin-bottom: 16px; padding: 10px 12px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.04) 0%, rgba(5, 150, 105, 0.04) 100%); border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.12);">
-                                <div style="flex: 1;">
-                                    <div style="font-size: 20px; font-weight: 700; color: #10b981; line-height: 1;">12</div>
-                                    <div style="font-size: 11px; color: #6b7280; margin-top: 2px;">Total Tugas</div>
-                                </div>
-                                <div style="border-left: 1px solid #e5e7eb; padding-left: 16px; flex: 1;">
-                                    <div style="font-size: 20px; font-weight: 700; color: #3b82f6; line-height: 1;">85.3</div>
-                                    <div style="font-size: 11px; color: #6b7280; margin-top: 2px;">Rata-rata</div>
-                                </div>
-                                <div style="border-left: 1px solid #e5e7eb; padding-left: 16px; flex: 1;">
-                                    <div style="font-size: 20px; font-weight: 700; color: #f59e0b; line-height: 1;">92%</div>
-                                    <div style="font-size: 11px; color: #6b7280; margin-top: 2px;">Submit Rate</div>
-                                </div>
-                            </div>
-
-                            <button 
-                                class="export-button" 
-                                data-export-type="nilai"
-                                data-export-data='{"kelas_id": 1, "include_stats": true}'
-                                style="width: 100%; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; padding: 10px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);">
-                                <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                                </svg>
-                                Export Rekap Nilai
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Data Tables -->
-            <div class="card" style="padding: 0; overflow: hidden; margin-bottom: 40px;">
-                <div style="padding: 24px 32px; background: linear-gradient(135deg, rgba(30, 58, 138, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%); border-bottom: 2px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <h3 style="font-size: 20px; font-weight: 700; color: #1e3a8a; margin: 0 0 4px 0;">
-                            Daftar Mahasiswa - Pemrograman Web
-                        </h3>
-                        <p style="font-size: 14px; color: #6b7280; margin: 0;">
-                            Semester 5 • Tahun Ajaran 2024/2025
-                        </p>
-                    </div>
-                    <button 
-                        class="export-button secondary" 
-                        data-export-type="mahasiswa"
-                        data-export-data='{"kelas_id": 1}'>
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                        </svg>
-                        Export
-                    </button>
-                </div>
-
-                <div style="overflow-x: auto;">
-                    <table style="width: 100%; border-collapse: collapse;">
-                        <thead>
-                            <tr style="background: #f9fafb;">
-                                <th style="padding: 16px 24px; text-align: left; font-size: 13px; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">No</th>
-                                <th style="padding: 16px 24px; text-align: left; font-size: 13px; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">NPM</th>
-                                <th style="padding: 16px 24px; text-align: left; font-size: 13px; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">Nama</th>
-                                <th style="padding: 16px 24px; text-align: left; font-size: 13px; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">Email</th>
-                                <th style="padding: 16px 24px; text-align: left; font-size: 13px; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">Joined</th>
-                                <th style="padding: 16px 24px; text-align: left; font-size: 13px; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="border-bottom: 1px solid #e5e7eb;">
-                                <td style="padding: 16px 24px; font-size: 14px; color: #6b7280;">1</td>
-                                <td style="padding: 16px 24px; font-size: 14px; color: #1f2937; font-weight: 500;">2011234567</td>
-                                <td style="padding: 16px 24px; font-size: 14px; color: #1f2937;">Ahmad Rizki</td>
-                                <td style="padding: 16px 24px; font-size: 14px; color: #6b7280;">ahmad.rizki@student.unila.ac.id</td>
-                                <td style="padding: 16px 24px; font-size: 13px; color: #6b7280;">01 Sep 2024</td>
-                                <td style="padding: 16px 24px;"><span class="badge badge-success">Aktif</span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #e5e7eb;">
-                                <td style="padding: 16px 24px; font-size: 14px; color: #6b7280;">2</td>
-                                <td style="padding: 16px 24px; font-size: 14px; color: #1f2937; font-weight: 500;">2011234568</td>
-                                <td style="padding: 16px 24px; font-size: 14px; color: #1f2937;">Siti Nurhaliza</td>
-                                <td style="padding: 16px 24px; font-size: 14px; color: #6b7280;">siti.nurhaliza@student.unila.ac.id</td>
-                                <td style="padding: 16px 24px; font-size: 13px; color: #6b7280;">01 Sep 2024</td>
-                                <td style="padding: 16px 24px;"><span class="badge badge-success">Aktif</span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #e5e7eb;">
-                                <td style="padding: 16px 24px; font-size: 14px; color: #6b7280;">3</td>
-                                <td style="padding: 16px 24px; font-size: 14px; color: #1f2937; font-weight: 500;">2011234569</td>
-                                <td style="padding: 16px 24px; font-size: 14px; color: #1f2937;">Budi Santoso</td>
-                                <td style="padding: 16px 24px; font-size: 14px; color: #6b7280;">budi.santoso@student.unila.ac.id</td>
-                                <td style="padding: 16px 24px; font-size: 13px; color: #6b7280;">02 Sep 2024</td>
-                                <td style="padding: 16px 24px;"><span class="badge badge-success">Aktif</span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #e5e7eb;">
-                                <td style="padding: 16px 24px; font-size: 14px; color: #6b7280;">4</td>
-                                <td style="padding: 16px 24px; font-size: 14px; color: #1f2937; font-weight: 500;">2011234570</td>
-                                <td style="padding: 16px 24px; font-size: 14px; color: #1f2937;">Dewi Lestari</td>
-                                <td style="padding: 16px 24px; font-size: 14px; color: #6b7280;">dewi.lestari@student.unila.ac.id</td>
-                                <td style="padding: 16px 24px; font-size: 13px; color: #6b7280;">03 Sep 2024</td>
-                                <td style="padding: 16px 24px;"><span class="badge badge-success">Aktif</span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #e5e7eb;">
-                                <td style="padding: 16px 24px; font-size: 14px; color: #6b7280;">5</td>
-                                <td style="padding: 16px 24px; font-size: 14px; color: #1f2937; font-weight: 500;">2011234571</td>
-                                <td style="padding: 16px 24px; font-size: 14px; color: #1f2937;">Eko Prasetyo</td>
-                                <td style="padding: 16px 24px; font-size: 14px; color: #6b7280;">eko.prasetyo@student.unila.ac.id</td>
-                                <td style="padding: 16px 24px; font-size: 13px; color: #6b7280;">05 Sep 2024</td>
-                                <td style="padding: 16px 24px;"><span class="badge badge-warning">Tidak Aktif</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div style="padding: 16px 32px; background: #f9fafb; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
-                    <div style="font-size: 13px; color: #6b7280;">
-                        Menampilkan 5 dari 45 mahasiswa
-                    </div>
-                    <button 
-                        class="export-button secondary" 
-                        data-export-type="mahasiswa-full"
-                        style="padding: 8px 16px; font-size: 13px;">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 16px; height: 16px;">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                        </svg>
-                        Export Semua Data
-                    </button>
-                </div>
-            </div>
-
-            <!-- Nilai Table -->
-            <div class="card" style="padding: 0; overflow: hidden;">
-                <div style="padding: 24px 32px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(5, 150, 105, 0.05) 100%); border-bottom: 2px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <h3 style="font-size: 20px; font-weight: 700; color: #065f46; margin: 0 0 4px 0;">
-                            Rekap Nilai - Tugas 1 sampai 12
-                        </h3>
-                        <p style="font-size: 14px; color: #6b7280; margin: 0;">
-                            Rata-rata kelas: 85.3 • Submit rate: 92.3%
-                        </p>
-                    </div>
-                    <button 
-                        class="export-button" 
-                        data-export-type="nilai"
-                        data-export-data='{"tugas": "all", "include_stats": true}'>
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                        </svg>
-                        Export Nilai
-                    </button>
-                </div>
-
-                <div style="overflow-x: auto;">
-                    <table style="width: 100%; border-collapse: collapse;">
-                        <thead>
-                            <tr style="background: #f9fafb;">
-                                <th style="padding: 16px 24px; text-align: left; font-size: 13px; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">NPM</th>
-                                <th style="padding: 16px 24px; text-align: left; font-size: 13px; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">Nama</th>
-                                <th style="padding: 16px 24px; text-align: center; font-size: 13px; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">T1</th>
-                                <th style="padding: 16px 24px; text-align: center; font-size: 13px; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">T2</th>
-                                <th style="padding: 16px 24px; text-align: center; font-size: 13px; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">T3</th>
-                                <th style="padding: 16px 24px; text-align: center; font-size: 13px; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">Rata-rata</th>
-                                <th style="padding: 16px 24px; text-align: center; font-size: 13px; font-weight: 600; color: #374151; border-bottom: 2px solid #e5e7eb;">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="border-bottom: 1px solid #e5e7eb;">
-                                <td style="padding: 16px 24px; font-size: 14px; color: #1f2937; font-weight: 500;">2011234567</td>
-                                <td style="padding: 16px 24px; font-size: 14px; color: #1f2937;">Ahmad Rizki</td>
-                                <td style="padding: 16px 24px; text-align: center; font-size: 14px; color: #1f2937; font-weight: 600;">85</td>
-                                <td style="padding: 16px 24px; text-align: center; font-size: 14px; color: #1f2937; font-weight: 600;">90</td>
-                                <td style="padding: 16px 24px; text-align: center; font-size: 14px; color: #1f2937; font-weight: 600;">88</td>
-                                <td style="padding: 16px 24px; text-align: center; font-size: 15px; color: #10b981; font-weight: 700;">87.7</td>
-                                <td style="padding: 16px 24px; text-align: center;"><span class="badge badge-success">Lulus</span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #e5e7eb;">
-                                <td style="padding: 16px 24px; font-size: 14px; color: #1f2937; font-weight: 500;">2011234568</td>
-                                <td style="padding: 16px 24px; font-size: 14px; color: #1f2937;">Siti Nurhaliza</td>
-                                <td style="padding: 16px 24px; text-align: center; font-size: 14px; color: #1f2937; font-weight: 600;">92</td>
-                                <td style="padding: 16px 24px; text-align: center; font-size: 14px; color: #1f2937; font-weight: 600;">95</td>
-                                <td style="padding: 16px 24px; text-align: center; font-size: 14px; color: #1f2937; font-weight: 600;">90</td>
-                                <td style="padding: 16px 24px; text-align: center; font-size: 15px; color: #10b981; font-weight: 700;">92.3</td>
-                                <td style="padding: 16px 24px; text-align: center;"><span class="badge badge-success">Lulus</span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #e5e7eb;">
-                                <td style="padding: 16px 24px; font-size: 14px; color: #1f2937; font-weight: 500;">2011234569</td>
-                                <td style="padding: 16px 24px; font-size: 14px; color: #1f2937;">Budi Santoso</td>
-                                <td style="padding: 16px 24px; text-align: center; font-size: 14px; color: #1f2937; font-weight: 600;">78</td>
-                                <td style="padding: 16px 24px; text-align: center; font-size: 14px; color: #1f2937; font-weight: 600;">82</td>
-                                <td style="padding: 16px 24px; text-align: center; font-size: 14px; color: #1f2937; font-weight: 600;">80</td>
-                                <td style="padding: 16px 24px; text-align: center; font-size: 15px; color: #3b82f6; font-weight: 700;">80.0</td>
-                                <td style="padding: 16px 24px; text-align: center;"><span class="badge badge-success">Lulus</span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #e5e7eb;">
-                                <td style="padding: 16px 24px; font-size: 14px; color: #1f2937; font-weight: 500;">2011234570</td>
-                                <td style="padding: 16px 24px; font-size: 14px; color: #1f2937;">Dewi Lestari</td>
-                                <td style="padding: 16px 24px; text-align: center; font-size: 14px; color: #1f2937; font-weight: 600;">88</td>
-                                <td style="padding: 16px 24px; text-align: center; font-size: 14px; color: #1f2937; font-weight: 600;">86</td>
-                                <td style="padding: 16px 24px; text-align: center; font-size: 14px; color: #1f2937; font-weight: 600;">90</td>
-                                <td style="padding: 16px 24px; text-align: center; font-size: 15px; color: #10b981; font-weight: 700;">88.0</td>
-                                <td style="padding: 16px 24px; text-align: center;"><span class="badge badge-success">Lulus</span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #e5e7eb;">
-                                <td style="padding: 16px 24px; font-size: 14px; color: #1f2937; font-weight: 500;">2011234571</td>
-                                <td style="padding: 16px 24px; font-size: 14px; color: #1f2937;">Eko Prasetyo</td>
-                                <td style="padding: 16px 24px; text-align: center; font-size: 14px; color: #6b7280;">-</td>
-                                <td style="padding: 16px 24px; text-align: center; font-size: 14px; color: #1f2937; font-weight: 600;">75</td>
-                                <td style="padding: 16px 24px; text-align: center; font-size: 14px; color: #6b7280;">-</td>
-                                <td style="padding: 16px 24px; text-align: center; font-size: 15px; color: #f59e0b; font-weight: 700;">75.0</td>
-                                <td style="padding: 16px 24px; text-align: center;"><span class="badge badge-warning">Review</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div style="padding: 16px 32px; background: #f9fafb; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
-                    <div style="font-size: 13px; color: #6b7280;">
-                        Menampilkan 5 dari 45 mahasiswa
-                    </div>
-                    <button 
-                        class="export-button" 
-                        data-export-type="nilai-lengkap"
-                        style="padding: 8px 16px; font-size: 13px;">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 16px; height: 16px;">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                        </svg>
-                        Export Nilai Lengkap
-                    </button>
+                <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6">
+                    <div class="text-4xl mb-3">⏳</div>
+                    <h4 class="font-bold text-lg mb-2">Loading Indicator</h4>
+                    <p class="text-pink-100 text-sm">Animasi loading dengan progress bar saat generate file</p>
                 </div>
             </div>
         </div>
-    </main>
+
+        <!-- Demo Sections -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            
+            <!-- Demo 1: List Submission -->
+            <div class="bg-white rounded-3xl shadow-xl p-8 border-2 border-blue-200 hover:border-blue-400 transition-all">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Data Submission Tugas</h3>
+                        <p class="text-sm text-gray-600">Export daftar submission & nilai</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3 mb-6">
+                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                        <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>45 Mahasiswa • 28 Sudah submit • 15 Dinilai</span>
+                    </div>
+                </div>
+
+                <button onclick="exportSystem.openModal('submissions')" class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    Export Data Submission
+                </button>
+            </div>
+
+            <!-- Demo 2: Progress Mahasiswa -->
+            <div class="bg-white rounded-3xl shadow-xl p-8 border-2 border-purple-200 hover:border-purple-400 transition-all">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Progress Belajar</h3>
+                        <p class="text-sm text-gray-600">Export laporan progress mahasiswa</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3 mb-6">
+                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                        <svg class="w-5 h-5 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Progress: 76.5% • Rata-rata: 86.8</span>
+                    </div>
+                </div>
+
+                <button onclick="exportSystem.openModal('progress')" class="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    Export Laporan Progress
+                </button>
+            </div>
+
+            <!-- Demo 3: Statistik Kelas -->
+            <div class="bg-white rounded-3xl shadow-xl p-8 border-2 border-green-200 hover:border-green-400 transition-all">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Statistik Kelas</h3>
+                        <p class="text-sm text-gray-600">Export data statistik kelas</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3 mb-6">
+                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                        <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>5 Kelas • 125 Mahasiswa • 87% Kehadiran</span>
+                    </div>
+                </div>
+
+                <button onclick="exportSystem.openModal('statistics')" class="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    Export Statistik Kelas
+                </button>
+            </div>
+
+            <!-- Demo 4: Nilai Mahasiswa -->
+            <div class="bg-white rounded-3xl shadow-xl p-8 border-2 border-pink-200 hover:border-pink-400 transition-all">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Daftar Nilai</h3>
+                        <p class="text-sm text-gray-600">Export transkrip nilai mahasiswa</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3 mb-6">
+                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                        <svg class="w-5 h-5 text-pink-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>24 Tugas dinilai • IPK: 3.67</span>
+                    </div>
+                </div>
+
+                <button onclick="exportSystem.openModal('grades')" class="w-full bg-gradient-to-r from-pink-600 to-pink-700 hover:from-pink-700 hover:to-pink-800 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    Export Transkrip Nilai
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Technical Info -->
+        <div class="bg-white rounded-3xl shadow-xl p-8 border-l-4 border-pink-500">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                <span class="text-3xl">🔧</span>
+                Technical Implementation
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-bold text-gray-700 mb-3 flex items-center gap-2">
+                        <span class="w-2 h-2 bg-pink-500 rounded-full"></span>
+                        Frontend (Cindy)
+                    </h4>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-pink-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span><strong>ExportSystem Class</strong> - OOP JavaScript untuk handle export</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-pink-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span><strong>Modal Component</strong> - Dynamic modal dengan backdrop blur</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-pink-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span><strong>Loading Overlay</strong> - Animated loading dengan progress bar</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-pink-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span><strong>Notification System</strong> - Toast notifications untuk success/error</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-pink-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span><strong>Tailwind CSS</strong> - Modern styling dengan gradient & animations</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-gray-700 mb-3 flex items-center gap-2">
+                        <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
+                        Backend Integration
+                    </h4>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-purple-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span><code>callExportAPI()</code> - Fetch API untuk backend communication</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-purple-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Blob handling untuk file download</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-purple-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Error handling & retry mechanism</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-purple-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Dynamic filename dengan timestamp</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 text-purple-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Session & authorization handling</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-8 p-6 bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl border border-pink-200">
+                <h4 class="font-bold text-gray-800 mb-3 flex items-center gap-2">
+                    <span class="text-2xl">📋</span>
+                    Halaman yang Menggunakan Fitur Export:
+                </h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                    <div class="flex items-center gap-2 text-gray-700">
+                        <span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+                        <code class="bg-white px-2 py-1 rounded">lihat-submission.php</code> (Dosen)
+                    </div>
+                    <div class="flex items-center gap-2 text-gray-700">
+                        <span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span>
+                        <code class="bg-white px-2 py-1 rounded">progress-mahasiswa.php</code> (Mahasiswa)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </body>
 </html>

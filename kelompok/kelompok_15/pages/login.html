@@ -45,6 +45,11 @@
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
         }
 
+        .btn-gradient:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         .illustration-float {
             animation: float 3s ease-in-out infinite;
         }
@@ -59,6 +64,75 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+        }
+
+        .alert-error {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fca5a5;
+        }
+
+        .alert-warning {
+            background-color: #fef3c7;
+            color: #b45309;
+            border: 1px solid #fde68a;
+        }
+
+        .alert-info {
+            background-color: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #93c5fd;
+        }
+
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .loading-overlay.show {
+            display: flex;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid white;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-overlay p {
+            color: white;
+            margin-top: 1rem;
+            font-size: 1rem;
         }
     </style>
 </head>
@@ -105,20 +179,33 @@
                     <p class="text-gray-500 text-sm">Masuk ke akun Anda untuk melanjutkan</p>
                 </div>
 
-                <form action="../backend/auth/login.php" method="POST" class="space-y-4">
-                    <!-- NPM/NIDN Input -->
+                <form id="loginForm" class="space-y-4">
+                    <!-- Alert Message -->
+                    <div id="alertMessage" class="hidden p-3 rounded-xl text-sm font-medium"></div>
+
+                <!-- Alert Container -->
+                <div id="alertContainer"></div>
+
+                <form id="loginForm" class="space-y-4">
+                    <!-- Email Input -->
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">NPM / NIDN</label>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Email</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-user text-gray-400 text-sm"></i>
+                                <i class="fas fa-envelope text-gray-400 text-sm"></i>
                             </div>
                             <input 
-                                type="text" 
-                                name="npm_nidn" 
+                                type="email" 
+                                name="email" 
+                                id="email"
                                 required
                                 class="input-field w-full pl-10 pr-3 py-2.5 rounded-xl bg-gray-50 text-sm"
-                                placeholder="Masukkan NPM atau NIDN"
+                                placeholder="Masukkan email"
+                                id="email"
+                                name="email" 
+                                required
+                                class="input-field w-full pl-10 pr-3 py-2.5 rounded-xl bg-gray-50 text-sm"
+                                placeholder="Masukkan email Anda"
                             />
                         </div>
                     </div>
@@ -159,33 +246,14 @@
                         </a>
                     </div>
 
-                    <!-- Role Selection -->
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Masuk sebagai</label>
-                        <div class="grid grid-cols-2 gap-2">
-                            <label class="relative">
-                                <input type="radio" name="role" value="mahasiswa" class="peer sr-only" checked>
-                                <div class="input-field cursor-pointer p-3 rounded-xl text-center peer-checked:border-purple-600 peer-checked:bg-gradient-to-r peer-checked:from-purple-50 peer-checked:to-pink-50">
-                                    <i class="fas fa-user-graduate text-xl mb-1 text-purple-600"></i>
-                                    <p class="font-semibold text-xs">Mahasiswa</p>
-                                </div>
-                            </label>
-                            <label class="relative">
-                                <input type="radio" name="role" value="dosen" class="peer sr-only">
-                                <div class="input-field cursor-pointer p-3 rounded-xl text-center peer-checked:border-purple-600 peer-checked:bg-gradient-to-r peer-checked:from-purple-50 peer-checked:to-pink-50">
-                                    <i class="fas fa-chalkboard-teacher text-xl mb-1 text-purple-600"></i>
-                                    <p class="font-semibold text-xs">Dosen</p>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
                     <!-- Login Button -->
                     <button 
                         type="submit"
+                        id="btnLogin"
+                        id="loginBtn"
                         class="btn-gradient w-full py-3 rounded-xl text-white font-bold text-base"
                     >
-                        Masuk <i class="fas fa-arrow-right ml-2"></i>
+                        <span id="btnText">Masuk</span> <i class="fas fa-arrow-right ml-2"></i>
                     </button>
 
                     <!-- Register Link -->
@@ -198,6 +266,7 @@
         </div>
     </div>
 
+    <script src="../assets/js/auth.js"></script>
     <script>
         function togglePassword() {
             const passwordInput = document.getElementById('password');
@@ -213,6 +282,93 @@
                 toggleIcon.classList.add('fa-eye');
             }
         }
+
+        // Show alert message
+        function showAlert(message, type = 'error') {
+            const alert = document.getElementById('alertMessage');
+            alert.textContent = message;
+            alert.classList.remove('hidden', 'bg-green-100', 'text-green-700', 'bg-red-100', 'text-red-700');
+            
+            if (type === 'success') {
+                alert.classList.add('bg-green-100', 'text-green-700');
+            } else {
+                alert.classList.add('bg-red-100', 'text-red-700');
+            }
+        }
+
+        // Handle form submission with AJAX
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('btnLogin');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Memproses...';
+
+            const formData = new FormData(this);
+
+            try {
+                const response = await fetch('../backend/auth/login.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showAlert(result.message, 'success');
+                    setTimeout(() => {
+                        window.location.href = result.redirect;
+                    }, 1000);
+                } else {
+                    showAlert(result.message, 'error');
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                }
+            } catch (error) {
+                showAlert('Gagal terhubung ke server. Silakan coba lagi.', 'error');
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+        // Handle login form submission
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+            
+            // Disable button during submission
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sedang masuk...';
+            
+            try {
+                const response = await Auth.login(email, password);
+                
+                if (response.status) {
+                    Auth.showAlert('success', response.message, document.getElementById('alertContainer'));
+                    
+                    // Store user data to localStorage
+                    localStorage.setItem('user', JSON.stringify(response.user));
+                    
+                    // Redirect based on role
+                    setTimeout(() => {
+                        if (response.user.role === 'dosen') {
+                            window.location.href = './dashboard-dosen.php';
+                        } else {
+                            window.location.href = './dashboard-mahasiswa.php';
+                        }
+                    }, 1500);
+                } else {
+                    Auth.showAlert('error', response.message, document.getElementById('alertContainer'));
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = 'Masuk <i class="fas fa-arrow-right ml-2"></i>';
+                }
+            } catch (error) {
+                Auth.showAlert('error', 'Terjadi kesalahan: ' + error.message, document.getElementById('alertContainer'));
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = 'Masuk <i class="fas fa-arrow-right ml-2"></i>';
+            }
+        });
     </script>
 </body>
 </html>
