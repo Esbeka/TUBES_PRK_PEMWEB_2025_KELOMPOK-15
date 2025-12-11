@@ -137,7 +137,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-600 text-sm font-medium mb-1">Total Materi</p>
-                        <h3 id="totalMateri" class="text-3xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">0</h3>
+                        <h3 class="text-3xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">24</h3>
                     </div>
                     <div class="w-10 h-10 bg-gradient-to-br from-pink-100 to-purple-200 rounded-lg flex items-center justify-center shadow-sm">
                         <svg class="w-5 h-5 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -151,7 +151,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-600 text-sm font-medium mb-1">PDF Files</p>
-                        <h3 id="pdfCount" class="text-3xl font-bold text-purple-600">0</h3>
+                        <h3 class="text-3xl font-bold text-purple-600">18</h3>
                     </div>
                     <div class="w-10 h-10 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center shadow-sm">
                         <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -165,7 +165,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-600 text-sm font-medium mb-1">Video Links</p>
-                        <h3 id="videoCount" class="text-3xl font-bold text-red-600">0</h3>
+                        <h3 class="text-3xl font-bold text-red-600">6</h3>
                     </div>
                     <div class="w-10 h-10 bg-gradient-to-br from-red-100 to-red-200 rounded-lg flex items-center justify-center shadow-sm">
                         <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -179,7 +179,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-600 text-sm font-medium mb-1">Pertemuan</p>
-                        <h3 id="pertemuanCount" class="text-3xl font-bold text-green-600">0</h3>
+                        <h3 class="text-3xl font-bold text-green-600">14</h3>
                     </div>
                     <div class="w-10 h-10 bg-gradient-to-br from-green-100 to-green-200 rounded-lg flex items-center justify-center shadow-sm">
                         <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -300,7 +300,7 @@
                     <!-- PDF Upload Area -->
                     <div id="pdfUploadArea" class="space-y-4">
                         <div id="dropZone" class="drag-area border-2 border-dashed border-pink-400 rounded-xl p-8 text-center bg-gradient-to-br from-pink-50 to-purple-50 cursor-pointer hover:border-pink-600 transition-all">
-                            <input type="file" id="fileInput" accept=".pdf,.doc,.docx" class="hidden">
+                            <input type="file" id="fileInput" accept=".pdf" class="hidden">
                             <div class="flex flex-col items-center gap-3">
                                 <div class="w-12 h-12 bg-gradient-to-br from-pink-100 to-purple-200 rounded-full flex items-center justify-center shadow-lg">
                                     <svg class="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -411,378 +411,6 @@
 
     <script src="../assets/js/file-upload-handler.js"></script>
     <script>
-        let idKelas = null;
-        let materiData = [];
-
-        // apiFetch helper (same as dashboard)
-        async function apiFetch(url, options = {}) {
-            const sessionId = localStorage.getItem('sessionId');
-            const defaultHeaders = {
-                'Content-Type': 'application/json',
-                'X-Session-ID': sessionId || ''
-            };
-            
-            return fetch(url, {
-                ...options,
-                headers: { ...defaultHeaders, ...options.headers },
-                credentials: 'include'
-            });
-        }
-
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', async function() {
-            // Get id_kelas from URL or use from dashboard
-            const params = new URLSearchParams(window.location.search);
-            idKelas = params.get('id_kelas');
-            
-            if (!idKelas) {
-                alert('Kelas tidak ditemukan');
-                window.location.href = 'dashboard-dosen.php';
-                return;
-            }
-
-            await loadMateri();
-            setupEventListeners();
-        });
-
-        // Load materi dari backend
-        async function loadMateri() {
-            const container = document.getElementById('materiContainer');
-            
-            try {
-                const response = await apiFetch(`../backend/materi/get-materi.php?id_kelas=${idKelas}`);
-                const result = await response.json();
-
-                if (!response.ok || !result.success) {
-                    throw new Error(result.message || 'Gagal load materi');
-                }
-
-                materiData = result.data || [];
-                
-                // Update stats
-                updateStats();
-                
-                // Group by pertemuan
-                const groupedData = {};
-                materiData.forEach(item => {
-                    if (!groupedData[item.pertemuan_ke]) {
-                        groupedData[item.pertemuan_ke] = [];
-                    }
-                    groupedData[item.pertemuan_ke].push(item);
-                });
-
-                // Render pertemuan sections
-                container.innerHTML = '';
-                if (Object.keys(groupedData).length === 0) {
-                    container.innerHTML = `
-                        <div class="bg-blue-50 border-2 border-blue-200 rounded-lg p-8 text-center">
-                            <p class="text-blue-600 font-semibold mb-4">Belum ada materi. Mulai tambahkan materi pembelajaran!</p>
-                            <button onclick="openTambahMateriModal()" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                                Tambah Materi Pertama
-                            </button>
-                        </div>
-                    `;
-                } else {
-                    Object.keys(groupedData)
-                        .sort((a, b) => parseInt(a) - parseInt(b))
-                        .forEach((pertemuan, idx) => {
-                            const section = createPertemuanSection(pertemuan, groupedData[pertemuan], idx);
-                            container.appendChild(section);
-                        });
-                }
-
-                // Populate filter dropdown
-                const filterSelect = document.getElementById('filterPertemuan');
-                // Clear existing (except first option)
-                while (filterSelect.options.length > 1) {
-                    filterSelect.remove(1);
-                }
-                
-                Object.keys(groupedData)
-                    .sort((a, b) => parseInt(a) - parseInt(b))
-                    .forEach(pertemuan => {
-                        const option = document.createElement('option');
-                        option.value = pertemuan;
-                        option.textContent = `Pertemuan ${pertemuan}`;
-                        filterSelect.appendChild(option);
-                    });
-
-            } catch (error) {
-                console.error('Error loading materi:', error);
-                container.innerHTML = `
-                    <div class="bg-red-50 border-2 border-red-200 rounded-lg p-6 text-center">
-                        <p class="text-red-600 font-semibold">${error.message}</p>
-                        <button onclick="location.reload()" class="mt-4 px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
-                            Coba Lagi
-                        </button>
-                    </div>
-                `;
-            }
-        }
-
-        // Update statistics
-        function updateStats() {
-            const totalMateri = materiData.length;
-            const pdfCount = materiData.filter(m => m.file_path && m.file_path !== '').length;
-            const videoCount = materiData.filter(m => !m.file_path || m.file_path === '').length;
-            const pertemuanCount = new Set(materiData.map(m => m.pertemuan_ke)).size;
-
-            document.getElementById('totalMateri').textContent = totalMateri;
-            document.getElementById('pdfCount').textContent = pdfCount;
-            document.getElementById('videoCount').textContent = videoCount;
-            document.getElementById('pertemuanCount').textContent = pertemuanCount;
-        }
-
-        // Create pertemuan section HTML
-        function createPertemuanSection(pertemuan, items, index) {
-            const colors = ['pink', 'purple', 'blue', 'indigo'];
-            const color = colors[index % colors.length];
-            const colorMap = {
-                pink: { from: 'from-pink-500 to-purple-600', bg: 'from-pink-50 to-purple-50', border: 'border-pink-100', text: 'text-pink-600' },
-                purple: { from: 'from-purple-500 to-pink-600', bg: 'from-purple-50 to-pink-50', border: 'border-purple-100', text: 'text-purple-600' },
-                blue: { from: 'from-blue-500 to-indigo-600', bg: 'from-blue-50 to-indigo-50', border: 'border-blue-100', text: 'text-blue-600' },
-                indigo: { from: 'from-indigo-500 to-blue-600', bg: 'from-indigo-50 to-blue-50', border: 'border-indigo-100', text: 'text-indigo-600' }
-            };
-            const style = colorMap[color];
-
-            const section = document.createElement('div');
-            section.className = `bg-white rounded-xl shadow-lg border-2 ${style.border} overflow-hidden animate-fade-in`;
-            section.style.animationDelay = `${index * 0.1}s`;
-
-            // Header
-            const header = document.createElement('div');
-            header.className = `bg-gradient-to-r ${style.bg} px-6 py-4 border-b-2 ${style.border}`;
-            header.innerHTML = `
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-gradient-to-br ${style.from} rounded-lg flex items-center justify-center text-white font-bold shadow-md">
-                            ${pertemuan}
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-gray-800">Pertemuan ${pertemuan}</h3>
-                            <p class="text-sm text-gray-600">${items.length} Materi</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-            section.appendChild(header);
-
-            // Items
-            const divider = document.createElement('div');
-            divider.className = 'divide-y divide-gray-100';
-            
-            items.forEach(item => {
-                const itemEl = createMateriItem(item, style);
-                divider.appendChild(itemEl);
-            });
-
-            section.appendChild(divider);
-            return section;
-        }
-
-        // Create materi item HTML
-        function createMateriItem(item, style) {
-            const div = document.createElement('div');
-            div.className = `p-6 hover:bg-gray-50 transition-colors group`;
-            div.setAttribute('data-materi-id', item.id_materi);
-            div.setAttribute('data-pertemuan', item.pertemuan_ke);
-            
-            const hasFile = item.file_path && item.file_path !== '';
-            const fileTypeBadge = hasFile ? `<span class="px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full shadow-md">PDF</span>` : `<span class="px-3 py-1 bg-blue-700 text-white text-xs font-bold rounded-full shadow-md">LINK</span>`;
-            
-            const formattedDate = new Date(item.created_at).toLocaleDateString('id-ID', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
-            });
-
-            div.innerHTML = `
-                <div class="flex items-start gap-4">
-                    <div class="w-10 h-10 bg-gradient-to-br from-red-100 to-red-200 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm group-hover:shadow-md transition-shadow">
-                        <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-                        </svg>
-                    </div>
-                    <div class="flex-1">
-                        <div class="flex items-start justify-between mb-2">
-                            <div>
-                                <h4 class="text-lg font-semibold text-gray-800 mb-1">${item.judul}</h4>
-                                <p class="text-sm text-gray-600 mb-2">${item.deskripsi}</p>
-                                <div class="flex items-center gap-4 text-xs text-gray-500">
-                                    <span class="inline-flex items-center gap-1">
-                                        ${hasFile ? '📁 File' : '🔗 Link'}
-                                    </span>
-                                    <span>${formattedDate}</span>
-                                </div>
-                            </div>
-                            ${fileTypeBadge}
-                        </div>
-                    </div>
-                    <div class="flex gap-2">
-                        <button onclick="editMateri(${item.id_materi})" class="p-2 ${style.text} hover:bg-pink-50 rounded-lg transition-colors" title="Edit">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                            </svg>
-                        </button>
-                        <button onclick="deleteMateri(${item.id_materi})" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Hapus">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            `;
-            return div;
-        }
-
-        // Setup event listeners
-        function setupEventListeners() {
-            // Search
-            document.getElementById('searchMateri').addEventListener('input', filterMateri);
-            
-            // Filter pertemuan
-            document.getElementById('filterPertemuan').addEventListener('change', filterMateri);
-
-            // Form submit
-            document.getElementById('formTambahMateri').addEventListener('submit', handleFormSubmit);
-
-            // Modal controls
-            document.getElementById('modalTambahMateri').addEventListener('click', function(e) {
-                if (e.target === this) closeTambahMateriModal();
-            });
-
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') closeTambahMateriModal();
-            });
-
-            // Drag & drop
-            const dropZone = document.getElementById('dropZone');
-            const fileInput = document.getElementById('fileInput');
-
-            dropZone.addEventListener('click', () => fileInput.click());
-            
-            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-                dropZone.addEventListener(eventName, preventDefaults, false);
-            });
-
-            function preventDefaults(e) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-
-            ['dragenter', 'dragover'].forEach(eventName => {
-                dropZone.addEventListener(eventName, () => dropZone.classList.add('drag-over'));
-            });
-
-            ['dragleave', 'drop'].forEach(eventName => {
-                dropZone.addEventListener(eventName, () => dropZone.classList.remove('drag-over'));
-            });
-
-            dropZone.addEventListener('drop', (e) => {
-                const dt = e.dataTransfer;
-                const files = dt.files;
-                fileInput.files = files;
-                handleFileSelect();
-            });
-
-            fileInput.addEventListener('change', handleFileSelect);
-        }
-
-        // Handle file selection
-        function handleFileSelect() {
-            const fileInput = document.getElementById('fileInput');
-            const file = fileInput.files[0];
-
-            if (!file) return;
-
-            // Validate file size (10MB)
-            const maxSize = 10 * 1024 * 1024;
-            if (file.size > maxSize) {
-                alert('File terlalu besar. Maksimal 10MB');
-                fileInput.value = '';
-                return;
-            }
-
-            // Show preview
-            const filePreview = document.getElementById('filePreview');
-            const fileName = document.getElementById('fileName');
-            const fileSize = document.getElementById('fileSize');
-
-            fileName.textContent = file.name;
-            fileSize.textContent = (file.size / 1024 / 1024).toFixed(2) + ' MB';
-            filePreview.classList.add('show');
-        }
-
-        // Filter materi
-        function filterMateri() {
-            const search = document.getElementById('searchMateri').value.toLowerCase();
-            const pertemuan = document.getElementById('filterPertemuan').value;
-            
-            const items = document.querySelectorAll('[data-materi-id]');
-            items.forEach(item => {
-                let show = true;
-                
-                if (search) {
-                    const judul = item.querySelector('h4').textContent.toLowerCase();
-                    show = judul.includes(search);
-                }
-                
-                if (show && pertemuan) {
-                    show = item.dataset.pertemuan === pertemuan;
-                }
-                
-                item.style.display = show ? '' : 'none';
-            });
-        }
-
-        // Handle form submit
-        async function handleFormSubmit(e) {
-            e.preventDefault();
-
-            const judul = document.getElementById('judulMateri').value;
-            const deskripsi = document.getElementById('deskripsiMateri').value;
-            const pertemuan = document.getElementById('pertemuanMateri').value;
-            const fileInput = document.getElementById('fileInput');
-
-            if (!fileInput.files[0] && !document.getElementById('videoLink').value) {
-                alert('Silakan upload file atau masukkan link video');
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append('id_kelas', idKelas);
-            formData.append('judul', judul);
-            formData.append('deskripsi', deskripsi);
-            formData.append('pertemuan_ke', pertemuan);
-
-            if (fileInput.files[0]) {
-                formData.append('file', fileInput.files[0]);
-            } else {
-                formData.append('file_path', document.getElementById('videoLink').value);
-            }
-
-            try {
-                const response = await apiFetch('../backend/materi/upload-materi.php', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const result = await response.json();
-
-                if (!response.ok || !result.success) {
-                    throw new Error(result.message || 'Gagal upload materi');
-                }
-
-                showToast('Materi berhasil ditambahkan!');
-                closeTambahMateriModal();
-                await loadMateri();
-
-            } catch (error) {
-                console.error('Upload error:', error);
-                alert('Error: ' + error.message);
-            }
-        }
-
         // Modal Controls
         function openTambahMateriModal() {
             document.getElementById('modalTambahMateri').classList.remove('hidden');
@@ -794,7 +422,6 @@
             document.body.style.overflow = 'auto';
             document.getElementById('formTambahMateri').reset();
             removeFile();
-            switchTab('pdf');
         }
 
         // Tab Switching
@@ -805,12 +432,12 @@
             const videoArea = document.getElementById('videoLinkArea');
 
             if (type === 'pdf') {
-                tabPDF.className = 'flex-1 py-3 px-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-lg shadow-md transition-all';
+                tabPDF.className = 'flex-1 py-3 px-4 bg-gradient-to-r from-red-500 to-red-600 text-white font-bold rounded-lg shadow-md transition-all';
                 tabVideo.className = 'flex-1 py-3 px-4 bg-gray-200 text-gray-600 font-semibold rounded-lg transition-all hover:bg-gray-300';
                 pdfArea.classList.remove('hidden');
                 videoArea.classList.add('hidden');
             } else {
-                tabVideo.className = 'flex-1 py-3 px-4 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-semibold rounded-lg shadow-md transition-all';
+                tabVideo.className = 'flex-1 py-3 px-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-bold rounded-lg shadow-md transition-all';
                 tabPDF.className = 'flex-1 py-3 px-4 bg-gray-200 text-gray-600 font-semibold rounded-lg transition-all hover:bg-gray-300';
                 videoArea.classList.remove('hidden');
                 pdfArea.classList.add('hidden');
@@ -825,62 +452,14 @@
             document.getElementById('progressText').textContent = '';
         }
 
-        // Edit Materi
-        async function editMateri(id) {
-            const materi = materiData.find(m => m.id_materi === id);
-            if (!materi) return;
-
-            const newJudul = prompt('Edit Judul:', materi.judul);
-            if (newJudul === null) return;
-
-            try {
-                const response = await apiFetch('../backend/materi/update-materi.php', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        id_materi: id,
-                        judul: newJudul,
-                        deskripsi: materi.deskripsi,
-                        pertemuan_ke: materi.pertemuan_ke
-                    })
-                });
-
-                const result = await response.json();
-                if (!response.ok || !result.success) {
-                    throw new Error(result.message || 'Gagal update materi');
-                }
-
-                showToast('Materi berhasil diupdate!');
-                await loadMateri();
-
-            } catch (error) {
-                console.error('Edit error:', error);
-                alert('Error: ' + error.message);
-            }
-        }
-
-        // Delete Materi
-        async function deleteMateri(id) {
-            if (!confirm('Yakin ingin menghapus materi ini?')) return;
-
-            try {
-                const response = await apiFetch('../backend/materi/delete-materi.php', {
-                    method: 'POST',
-                    body: JSON.stringify({ id_materi: id })
-                });
-
-                const result = await response.json();
-                if (!response.ok || !result.success) {
-                    throw new Error(result.message || 'Gagal delete materi');
-                }
-
-                showToast('Materi berhasil dihapus!');
-                await loadMateri();
-
-            } catch (error) {
-                console.error('Delete error:', error);
-                alert('Error: ' + error.message);
-            }
-        }
+        // Form Submit
+        document.getElementById('formTambahMateri').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulate upload
+            showToast('Materi berhasil ditambahkan!');
+            closeTambahMateriModal();
+        });
 
         // Toast
         function showToast(message) {
@@ -889,6 +468,32 @@
             toast.classList.remove('hidden');
             setTimeout(() => toast.classList.add('hidden'), 3000);
         }
+
+        // Edit Materi
+        function editMateri(id) {
+            alert('Edit materi ID: ' + id);
+        }
+
+        // Delete Materi
+        function deleteMateri(id) {
+            if (confirm('Yakin ingin menghapus materi ini?')) {
+                showToast('Materi berhasil dihapus!');
+            }
+        }
+
+        // Close modal on ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeTambahMateriModal();
+            }
+        });
+
+        // Close modal on backdrop click
+        document.getElementById('modalTambahMateri').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeTambahMateriModal();
+            }
+        });
     </script>
 
 </body>
