@@ -1,120 +1,119 @@
 <?php
-// Update assignment
-require_once '../config/database.php';
-require_once '../auth/session-helper.php';
+/**
+ * FITUR 4: MANAJEMEN TUGAS - UPDATE
+ * Tanggung Jawab: SURYA (Backend Developer)
+ * 
+ * Deskripsi: Update tugas
+ * - Validasi: deadline hanya bisa diubah jika belum lewat
+ */
 
-// Check authentication & role
-if (!isset($_SESSION['id_user']) || $_SESSION['role'] !== 'dosen') {
-    http_response_code(403);
-    echo json_encode(['success' => false, 'message' => 'Unauthorized']);
-    exit;
-}
+session_start();
+header('Content-Type: application/json');
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(['success' => false, 'message' => 'Method not allowed']);
-    exit;
-}
+require_once __DIR__ . '/../../config/database.php';
+require_once __DIR__ . '/../auth/session-check.php';
+
+$response = ['success' => false, 'message' => ''];
 
 try {
-    // Parse JSON input
-    $data = json_decode(file_get_contents('php://input'), true);
+    // 1. Cek session dosen
+    requireRole('dosen');
     
-    if (!$data || !isset($data['id_tugas'])) {
-        http_response_code(400);
-        echo json_encode(['success' => false, 'message' => 'Missing required fields']);
-        exit;
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        throw new Exception('Method not allowed');
     }
 
-    $id_tugas = $data['id_tugas'];
-    $id_dosen = $_SESSION['id_user'];
-    
-    // Get tugas with kelas verification
-    $stmt = $db->prepare("
-        SELECT t.*, k.id_dosen 
-        FROM tugas t
-        JOIN kelas k ON t.id_kelas = k.id_kelas
-        WHERE t.id_tugas = ? AND k.id_dosen = ?
-    ");
-    $stmt->execute([$id_tugas, $id_dosen]);
+    // 2. Validasi input POST
+    if (empty($_POST['id_tugas']) || empty($_POST['judul'])) {
+        throw new Exception('Field required tidak lengkap');
+    }
+
+    $id_tugas = intval($_POST['id_tugas']);
+    $judul = trim($_POST['judul']);
+    $deskripsi = isset($_POST['deskripsi']) ? trim($_POST['deskripsi']) : '';
+    $deadline = isset($_POST['deadline']) ? trim($_POST['deadline']) : null;
+    $max_file_size = isset($_POST['max_file_size']) ? intval($_POST['max_file_size']) : null;
+    $allowed_formats = isset($_POST['allowed_formats']) ? trim($_POST['allowed_formats']) : null;
+    $bobot = isset($_POST['bobot']) ? intval($_POST['bobot']) : null;
+    $id_dosen = getUserId();
+
+    // Validasi judul
+    if (strlen($judul) < 3) {
+        throw new Exception('Judul minimal 3 karakter');
+    }
+
+    // 3. Cek ownership & get tugas info
+    $get_tugas = "SELECT t.id_tugas, t.deadline, k.id_dosen 
+                  FROM tugas t 
+                  JOIN kelas k ON t.id_kelas = k.id_kelas 
+                  WHERE t.id_tugas = ?";
+    $stmt = $pdo->prepare($get_tugas);
+    $stmt->execute([$id_tugas]);
     $tugas = $stmt->fetch();
     
     if (!$tugas) {
-        http_response_code(403);
-        echo json_encode(['success' => false, 'message' => 'Forbidden - tugas not found']);
-        exit;
+        throw new Exception('Tugas tidak ditemukan');
+    }
+    
+    if ($tugas['id_dosen'] != $id_dosen) {
+        throw new Exception('Anda tidak memiliki akses untuk mengubah tugas ini');
     }
 
-    // Update allowed fields
-    $updateFields = [];
-    $params = [];
-
-    if (isset($data['judul'])) {
-        $updateFields[] = 'judul = ?';
-        $params[] = $data['judul'];
+    // 4. Validasi deadline (tidak boleh ubah jika sudah lewat)
+    $current_deadline_timestamp = strtotime($tugas['deadline']);
+    $now = time();
+    
+    if ($deadline !== null && $current_deadline_timestamp <= $now) {
+        throw new Exception('Tidak bisa mengubah deadline tugas yang sudah lewat');
     }
 
-    if (isset($data['deskripsi'])) {
-        $updateFields[] = 'deskripsi = ?';
-        $params[] = $data['deskripsi'];
-    }
-
-    if (isset($data['deadline'])) {
-        // Validate deadline is in future
-        if (strtotime($data['deadline']) <= time()) {
-            http_response_code(400);
-            echo json_encode(['success' => false, 'message' => 'Deadline must be in the future']);
-            exit;
+    // Jika deadline baru diberikan, validasi format
+    if ($deadline !== null) {
+        $deadline_timestamp = strtotime($deadline);
+        if ($deadline_timestamp === false) {
+            throw new Exception('Format deadline tidak valid');
         }
-        $updateFields[] = 'deadline = ?';
-        $params[] = $data['deadline'];
     }
 
-    if (isset($data['bobot'])) {
-        $bobot = intval($data['bobot']);
-        if ($bobot < 1 || $bobot > 100) {
-            http_response_code(400);
-            echo json_encode(['success' => false, 'message' => 'Bobot must be between 1-100']);
-            exit;
-        }
-        $updateFields[] = 'bobot = ?';
+    // Validasi bobot jika ada
+    if ($bobot !== null && ($bobot < 1 || $bobot > 100)) {
+        throw new Exception('Bobot harus antara 1-100');
+    }
+
+    // 5. Update tugas
+    $update_parts = ['judul = ?', 'deskripsi = ?'];
+    $params = [$judul, $deskripsi];
+
+    if ($deadline !== null) {
+        $update_parts[] = 'deadline = ?';
+        $params[] = $deadline;
+    }
+    if ($max_file_size !== null) {
+        $update_parts[] = 'max_file_size = ?';
+        $params[] = $max_file_size;
+    }
+    if ($allowed_formats !== null) {
+        $update_parts[] = 'allowed_formats = ?';
+        $params[] = $allowed_formats;
+    }
+    if ($bobot !== null) {
+        $update_parts[] = 'bobot = ?';
         $params[] = $bobot;
     }
 
-    if (isset($data['status'])) {
-        $validStatuses = ['active', 'closed', 'archived'];
-        if (!in_array($data['status'], $validStatuses)) {
-            http_response_code(400);
-            echo json_encode(['success' => false, 'message' => 'Invalid status']);
-            exit;
-        }
-        $updateFields[] = 'status = ?';
-        $params[] = $data['status'];
-    }
-
-    if (empty($updateFields)) {
-        http_response_code(400);
-        echo json_encode(['success' => false, 'message' => 'No fields to update']);
-        exit;
-    }
-
-    // Add id_tugas to params for WHERE clause
     $params[] = $id_tugas;
-
-    // Build and execute update query
-    $sql = 'UPDATE tugas SET ' . implode(', ', $updateFields) . ' WHERE id_tugas = ?';
-    $stmt = $db->prepare($sql);
+    $update = "UPDATE tugas SET " . implode(', ', $update_parts) . " WHERE id_tugas = ?";
+    
+    $stmt = $pdo->prepare($update);
     $stmt->execute($params);
 
-    echo json_encode([
-        'success' => true,
-        'message' => 'Tugas updated successfully',
-        'id_tugas' => $id_tugas
-    ]);
+    // 6. Return JSON success
+    $response['success'] = true;
+    $response['message'] = 'Tugas berhasil diupdate';
 
-} catch (Exception $e) {
-    http_response_code(500);
-    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
-    exit;
+} catch(Exception $e) {
+    $response['message'] = $e->getMessage();
 }
+
+echo json_encode($response);
 ?>

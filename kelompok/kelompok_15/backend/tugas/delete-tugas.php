@@ -1,78 +1,82 @@
 <?php
-// Delete assignment with cascade delete
-require_once '../config/database.php';
-require_once '../auth/session-helper.php';
+/**
+ * FITUR 4: MANAJEMEN TUGAS - DELETE
+ * Tanggung Jawab: SURYA (Backend Developer)
+ * 
+ * Deskripsi: Hapus tugas dan semua submission
+ * - Delete cascade (tugas + submission + file)
+ */
 
-// Check authentication & role
-if (!isset($_SESSION['id_user']) || $_SESSION['role'] !== 'dosen') {
-    http_response_code(403);
-    echo json_encode(['success' => false, 'message' => 'Unauthorized']);
-    exit;
-}
+session_start();
+header('Content-Type: application/json');
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(['success' => false, 'message' => 'Method not allowed']);
-    exit;
-}
+require_once __DIR__ . '/../../config/database.php';
+require_once __DIR__ . '/../auth/session-check.php';
+
+$response = ['success' => false, 'message' => ''];
 
 try {
-    // Parse JSON input
-    $data = json_decode(file_get_contents('php://input'), true);
+    // 1. Cek session dosen
+    requireRole('dosen');
     
-    if (!$data || !isset($data['id_tugas'])) {
-        http_response_code(400);
-        echo json_encode(['success' => false, 'message' => 'Missing required fields']);
-        exit;
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        throw new Exception('Method not allowed');
     }
 
-    $id_tugas = $data['id_tugas'];
-    $id_dosen = $_SESSION['id_user'];
-    
-    // Get tugas with kelas verification
-    $stmt = $db->prepare("
-        SELECT t.*, k.id_dosen 
-        FROM tugas t
-        JOIN kelas k ON t.id_kelas = k.id_kelas
-        WHERE t.id_tugas = ? AND k.id_dosen = ?
-    ");
-    $stmt->execute([$id_tugas, $id_dosen]);
+    // 2. Validasi input POST
+    if (empty($_POST['id_tugas'])) {
+        throw new Exception('id_tugas harus diberikan');
+    }
+
+    $id_tugas = intval($_POST['id_tugas']);
+    $id_dosen = getUserId();
+
+    // 3. Cek ownership
+    $get_tugas = "SELECT t.id_tugas, t.judul, k.id_dosen 
+                  FROM tugas t 
+                  JOIN kelas k ON t.id_kelas = k.id_kelas 
+                  WHERE t.id_tugas = ?";
+    $stmt = $pdo->prepare($get_tugas);
+    $stmt->execute([$id_tugas]);
     $tugas = $stmt->fetch();
     
     if (!$tugas) {
-        http_response_code(403);
-        echo json_encode(['success' => false, 'message' => 'Forbidden - tugas not found']);
-        exit;
+        throw new Exception('Tugas tidak ditemukan');
+    }
+    
+    if ($tugas['id_dosen'] != $id_dosen) {
+        throw new Exception('Anda tidak memiliki akses untuk menghapus tugas ini');
     }
 
-    // Get all submissions to delete files
-    $stmt = $db->prepare("
-        SELECT file_path FROM submission_tugas 
-        WHERE id_tugas = ? AND file_path IS NOT NULL
-    ");
+    // 4. Query submissions untuk get file paths
+    $get_submissions = "SELECT id_submission, file_path FROM submission_tugas WHERE id_tugas = ?";
+    $stmt = $pdo->prepare($get_submissions);
     $stmt->execute([$id_tugas]);
     $submissions = $stmt->fetchAll();
 
-    // Delete submission files
+    // 5. Delete files fisik
+    $upload_dir = __DIR__ . '/../../uploads/tugas/';
     foreach ($submissions as $submission) {
-        $filePath = '../uploads/tugas/' . $submission['file_path'];
-        if (file_exists($filePath)) {
-            @unlink($filePath);
+        if (!empty($submission['file_path'])) {
+            $file_path = $upload_dir . $submission['file_path'];
+            if (file_exists($file_path)) {
+                unlink($file_path);
+            }
         }
     }
 
-    // Delete tugas (cascade will handle submissions and nilai)
-    $stmt = $db->prepare("DELETE FROM tugas WHERE id_tugas = ?");
+    // 6. Delete tugas (cascade akan delete submissions & nilai via foreign key)
+    $delete = "DELETE FROM tugas WHERE id_tugas = ?";
+    $stmt = $pdo->prepare($delete);
     $stmt->execute([$id_tugas]);
 
-    echo json_encode([
-        'success' => true,
-        'message' => 'Tugas deleted successfully'
-    ]);
+    // 7. Return JSON success
+    $response['success'] = true;
+    $response['message'] = 'Tugas "' . $tugas['judul'] . '" dan semua submission berhasil dihapus';
 
-} catch (Exception $e) {
-    http_response_code(500);
-    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
-    exit;
+} catch(Exception $e) {
+    $response['message'] = $e->getMessage();
 }
+
+echo json_encode($response);
 ?>

@@ -9,46 +9,65 @@
     <script src="../assets/js/export-system.js" defer></script>
     <style>
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
         @keyframes slideIn {
-            from { transform: translateX(-20px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .animate-fade-in { animation: fadeIn 0.5s ease-out; }
-        .animate-slide-in { animation: slideIn 0.6s ease-out; }
+        .animate-fadeIn { animation: fadeIn 0.3s ease-out; }
+        .animate-slideIn { animation: slideIn 0.4s ease-out; }
     </style>
 </head>
 <body class="bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen">
 
     <!-- Navbar -->
-    <nav class="bg-white/80 backdrop-blur-md shadow-lg border-b border-blue-100 sticky top-0 z-50">
+    <nav class="bg-white/95 backdrop-blur-lg border-b border-pink-200 sticky top-0 z-40 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-blue-950 via-blue-800 to-blue-600 rounded-lg flex items-center justify-center shadow-lg">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <h1 class="text-lg font-bold bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text text-transparent">KelasOnline</h1>
-                        <p class="text-xs text-gray-500">Lihat Submission</p>
-                    </div>
+                <!-- Logo & Title -->
+                <div class="flex items-center gap-4">
+                    <a href="dashboard-dosen.php" class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                            <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h1 class="text-lg font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">KelasOnline</h1>
+                            <p class="text-xs text-gray-600">Lihat Submission</p>
+                        </div>
+                    </a>
                 </div>
 
+                <!-- User Menu -->
                 <div class="flex items-center gap-4">
-                    <button class="p-2 hover:bg-blue-50 rounded-lg transition-colors">
-                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                    <button class="relative p-2 text-gray-600 hover:text-pink-600 hover:bg-pink-50 rounded-xl transition-colors">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                         </svg>
+                        <span class="absolute top-1 right-1 w-2 h-2 bg-pink-500 rounded-full animate-pulse"></span>
                     </button>
-                    <div class="relative">
-                        <button class="w-10 h-10 bg-gradient-to-br from-blue-800 to-blue-600 rounded-full flex items-center justify-center text-white font-semibold shadow-lg hover:shadow-xl transition-shadow">
-                            D
+
+                    <div class="flex items-center gap-3 pl-3 border-l border-pink-200">
+                        <div class="text-right">
+                            <p class="text-sm font-semibold text-gray-900">Dr. Budi Santoso</p>
+                            <p class="text-xs text-gray-600">Dosen</p>
+                        </div>
+                        <button class="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
+                            BS
                         </button>
                     </div>
+
+                    <a href="login.html" class="p-2 text-gray-600 hover:text-pink-600 hover:bg-pink-50 rounded-xl transition-colors">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                    </a>
                 </div>
             </div>
         </div>
@@ -57,26 +76,23 @@
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
+        <!-- Back Button -->
+        <a href="kelola-tugas.php" class="inline-flex items-center gap-2 text-gray-700 hover:text-pink-600 font-semibold mb-6 transition-colors">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Kembali ke Kelola Tugas
+        </a>
+
         <!-- Header -->
-        <div class="mb-8 animate-fade-in">
-            <div class="flex items-center gap-3 mb-2">
-                <a href="kelola-tugas.php" class="p-2 hover:bg-white rounded-lg transition-colors">
-                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                    </svg>
-                </a>
-                <div>
-                    <h2 class="text-3xl font-bold bg-gradient-to-r from-blue-950 via-blue-800 to-blue-600 bg-clip-text text-transparent">
-                        Tugas 1: Project Website E-Commerce
-                    </h2>
-                    <p class="text-sm text-gray-600 mt-1">Deadline: 6 Des 2024, 23:59 • Max 50MB • PDF/ZIP</p>
-                </div>
-            </div>
+        <div class="bg-white rounded-3xl shadow-2xl p-8 mb-8 hover:shadow-2xl transition-all duration-300 animate-fadeIn">
+            <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-2">Tugas 1: Project Website E-Commerce</h2>
+            <p class="text-gray-600">Deadline: 6 Des 2024, 23:59 • Max 50MB • PDF/ZIP</p>
         </div>
 
         <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8 animate-slide-in">
-            <div class="bg-white rounded-xl p-6 shadow-lg border-2 border-blue-100 hover:shadow-xl transition-shadow">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
+            <div class="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-slideIn">
                 <div class="text-center">
                     <div class="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center mx-auto mb-2 shadow-sm">
                         <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -138,30 +154,30 @@
         </div>
 
         <!-- Progress Bar -->
-        <div class="bg-white rounded-xl p-6 shadow-lg border-2 border-blue-100 mb-8">
+        <div class="bg-white rounded-2xl p-6 shadow-xl mb-8">
             <div class="flex items-center justify-between mb-3">
                 <h3 class="text-lg font-bold text-gray-800">Progress Submission</h3>
-                <span class="text-blue-600 font-bold text-lg">28 / 45 Mahasiswa (62%)</span>
+                <span class="text-pink-600 font-bold text-lg">28 / 45 Mahasiswa (62%)</span>
             </div>
             <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
-                <div class="bg-gradient-to-r from-blue-600 to-blue-400 h-4 rounded-full transition-all duration-500 flex items-center justify-end pr-2" style="width: 62%">
+                <div class="bg-gradient-to-r from-pink-500 to-purple-600 h-4 rounded-full transition-all duration-500 flex items-center justify-end pr-2" style="width: 62%">
                     <span class="text-white text-xs font-bold">62%</span>
                 </div>
             </div>
         </div>
 
         <!-- Filter & Actions -->
-        <div class="bg-white rounded-xl p-6 shadow-lg border-2 border-blue-100 mb-8">
+        <div class="bg-white rounded-2xl p-6 shadow-xl mb-8">
             <div class="flex flex-col md:flex-row gap-4">
                 <div class="flex-1">
                     <div class="relative">
-                        <input type="text" id="searchSubmission" placeholder="Cari mahasiswa..." class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+                        <input type="text" id="searchSubmission" placeholder="Cari mahasiswa..." class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-pink-500/10 focus:border-pink-500 transition-all duration-300">
                         <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
                     </div>
                 </div>
-                <select class="px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+                <select class="px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-pink-500/10 focus:border-pink-500 transition-all duration-300">
                     <option value="">Semua Status</option>
                     <option value="submitted">Sudah Submit</option>
                     <option value="not_submitted">Belum Submit</option>
@@ -169,7 +185,7 @@
                     <option value="not_graded">Belum Dinilai</option>
                     <option value="late">Terlambat</option>
                 </select>
-                <button onclick="exportSystem.openModal('submissions')" class="inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                <button onclick="exportSystem.openModal('submissions')" class="inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
@@ -179,11 +195,11 @@
         </div>
 
         <!-- Submission Table -->
-        <div class="bg-white rounded-xl shadow-lg border-2 border-blue-100 overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead>
-                        <tr class="bg-gradient-to-r from-blue-950 via-blue-800 to-blue-600 text-white">
+                        <tr class="bg-gradient-to-r from-pink-500 via-purple-500 to-purple-600 text-white">
                             <th class="px-6 py-4 text-left text-sm font-bold">No</th>
                             <th class="px-6 py-4 text-left text-sm font-bold">NPM</th>
                             <th class="px-6 py-4 text-left text-sm font-bold">Nama Mahasiswa</th>
@@ -374,8 +390,8 @@
 
     <!-- Modal Beri Nilai -->
     <div id="modalNilai" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-fade-in">
-            <div class="sticky top-0 bg-gradient-to-r from-blue-950 via-blue-800 to-blue-600 px-6 py-4 flex items-center justify-between">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-fadeIn">
+            <div class="sticky top-0 bg-gradient-to-r from-pink-500 via-purple-500 to-purple-600 px-6 py-4 flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -427,13 +443,13 @@
                 <!-- Nilai -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Nilai (0-100)</label>
-                    <input type="number" id="nilaiInput" min="0" max="100" required class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-2xl font-bold text-center" placeholder="85">
+                    <input type="number" id="nilaiInput" min="0" max="100" required class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-pink-500/10 focus:border-pink-500 transition-all duration-300 text-2xl font-bold text-center" placeholder="85">
                 </div>
 
                 <!-- Feedback -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Feedback untuk Mahasiswa</label>
-                    <textarea id="feedbackInput" rows="5" required class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none" placeholder="Berikan feedback yang konstruktif untuk membantu mahasiswa belajar..."></textarea>
+                    <textarea id="feedbackInput" rows="5" required class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-pink-500/10 focus:border-pink-500 transition-all duration-300 resize-none" placeholder="Berikan feedback yang konstruktif untuk membantu mahasiswa belajar..."></textarea>
                 </div>
 
                 <!-- Quick Feedback Templates -->
@@ -447,20 +463,20 @@
                     </div>
                 </div>
 
-                <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-r-lg">
+                <div class="bg-pink-50 border-l-4 border-pink-500 p-4 rounded-r-lg">
                     <div class="flex items-start gap-3">
-                        <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-5 h-5 text-pink-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
-                        <p class="text-sm text-blue-700">Berikan feedback yang konstruktif dan spesifik untuk membantu mahasiswa memahami kekurangan dan cara memperbaikinya.</p>
+                        <p class="text-sm text-pink-700">Berikan feedback yang konstruktif dan spesifik untuk membantu mahasiswa memahami kekurangan dan cara memperbaikinya.</p>
                     </div>
                 </div>
 
                 <div class="flex gap-3 pt-4 border-t-2 border-gray-100">
-                    <button type="button" onclick="closeNilaiModal()" class="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors">
+                    <button type="button" onclick="closeNilaiModal()" class="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-all duration-300">
                         Batal
                     </button>
-                    <button type="submit" class="flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-800 to-blue-600 hover:from-blue-900 hover:to-blue-700 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all">
+                    <button type="submit" class="flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                         </svg>
@@ -472,7 +488,7 @@
     </div>
 
     <!-- Toast -->
-    <div id="toast" class="hidden fixed bottom-8 right-8 bg-white rounded-lg shadow-2xl border-2 border-green-200 p-4 animate-fade-in z-50">
+    <div id="toast" class="hidden fixed bottom-4 right-4 bg-white border-2 border-green-500 rounded-xl shadow-2xl p-4 z-50 max-w-sm">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
                 <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
